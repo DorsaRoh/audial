@@ -2,7 +2,7 @@
 
 <img src="assets/logo.png" alt="Audial Logo" width="100" align="right" />
 
-LLM-written music. Try it live: [aurial.dev](https://www.audial.dev/)
+**LLM-written music**. Try it live: [aurial.dev](https://www.audial.dev/)
 
 Music has shaped humanity since our beginning, pushing us towards futures once thought impossible.
 Now it's time for AI to unlock what comes next.
