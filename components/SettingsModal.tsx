@@ -1,28 +1,44 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
-// Available models
-export const AVAILABLE_MODELS = [
+export type Provider = "anthropic" | "openai" | "opencode";
+
+interface BaseModel {
+  id: string;
+  name: string;
+  provider: Provider;
+}
+
+const ANTHROPIC_MODELS: BaseModel[] = [
   { id: "claude-sonnet-4-20250514", name: "Claude Sonnet 4", provider: "anthropic" },
   { id: "claude-opus-4-20250514", name: "Claude Opus 4", provider: "anthropic" },
+];
+
+const OPENAI_MODELS: BaseModel[] = [
   { id: "gpt-4o", name: "GPT-4o", provider: "openai" },
   { id: "gpt-4o-mini", name: "GPT-4o Mini", provider: "openai" },
-] as const;
-
-export type ModelId = typeof AVAILABLE_MODELS[number]["id"];
+];
 
 export interface Settings {
-  model: ModelId;
+  model: string;
   apiKey: string;
+  provider: Provider;
 }
 
 const DEFAULT_SETTINGS: Settings = {
   model: "claude-sonnet-4-20250514",
   apiKey: "",
+  provider: "anthropic",
 };
 
 const STORAGE_KEY = "audial-settings";
+
+function inferProvider(model: string): Provider {
+  if (model.startsWith("gpt-")) return "openai";
+  if (model.startsWith("claude-")) return "anthropic";
+  return "opencode";
+}
 
 export function loadSettings(): Settings {
   if (typeof window === "undefined") return DEFAULT_SETTINGS;
@@ -33,6 +49,7 @@ export function loadSettings(): Settings {
       return {
         model: parsed.model || DEFAULT_SETTINGS.model,
         apiKey: parsed.apiKey || DEFAULT_SETTINGS.apiKey,
+        provider: parsed.provider || inferProvider(parsed.model || DEFAULT_SETTINGS.model),
       };
     }
   } catch {
@@ -65,10 +82,40 @@ export default function SettingsModal({
 }: SettingsModalProps) {
   const [localSettings, setLocalSettings] = useState<Settings>(settings);
   const [showApiKey, setShowApiKey] = useState(false);
+  const [opencodeModels, setOpencodeModels] = useState<BaseModel[]>([]);
+  const loadAttemptedRef = useRef(false);
 
   useEffect(() => {
     setLocalSettings(settings);
   }, [settings]);
+
+  useEffect(() => {
+    if (localSettings.provider === "opencode" && opencodeModels.length === 0 && !loadAttemptedRef.current) {
+      loadAttemptedRef.current = true;
+      fetch("/api/opencode-models")
+        .then((res) => res.json())
+        .then((data) => {
+          const models = data.data.map((m: { id: string }) => ({
+            id: m.id,
+            name: m.id,
+            provider: "opencode" as const,
+          }));
+          setOpencodeModels(models);
+        })
+        .catch(() => {});
+    }
+  }, [localSettings.provider, opencodeModels.length]);
+
+  const availableModels = [...ANTHROPIC_MODELS, ...OPENAI_MODELS, ...opencodeModels];
+
+  const getPlaceholder = () => {
+    switch (localSettings.provider) {
+      case "anthropic": return "sk-ant-...";
+      case "openai": return "sk-...";
+      case "opencode": return "OpenCode Zen API key";
+      default: return "API key";
+    }
+  };
 
   const handleSave = useCallback(() => {
     onSettingsChange(localSettings);
@@ -138,6 +185,32 @@ export default function SettingsModal({
           </button>
         </div>
 
+        {/* Provider Selection */}
+        <div className="mb-5">
+          <label
+            className="block text-sm font-medium mb-2"
+            style={{ color: "var(--text-alt)", opacity: 0.8 }}
+          >
+            Provider
+          </label>
+          <select
+            value={localSettings.provider}
+            onChange={(e) =>
+              setLocalSettings((s) => ({ ...s, provider: e.target.value as Provider, model: "" }))
+            }
+            className="w-full px-3 py-2.5 rounded-lg text-sm"
+            style={{
+              background: "var(--bg)",
+              color: "var(--text-alt)",
+              border: "1px solid var(--border-right-panel)",
+            }}
+          >
+            <option value="anthropic">Anthropic</option>
+            <option value="openai">OpenAI</option>
+            <option value="opencode">OpenCode Zen</option>
+          </select>
+        </div>
+
         {/* Model Selection */}
         <div className="mb-5">
           <label
@@ -148,9 +221,7 @@ export default function SettingsModal({
           </label>
           <select
             value={localSettings.model}
-            onChange={(e) =>
-              setLocalSettings((s) => ({ ...s, model: e.target.value as ModelId }))
-            }
+            onChange={(e) => setLocalSettings((s) => ({ ...s, model: e.target.value }))}
             className="w-full px-3 py-2.5 rounded-lg text-sm"
             style={{
               background: "var(--bg)",
@@ -158,11 +229,13 @@ export default function SettingsModal({
               border: "1px solid var(--border-right-panel)",
             }}
           >
-            {AVAILABLE_MODELS.map((model) => (
-              <option key={model.id} value={model.id}>
-                {model.name}
-              </option>
-            ))}
+            {availableModels
+              .filter((m) => m.provider === localSettings.provider)
+              .map((model) => (
+                <option key={model.id} value={model.id}>
+                  {model.name}
+                </option>
+              ))}
           </select>
         </div>
 
@@ -181,7 +254,7 @@ export default function SettingsModal({
               onChange={(e) =>
                 setLocalSettings((s) => ({ ...s, apiKey: e.target.value }))
               }
-              placeholder="sk-ant-..."
+              placeholder={getPlaceholder()}
               autoComplete="off"
               data-1p-ignore
               data-lpignore="true"
