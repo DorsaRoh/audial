@@ -8,6 +8,8 @@ export const AVAILABLE_MODELS = [
   { id: "claude-opus-4-20250514", name: "Claude Opus 4", provider: "anthropic" },
   { id: "gpt-4o", name: "GPT-4o", provider: "openai" },
   { id: "gpt-4o-mini", name: "GPT-4o Mini", provider: "openai" },
+  { id: "gemini-3-flash-preview", name: "Gemini 3 Flash", provider: "google" },
+  { id: "gemini-3-pro-preview", name: "Gemini 3 Pro", provider: "google" },
 ] as const;
 
 export type ModelId = typeof AVAILABLE_MODELS[number]["id"];

@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest } from "next/server";
 import { buildSystemPrompt } from "@/lib/systemPrompt";
 import {
@@ -153,21 +154,64 @@ async function streamOpenAI(
   return fullText;
 }
 
+// streams Gemini response
+async function streamGemini(
+  client: GoogleGenerativeAI,
+  systemPrompt: string,
+  userPrompt: string,
+  maxTokens: number,
+  controller: ReadableStreamDefaultController,
+  encoder: TextEncoder,
+  model: string
+): Promise<string> {
+  const genModel = client.getGenerativeModel({
+    model: model,
+    systemInstruction: systemPrompt,
+    generationConfig: {
+      maxOutputTokens: maxTokens,
+    },
+  });
+
+  const result = await genModel.generateContentStream(userPrompt);
+
+  let fullText = "";
+
+  for await (const chunk of result.stream) {
+    const text = chunk.text();
+    if (text) {
+      fullText += text;
+      const data = JSON.stringify({
+        type: "content_block_delta",
+        delta: { text },
+      });
+      controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+    }
+  }
+
+  return fullText;
+}
+
 // Helper to determine provider from model ID
-function getProviderFromModel(model: string): "anthropic" | "openai" {
+function getProviderFromModel(model: string): "anthropic" | "openai" | "google" {
   if (model.startsWith("gpt-") || model.startsWith("o1") || model.startsWith("o3")) {
     return "openai";
+  }
+  if (model.startsWith("gemini-")) {
+    return "google";
   }
   return "anthropic";
 }
 
 // Helper to detect API key type
-function detectApiKeyProvider(apiKey: string): "anthropic" | "openai" | "unknown" {
+function detectApiKeyProvider(apiKey: string): "anthropic" | "openai" | "google" | "unknown" {
   if (apiKey.startsWith("sk-ant-")) {
     return "anthropic";
   }
   if (apiKey.startsWith("sk-") || apiKey.startsWith("sk-proj-")) {
     return "openai";
+  }
+  if (apiKey.startsWith("AIza")) {
+    return "google";
   }
   return "unknown";
 }
@@ -208,11 +252,16 @@ export async function POST(req: NextRequest) {
     // Detect API key type and validate it matches the selected provider
     const keyProvider = detectApiKeyProvider(apiKey);
     if (keyProvider !== "unknown" && keyProvider !== provider) {
-      const providerName = provider === "openai" ? "OpenAI" : "Anthropic";
-      const keyProviderName = keyProvider === "openai" ? "OpenAI" : "Anthropic";
+      const providerNames: Record<string, string> = {
+        openai: "OpenAI",
+        anthropic: "Anthropic",
+        google: "Google",
+      };
+      const providerName = providerNames[provider] || provider;
+      const keyProviderName = providerNames[keyProvider] || keyProvider;
       return new Response(
         JSON.stringify({
-          error: `You selected an ${providerName} model but provided an ${keyProviderName} API key. Please update your API key in Settings to match the selected model.`,
+          error: `You selected a ${providerName} model but provided a ${keyProviderName} API key. Please update your API key in Settings to match the selected model.`,
         }),
         {
           status: 400,
@@ -231,6 +280,7 @@ export async function POST(req: NextRequest) {
     // Create appropriate client based on provider
     const anthropicClient = provider === "anthropic" ? new Anthropic({ apiKey }) : null;
     const openaiClient = provider === "openai" ? new OpenAI({ apiKey }) : null;
+    const googleClient = provider === "google" ? new GoogleGenerativeAI(apiKey) : null;
 
     // get balanced config values
     const config = getConfigValues();
@@ -263,6 +313,16 @@ export async function POST(req: NextRequest) {
           if (provider === "openai" && openaiClient) {
             fullText = await streamOpenAI(
               openaiClient,
+              systemPrompt,
+              userPrompt,
+              maxTokens,
+              controller,
+              encoder,
+              model
+            );
+          } else if (provider === "google" && googleClient) {
+            fullText = await streamGemini(
+              googleClient,
               systemPrompt,
               userPrompt,
               maxTokens,
@@ -322,6 +382,16 @@ export async function POST(req: NextRequest) {
               if (provider === "openai" && openaiClient) {
                 await streamOpenAI(
                   openaiClient,
+                  systemPrompt,
+                  retryUserPrompt,
+                  maxTokens,
+                  controller,
+                  encoder,
+                  model
+                );
+              } else if (provider === "google" && googleClient) {
+                await streamGemini(
+                  googleClient,
                   systemPrompt,
                   retryUserPrompt,
                   maxTokens,
