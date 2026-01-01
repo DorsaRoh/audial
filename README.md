@@ -11,8 +11,11 @@ And with all new things, there is much exciting work to be done here. **Upwards 
 <br>
 
 
-[![Audial Demo](https://img.youtube.com/vi/Nhqy4o57bl4/maxresdefault.jpg)](https://youtu.be/Nhqy4o57bl4)
-
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=Nhqy4o57bl4">
+    <img src="https://raw.githubusercontent.com/DorsaRoh/audial/main/assets/vid.png" alt="Watch Demo Video" width="600" />
+  </a>
+</div>
 
 
 
@@ -45,10 +48,10 @@ What works:
 - react to what it generates (for example, if a part is good, try asking it to expand it)
 - let the model settle into a direction instead of forcing novelty every turn
 
-in practice, you have to **vibe** with the model
+in practice, you have to **vibe** with the model!
 
 ### Note:
-- Unless you explicitly provide the musical material (notes, structure, midi, code, etc.), the model **cannot reliably recreate specific existing works**
+- Unless you explicitly provide the musical material (notes, structure, midi, code, etc.), the model **cannot reliably recreate specific existing works**.
 
    That means prompts like *"write a theme song for Game of Thrones"* will usually fail
 
@@ -56,5 +59,5 @@ in practice, you have to **vibe** with the model
 
 ## This is only the beginning
 
-
+There is much exciting work to be done. The future is bright!
 
