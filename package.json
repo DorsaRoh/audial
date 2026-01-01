@@ -1,0 +1,42 @@
+{
+  "name": "audial",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "node -e \"const r=n=>new Promise(o=>{require('child_process').exec(n,{stdio:'inherit'},(e,s,r)=>o({ok:!e,out:s,err:r}))});(async()=>{const t=[['typecheck','tsc --noEmit'],['test','vitest run'],['build','next build']];let p=0,f=0;console.log('\\n━━━ Running checks ━━━\\n');for(const[n,c]of t){process.stdout.write(n+'... ');const x=await r(c);x.ok?(p++,console.log('✓ pass')):(f++,console.log('✗ fail'),x.err&&console.log(x.err))}console.log('\\n━━━ Summary ━━━');console.log(p+'/'+t.length+' passed, '+f+' failed\\n');process.exit(f?1:0)})()\"",
+    "build-dataset": "tsx public/assets/dataset/scripts/build_index.ts && tsx public/assets/dataset/scripts/build_style_priors.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "@strudel/codemirror": "^1.2.5",
+    "@strudel/core": "^1.2.5",
+    "@strudel/draw": "^1.2.5",
+    "@strudel/mini": "^1.2.5",
+    "@strudel/sampler": "^0.2.3",
+    "@strudel/soundfonts": "^1.2.5",
+    "@strudel/tonal": "^1.2.5",
+    "@strudel/transpiler": "^1.2.5",
+    "@strudel/webaudio": "^1.2.5",
+    "next": "14.2.21",
+    "openai": "^6.15.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.10",
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^4.0.16"
+  }
+}

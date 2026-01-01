@@ -1,0 +1,115 @@
+{
+  "summary_bullets": [
+    "Most songs use 1-8 voices (typically 3)",
+    "Common tempo range: 20 BPM (most songs between 120-140)",
+    "Most common instruments: bd, sd, hh",
+    "Arrangement patterns: 0% use .every(), 28% use .slow()",
+    "Effects: 10% use delay, 70% use reverb"
+  ],
+  "common_moves": [],
+  "do_more_of": [
+    "develop melodies with 4+ phrases and clear contour",
+    "use rests between phrases for breathing room",
+    "layer 3-6 voices with distinct roles (lead, pad, bass, drums)",
+    "apply effects intentionally to serve the mood",
+    "evolve patterns gradually with .every() or .sometimes()"
+  ],
+  "avoid": [
+    "copying reference code verbatim",
+    "too many voices (keep under 8)",
+    "randomness without purpose",
+    "effects that don't serve the feeling",
+    "sparse melodies with only 2-3 notes"
+  ],
+  "tempo_distribution": [
+    {
+      "range": "60-80",
+      "count": 61
+    },
+    {
+      "range": "120-140",
+      "count": 2
+    }
+  ],
+  "typical_voice_count": {
+    "min": 1,
+    "max": 8,
+    "common": 3
+  },
+  "most_common_instruments": [
+    {
+      "name": "bd",
+      "count": 28
+    },
+    {
+      "name": "sd",
+      "count": 22
+    },
+    {
+      "name": "hh",
+      "count": 18
+    },
+    {
+      "name": "triangle",
+      "count": 15
+    },
+    {
+      "name": "cr",
+      "count": 13
+    },
+    {
+      "name": "supersaw",
+      "count": 9
+    },
+    {
+      "name": "oh",
+      "count": 9
+    },
+    {
+      "name": "sawtooth",
+      "count": 7
+    },
+    {
+      "name": "lt",
+      "count": 6
+    },
+    {
+      "name": "square",
+      "count": 5
+    }
+  ],
+  "most_common_techniques": [
+    {
+      "name": "reverb",
+      "count": 58
+    },
+    {
+      "name": "arpeggio",
+      "count": 25
+    },
+    {
+      "name": "polyrhythm",
+      "count": 20
+    },
+    {
+      "name": "delay",
+      "count": 8
+    },
+    {
+      "name": "breakbeat",
+      "count": 5
+    },
+    {
+      "name": "reversal",
+      "count": 3
+    },
+    {
+      "name": "filter-sweep",
+      "count": 1
+    },
+    {
+      "name": "panning",
+      "count": 1
+    }
+  ]
+}

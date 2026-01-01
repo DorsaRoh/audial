@@ -1,0 +1,3958 @@
+{
+  "songs": [
+    {
+      "id": "acertainbuzz",
+      "slug": "acertainbuzz",
+      "title": "A Certain Buzz",
+      "source_path": "acertainbuzz.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/acertainbuzz.js",
+      "author": "eefano",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [
+        "supersaw",
+        "triangle"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 1 bpm",
+        "supersaw lead",
+        "reverb ambient"
+      ],
+      "snippet": "// \"A Certain Buzz\"\n// a silly song @by eefano\n\nsetcps(175 / 60 / 4)\n\nconst toscale = register('toscale', (pat) => pat.withValue((v) =>\n  v.endsWith('m') ? [v.substring(0, v.length - 1), 'minor'] : [v, 'major']));\n\nconst song = \"<0@6 1@6>/4\";\n\nconst ch0rds = song.pickRestart([\"< D#2 <E2m F#2m> >\", \"< F#2 B1 A1m A#1>\"]);\n\n$: n(song.pickRestart([\"<0*4 <[0 ~] [2 4]>>*2\", \"<2*2 1*2 0*2 3*2>*2\"]))\n  .s('supersaw').scale(ch0rds.toscale()).attack(.1).clip(.95).gain(.5).early(.01)\n\n$: s(\"<[~@3 1] 0@4 [0 1] 0@5 [0@3 1]>/4\"\n  .pickRestart([\"<bd ~ sd ~ ~ bd sd ~>*8\", \"<[sd bd]!2>*4\"])).bank(\"tr909\").gain(.4)\n\n$: s(\"rd:3*4\").gain(.5)\n\n$: n(song.pickRestart([\"<~ ~ 0 ~ 1 ~ >/4\", \"<~ 0 2@2>/4\"])\n  .pickRestart([\"<~ [9 8] [9 ~ ] >*4\", \"<11*2 10*3 ~>*2\", \"<[8 7] [7 ~] [7 6] [6 7]!2 ~>*4\"]))\n  .scale(ch0rds.toscale()).transpose(24).s('triangle').clip(.95).vib(10).vibmod(.5).gain(.5)\n\nall(x => x.room(.3))",
+      "aliases": [
+        "acertainbuzz",
+        "certain",
+        "buzz",
+        "certain buzz"
+      ],
+      "title_tokens": [
+        "certain",
+        "buzz"
+      ],
+      "path_tokens": [
+        "acertainbuzz",
+        "js"
+      ]
+    },
+    {
+      "id": "ameliewaltz",
+      "slug": "ameliewaltz",
+      "title": "Ameliewaltz",
+      "source_path": "ameliewaltz.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/ameliewaltz.js",
+      "bpm": 64,
+      "cpm": 64,
+      "key": "a4:minor",
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "bright",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient",
+        "downtempo"
+      ],
+      "prompt_seeds": [
+        "bright ambient",
+        "airy ambient",
+        "bright downtempo",
+        "airy downtempo",
+        "reverb at 64 bpm",
+        "reverb ambient",
+        "reverb downtempo",
+        "ameliewaltz style"
+      ],
+      "snippet": "setDefaultVoicings('legacy')\nstack(\n  n(\"[0@2 ~, ~ [[1,2,3] ~]!2]\")\n  .chord(\"<[Dm Am]!2 [F C]!2>/4\")\n  .anchor(\"<[B3 G3]!2 [C4 B3]!2>/4\")\n  .voicing().velocity(0.5)\n  ,\n  n(\"<[3@5.5 2@0.5 1@3 0@3] [3@3.5 [4 3 2 1 2]@2.5 1@3 0@3] [2@5.5 1@0.5 -3@6]!2>/4\")\n  .scale(\"a4:minor\")\n  \n).s(\"gm_harmonica\").lpf(4000).clip(1)\n  .attack(0.1).release(0.1)\n  .room(1.5)\n  .cpm(64).gain(.6)\n  .pianoroll()",
+      "aliases": [
+        "ameliewaltz"
+      ],
+      "title_tokens": [
+        "ameliewaltz"
+      ],
+      "path_tokens": [
+        "ameliewaltz",
+        "js"
+      ]
+    },
+    {
+      "id": "anniesroom",
+      "slug": "anniesroom",
+      "title": "Up In Annie",
+      "source_path": "anniesroom.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/anniesroom.js",
+      "author": "The",
+      "bpm": 2,
+      "cpm": 2,
+      "instruments": [
+        "hh"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 2 bpm",
+        "reverb ambient",
+        "ambient track"
+      ],
+      "snippet": "// \"Up In Annie's Room\" (work in progress)\n// song @by The Sea Nymphs\n// script @by eefano\nsetcps(90/60)\n\nconst split = register('split', (deflt, callback, pat) => \n  callback(deflt.map((d,i)=>pat.withValue((v)=>Array.isArray(v)?(i<v.length?v[i]:d):(i==0?v:d)))));\n\nc: \"<0@32 1@24>/2\".pickRestart([\n\"<Bm@3 G Em A Em D G@2 A Em D G A Em>/2\",\n\"<C#m G A# F E B Em G@3 D# Dm A C#m G B A G A G A G A G>/2\"])\n .layer(x=>x.chord().anchor('b4').voicing().s(\"gm_reed_organ\").attack(0.1).release(1.5).room(1).rsize(4).gain(0.4),\n        x=>n(\"<0!32 [0,1,2,3,4]!24>/2\").chord(x).anchor('c3').mode('root').voicing().s(\"gm_church_organ\").room(1).rsize(4).gain(0.4),\n        x=>n(\"<[0,[~ 1@20],[~@2 2@20],[~@3 3@20],[~@4 4@20]]>/2\").chord(x).anchor('e4').voicing().s(\"gm_acoustic_guitar_nylon\").room(0.6).gain(0.5))\n\nv: \"<0@16 1@16 2@24>/2\".pickRestart([\n  \"<f#3 ~ d3 e3 ~ e3 ~ f#3 ~ f3:-2 ~ d3@7 ~@14 d3@2 ~ b3 ~ b3 ~ e3@7 ~@18>*2\",\n  \"<f#4 ~ d4 e4 ~ e4 ~ f#4@4 d4:-4@7 ~@14 d4@2 ~ b4 ~ b4 ~ e4@7 ~@18>*2\",\"<~>*2\"])\n  .split([0,0],(x)=>note(x[0]).penv(x[1]))\n  .patt('0.4').s(\"gm_choir_aahs:5\").room(1).gain(1)\n\n//d: s(\"<hh>\")",
+      "aliases": [
+        "anniesroom",
+        "up",
+        "in",
+        "annie",
+        "up in",
+        "in annie"
+      ],
+      "title_tokens": [
+        "up",
+        "in",
+        "annie"
+      ],
+      "path_tokens": [
+        "anniesroom",
+        "js"
+      ]
+    },
+    {
+      "id": "anothersatellite",
+      "slug": "anothersatellite",
+      "title": "Another Satellite",
+      "source_path": "anothersatellite.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/anothersatellite.js",
+      "author": "XTC",
+      "bpm": 2,
+      "cpm": 2,
+      "instruments": [
+        "triangle",
+        "hh",
+        "bd",
+        "rim"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "bright",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "bright ambient",
+        "airy ambient",
+        "reverb at 2 bpm",
+        "triangle lead",
+        "reverb ambient",
+        "another style"
+      ],
+      "snippet": "// \"Another Satellite\" (work in progress)\n// song @by XTC\n// script @by eefano\nsetcps(119/60)\nsamples({'gtr': {'g3': 'https://cdn.freesound.org/previews/705/705412_11110011-lq.mp3'}})\nconst split = register('split', (deflt, callback, pat) => callback(deflt.map((d,i)=> pat.withValue((v)=>{\n  const isobj = v.value !== undefined; const value = isobj ? v.value : v;\n  const result = Array.isArray(value)?(i<value.length?value[i]:d):(i==0?value:d);\n  return (i==0 && isobj) ? {...v,value:result} : result; }))));\n\ngtr: \"<~ 0:.6@2 1:.6@8 2@2 3@2.5 1:.6!2>/16\".split([0,1],(y)=>y[0].pickRestart([\n  \"<bb2@7 eb3>/2\",\n  \"<[bb2@3 eb3]!2 [c#3 f#3] [e3 d3] [g2@3 f3] [bb2@3 eb3] g2@2 >/8\",\n  \"<a3 g3 a3 f3 g3 f3 g3 e3>/4\",\n  \"<a3 g3 a3 f3 g3 f3 c3@4>/4\"\n]).s('gtr').begin(.045).end(.5).clip(1).note().gain(.9).room(2).gain(.8).velocity(y[1]))\n\nvox: \"<~@3 0:0.6@8 1 2 1 3@1.5 ~!2>/16\".split([0,1],(y)=>y[0].pickRestart([\n  `<~ d4:.7!3 d4:1 c4:.7!4 ~ f4 ~ d4@2:1 c4:1 bb3 ~ d4:.7!3 d4:1 c4:.7!4 d4!2 f4 d4!2 d4:1 db4 db4@3:1 ab3 ab3@2 ~@2\n  [db4!3]@6 db4 db4@2:1 d4 d4 ~ d4 ~@3 d4@2 d4 d4@2 d4 e4 d4@3 b3 b3@2:1 a3:1 g3@2 ~\n  ~ d4 d4@2 c4!3 c4@2 f4 d4@2:1 c4:1 bb3@3:1 g3:1 f3@2:1 c4@4:1:4 c#4@10:1 ~@22>*2`,",
+      "aliases": [
+        "anothersatellite",
+        "another",
+        "satellite",
+        "another satellite"
+      ],
+      "title_tokens": [
+        "another",
+        "satellite"
+      ],
+      "path_tokens": [
+        "anothersatellite",
+        "js"
+      ]
+    },
+    {
+      "id": "appealingtovenus",
+      "slug": "appealingtovenus",
+      "title": "Appealing to Venus",
+      "source_path": "appealingtovenus.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/appealingtovenus.js",
+      "author": "The",
+      "bpm": 120,
+      "cpm": 120,
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy"
+      ],
+      "genres": [
+        "house"
+      ],
+      "prompt_seeds": [
+        "dark house",
+        "airy house",
+        "reverb at 120 bpm",
+        "reverb house",
+        "appealing style"
+      ],
+      "snippet": "// \"Appealing to Venus\" \n// song @by The Sea Nymphs\n// script @by eefano\nsetDefaultVoicings('legacy')\nconst chords = `<Cm@2 Ab@2 Db@2 Cm F Bb C@2 F Bb C@2 F Bb Eb Dm [Cm Dm] [Eb ~] Eb Dm [Cm Dm] [Eb ~]\n                C@2 Ab Eb Ab A E B Db Cm [Bbm Cm] [Db ~] Db Cm [Bbm Cm] [Db ~]>/2`\nstack( \n  // melody\n  `<\n     ~@2 c5 d5@2 eb5 d5@3 c5@2 g#4@3 eb5@8 ~@2\n   ~@2 c#5 d#5@2 f5 d#5@3 c#5@2 d#5@3\n   d#5@3 f5@3 a5@3 a#5@3 a#5@3 g5@6 f5 e5@4 \n   ~ e5 f5@2 a5@3 a#5@3 a#5@3 g5@6 f5 e5@4 \n   ~ e5 f5@2 a5@3 a#5@3 a#5@3 \n   g5@7 f5@6 d#5@3 f5@3 g5@6\n   ~@24\n\n    e5@2 e5@3 f5@3 g5@3 g#5@3 g5@3 g5@3 c6@3\n    c6@3 c6@3 c#6@3 b5@3 [f#5 g#5 f#5@3]@3 e5@3 b5@3 b5@3\n    g#5@7 d#5@6 c#5@3 d#5@3 f5@6\n    ~@24\n   >*3`.note().clip(0.95).s('gm_oboe').gain(0.5)\n  ,\n  // second voice\n  `<\n    ~@150\n  \n    c5@2 c5@3 d5@3 e5@3 d#5@3 d#5@3 c5@3 g5@3\n    g5@3 g5@3 g#5@3 e5@3 [c#5 d#5 c#5@3]@3 b4@3 f#5@3 f#5@3\n    c#5@7 c5@6 a#4@3 c5@3 c#5@6\n    ~@24\n   >*3`.note().clip(0.95).s('gm_oboe').gain(0.5)\n  ,\n  chords.rootNotes(2).note().s('gm_bassoon').lpf(400).gain(0.5),\n  chord(chords).anchor(\"C5\").voicing().struct(\"x\").piano().gain(0.4),\n  chord(chords).anchor(\"E5\").voicing().s('gm_drawbar_organ').gain(0.15),",
+      "aliases": [
+        "appealingtovenus",
+        "appealing",
+        "to",
+        "venus",
+        "appealing to",
+        "to venus"
+      ],
+      "title_tokens": [
+        "appealing",
+        "to",
+        "venus"
+      ],
+      "path_tokens": [
+        "appealingtovenus",
+        "js"
+      ]
+    },
+    {
+      "id": "aztecchallenge",
+      "slug": "aztecchallenge",
+      "title": "Aztec Challenge",
+      "source_path": "aztecchallenge.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/aztecchallenge.js",
+      "author": "Paul",
+      "bpm": 3,
+      "cpm": 3,
+      "key": "a1:minor",
+      "instruments": [
+        "sawtooth"
+      ],
+      "techniques": [],
+      "moods": [
+        "bright",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "bright ambient",
+        "calm ambient",
+        "sawtooth lead",
+        "aztec style",
+        "ambient track"
+      ],
+      "snippet": "// \"Aztec Challenge\"\n// song @by Paul Norman\n// script @by eefano\nsetcps(180/60)\nlet parts = \n{a1:n(\"<0>/32\")\n,a2:n(\"<-7>/32\")\n,a3:n(\"<-14@5 [4 7]*5 4@2 >/4\")\n,b:n(\"<0 ~@3 0 ~ 0 ~>*4\".sub(7))\n,c1:n(\"<0@2 2 1 1b@2 3 2>\")\n,c2:n(\"<<0 1b> 5 4 3 4 5 4 3>*2\")\n,d1:n(\"<0@2 2 1 1b@2 3 2>/2\")\n,d2:n(\"<<-7 -6b> -2 -3 -4 -3 -2 -3 -4>\")\n,e1:n(\"<0 ~ 0 1 0 ~ 0 1 0 ~ 0 1 2 1 0 -1 1 ~ 1 2 1 ~ 1 2 1 ~ 1 2 1 0 -1 -2#>*2\")\n,e2:n(\"<-2@2 4b ~ 2@2 4b 5 >*2\")\n,e3:n(\"<2@3 3 3#@3 4 7@2 6 5# 3#@3 4 7@2 6 5# 3#@3 1 0@8>/2\")\n}\nsid1: \"<a1@2 ~ b c1@2 b a1@2 e1@3 e2 e1@3 e2 e1@3 e2 e1@3 e2>/16\".pickRestart(parts).scale('a1:minor').s('gm_lead_2_sawtooth').lpf(4000).color('yellow').gain(0.9)._scope()\nsid2: \"<a2@2 b@2 c2@2 d1 a2@2 e1@3 e2 e1@3 e2 e1@3 e2 e1@3 e2>/16\".pickRestart(parts).scale('a2:minor').s('sawtooth').lpf(3000).color('cyan')._scope()\nsid3: \"<a3@2 ~@2 b@2 d2 a3@2 ~@4 e3@4 e3@4 e3@4>/16\".pickRestart(parts).scale('a4:minor').s(\"<triangle@17 sawtooth@8>/16\").color('magenta')._scope()",
+      "aliases": [
+        "aztecchallenge",
+        "aztec",
+        "challenge",
+        "aztec challenge"
+      ],
+      "title_tokens": [
+        "aztec",
+        "challenge"
+      ],
+      "path_tokens": [
+        "aztecchallenge",
+        "js"
+      ]
+    },
+    {
+      "id": "bennington",
+      "slug": "bennington",
+      "title": "Bennington",
+      "source_path": "bennington.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/bennington.js",
+      "author": "John",
+      "bpm": 1,
+      "cpm": 1,
+      "key": "c1:minor",
+      "instruments": [
+        "sawtooth",
+        "square",
+        "cp"
+      ],
+      "techniques": [
+        "delay",
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "delay at 1 bpm",
+        "reverb at 1 bpm",
+        "sawtooth lead",
+        "square bass",
+        "delay ambient",
+        "reverb ambient",
+        "bennington style"
+      ],
+      "snippet": "// \"Bennington\" (work in progress)\n// composed @by John Maus\n// script @by eefano\nsetcps(135 / 60 / 4)\n\nbass: \"<0@3 1 0 1@2 0@2 0*4 [2@25 3@7]@2 0 [0 ~@31]>/8\".pickRestart([\n  n(\"<7!3 [4 6] 7*2 7!2 6 9!3 [6 9] 11*2 11!2 10>*4\"),\n  n(\"<[9*2 9!2 [6 7]]!2 [11*2 11!2 [6 7]] [11 12# 13 14] >\"),\n  n(\"<[~ 9 12!2]!2 [~ 9 10!2] [~ 7 10!2] [7!2 14!2] [~ 7 11!2]!2>*2\"),\n  n(\"<[~ 6 13!2]!3>*2\")\n]).scale('c1:minor').s('sawtooth').clip(.95).lpf(300).lpe(1).gain(.9).room(.2)\n\ngneeow: \"<0 ~@3 0 ~@4 ~ ~@2 0 1>/8\".pickRestart([\n  n(\"<~ [4,7,9]@3 ~@4>*2\"),n(\"<[4,7,9]@2 ~@6>\")\n]).scale('c5:minor').s('sawtooth').vib(4.5).vibmod(.4).gain(.55).room(.8)\n\ndindin: \"<~ 0@2 ~@4 0@2 ~@5>/8\".pickRestart([\n  n(\"[1 2]*4\").pan(\"[.45 .55]*4\")\n]).scale('c6:minor').s('square').att(0).dec(.5).rel(.3).gain(.15)\n\npads: \"<5 ~@2 0 1 0@2 ~@2 2 [3@25 4@7]@2 ~@2>/8\".pickRestart([\n  n(\"<[2,4,6] [-3,-1,1]>/2\").lpf(1500).att(.4).rel(.5).gain(.7),\n  n(\"<~@4 11 [9 10] 8 -1 [0@3 ~]@2 ~@2 11 [9 10] 8 13 >*2\").lpf(1500).att(.4).rel(.5).gain(1.2),\n  n(\"<[-3,0,2] [-3,-1,1]>/2\").lpf(1500).gain(.5),\n  n(\"<[5,7,9]@2 [5,7,10]@2 [[4,7,9] [4,7,8] [4,6]]@3>*2\").gain(.9),\n  n(\"<[6,8,10]@3 ~@4>*2\").gain(.9),\n  n(\"<0>\").gain(0) // preload",
+      "aliases": [
+        "bennington"
+      ],
+      "title_tokens": [
+        "bennington"
+      ],
+      "path_tokens": [
+        "bennington",
+        "js"
+      ]
+    },
+    {
+      "id": "bigship",
+      "slug": "bigship",
+      "title": "Big Ship (Coda)",
+      "source_path": "bigship.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/bigship.js",
+      "author": "Cardiacs",
+      "bpm": 30,
+      "cpm": 30,
+      "instruments": [
+        "bd",
+        "sd",
+        "oh"
+      ],
+      "techniques": [
+        "reverb",
+        "polyrhythm"
+      ],
+      "moods": [
+        "dark",
+        "bright",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "bright ambient",
+        "reverb at 30 bpm",
+        "polyrhythm at 30 bpm",
+        "reverb ambient",
+        "polyrhythm ambient",
+        "big style"
+      ],
+      "snippet": "// \"Big Ship (Coda)\"\r\n// song @by Cardiacs\r\n// script @by eefano\r\nsetDefaultVoicings('legacy')\r\nconst progr = \"<Am!2 D F Am D@2 Am!2 A# Am E@2 C F Am D@4>\".fast(2);\r\nconst anchr = \"<A5 F5 F5 F5 F5 G5@2 A5 F5 G#5 F5 E5@2 E5 F5 F5 G5@4>\".fast(2);\r\n\r\nstack(\r\n n(\"-2 -1 0 2 0 1\").chord(progr).anchor(\"G5\").voicing().s('gm_violin').clip(1).gain(0.3).room(0.1)\r\n, chord(progr).anchor(anchr).voicing().s('gm_drawbar_organ').clip(1).gain(0.9).room(0.3)\r\n, chord(progr).rootNotes(1).struct(\"x*2\").s('gm_electric_bass_finger').clip(1).gain(1)\r\n  \r\n, s(\"[bd!2 ~ bd]*2\").bank(\"AkaiLinn\").lpf(200).gain(0.35)\r\n, s(\"[~ <[sd ~ ~ sd] sd>]*2\").bank(\"AkaiLinn\").hpf(250).lpf(4000).gain(0.30)\r\n, s(\"oh*4\").gain(0.15) \r\n\r\n).cpm(120/4).room(0.3)//.pianoroll()",
+      "aliases": [
+        "bigship",
+        "big",
+        "ship",
+        "(coda)",
+        "big ship",
+        "ship (coda)"
+      ],
+      "title_tokens": [
+        "big",
+        "ship",
+        "coda"
+      ],
+      "path_tokens": [
+        "bigship",
+        "js"
+      ]
+    },
+    {
+      "id": "bluemonday",
+      "slug": "bluemonday",
+      "title": "Bluemonday",
+      "source_path": "bluemonday.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/bluemonday.js",
+      "bpm": 130,
+      "cpm": 130,
+      "key": "d2:minor",
+      "instruments": [
+        "bd",
+        "hh"
+      ],
+      "techniques": [
+        "breakbeat",
+        "polyrhythm"
+      ],
+      "moods": [],
+      "genres": [
+        "house"
+      ],
+      "prompt_seeds": [
+        "breakbeat at 130 bpm",
+        "polyrhythm at 130 bpm",
+        "breakbeat house",
+        "polyrhythm house",
+        "bluemonday style"
+      ],
+      "snippet": "stack(\n  s(\"bd!2 [bd*4]!2 bd!4\").slow(8).bank(\"SequentialCircuitsDrumtracks\"), \n  s(\"~ hh\").bank(\"SequentialCircuitsDrumtracks\"), \n  n(\"<[[2 ~] [2 ~] 2 3] [[3 ~] [3 ~] 3 3]>@4 [-1 ~] -1 -1 [0 ~] 0 0 [0 ~] 0 0 [0 ~] 0 0\").slow(8).scale(\"d2:minor\").s(\"gm_lead_8_bass_lead\")\n).cpm(130)",
+      "aliases": [
+        "blue",
+        "monday",
+        "blue monday",
+        "bluemonday"
+      ],
+      "title_tokens": [
+        "bluemonday"
+      ],
+      "path_tokens": [
+        "bluemonday",
+        "js"
+      ]
+    },
+    {
+      "id": "bonespurs",
+      "slug": "bonespurs",
+      "title": "Bonespurs",
+      "source_path": "bonespurs.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/bonespurs.js",
+      "author": "eefano",
+      "bpm": 1,
+      "cpm": 1,
+      "key": "f3:minor",
+      "instruments": [
+        "supersaw",
+        "triangle",
+        "sine",
+        "square",
+        "bd",
+        "sd"
+      ],
+      "techniques": [
+        "delay",
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "delay at 1 bpm",
+        "reverb at 1 bpm",
+        "arpeggio at 1 bpm",
+        "supersaw lead",
+        "sine bass",
+        "delay ambient",
+        "reverb ambient",
+        "bonespurs style"
+      ],
+      "snippet": "// \"Bonespurs\" (work in progress)\n// @by eefano\n\nsetcps(90/60/3)\n\n$: \"<[-3,0] [-4,0] [-2,0]>/4\".layer(\n     x=>x.sub(7).struct(\"<x*4>\").n().s('supersaw').clip(1).lpf(\"<300>/12\").lpa(0).lpe(\"<1 1.5 2 2!3>/12\").lpd(.15),\n     x=>x.add(7).s('triangle').gain(\"<0 .1 .15 .2!3>/12\").adsr([.5,0,1,.5]).hpf(500)\n)\n$: \"<[0 2 5 0 3 -1 2 3 -1 -2 3 2]>\".s('sine').gain(\"<0 0 .3 .6!3>/12\")\n\n$: n(irand(7).add(6).struct(\"<~@2 [x x] [x ~]>\")).s('square').hpf(800).lpf(2000)\n  .gain(.3).adsr([.01,.2,.1,.4]).delay(0.2).dfb(.2).mask(\"<~@3 1!3>/12\")\n\n$: s(\"[bd [~ <~ bd>] sd]\").bank('linndrum').lpf(\"<600 800 1000 1200!3>/12\").gain(.7)\n$: s(\"rd*3\").hpf(8000).gain(.1)\n\nall(x=>x.room(.8).scale(\"f3:minor\"))",
+      "aliases": [
+        "bonespurs"
+      ],
+      "title_tokens": [
+        "bonespurs"
+      ],
+      "path_tokens": [
+        "bonespurs",
+        "js"
+      ]
+    },
+    {
+      "id": "breakfastline",
+      "slug": "breakfastline",
+      "title": "Theme from The Breakfast Line",
+      "source_path": "breakfastline.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/breakfastline.js",
+      "author": "Cardiacs",
+      "bpm": 38,
+      "cpm": 38,
+      "instruments": [
+        "bd",
+        "sd",
+        "hh"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 38 bpm",
+        "arpeggio at 38 bpm",
+        "reverb ambient",
+        "arpeggio ambient",
+        "theme style"
+      ],
+      "snippet": "// \"Theme from The Breakfast Line\"\n// song @by Cardiacs\n// script @by eefano\nconst maj = \"[0,4,7]\"\nconst imaj = \"[0,4,-5]\"\nconst melody =`[\n    c#6@2 f5 c6@3 a#5 a5@2 g5@3 c#5 e5@2 d#5@2 f#5 a5@3 a5@3\n    a5 g5 f5 d#5 c#5 b4 a5@3 a5@3 f5 g5 a5 a#5 g#5 g5 f5 g5 a5 b5 d5 g5 \n    c#5@2 b4 f5@3 c#5 d#5 f5 g5 c#5@2 c5@3 c#5@3 c#5@6\n    c#5 g#5 g5 a#4 f5 d#5 c#5 c5 g#5 c#5 c5 b4 c#5@2 b4 a5@3 c#5 b4@2 a5@6 \n    b5 g5@2 e5 a5 b5 b5@6 b5 a#5 g5 a5@3 b5 g5 d5 c#5 a5@2 b5 g5 d#5 c#5 a5@2\n    g5@2 d#5 f5 d#5 c#5 b4 a4 g4 a4 b4 c#5 d#5 f5 g5 ]/24`.clip(0.93)\nstack( \n   // melody   \n  melody.note().transpose(  0).s('gm_overdriven_guitar').pan(0.45).gain(0.70),   \n  melody.note().transpose(-12).s('gm_overdriven_guitar').pan(0.55).gain(0.80),   \n  // chords\n  \"<C#4 D#4 F4 G4 A3 B3>*2\".add(imaj)\n  .note().s('gm_string_ensemble_2').gain(0.6),\n  // bass\n  \"<C#2 D#2 C2 D2 A1 B1>*2\".clip(0.90)\n  .note().s('gm_electric_bass_finger').gain(0.7), \n  // drums\n  s(\"<[bd ~ bd sd ~ bd]!23 [sd*6]>\").bank(\"AkaiLinn\").gain(0.30),\n  s(\"hh*6\").gain(0.10) \n).cpm(76/2).room(0.6)//.pianoroll()",
+      "aliases": [
+        "breakfastline",
+        "theme",
+        "from",
+        "the",
+        "breakfast",
+        "line",
+        "theme from",
+        "from the",
+        "the breakfast",
+        "breakfast line"
+      ],
+      "title_tokens": [
+        "theme",
+        "from",
+        "the",
+        "breakfast",
+        "line"
+      ],
+      "path_tokens": [
+        "breakfastline",
+        "js"
+      ]
+    },
+    {
+      "id": "budsandspawn",
+      "slug": "budsandspawn",
+      "title": "Buds And Spawn",
+      "source_path": "budsandspawn.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/budsandspawn.js",
+      "author": "Cardiacs",
+      "bpm": 41,
+      "cpm": 41,
+      "instruments": [
+        "triangle"
+      ],
+      "techniques": [
+        "reversal",
+        "polyrhythm"
+      ],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "reversal at 41 bpm",
+        "polyrhythm at 41 bpm",
+        "triangle lead",
+        "reversal ambient",
+        "polyrhythm ambient",
+        "buds style"
+      ],
+      "snippet": "// \"Buds And Spawn\" (work in progress)\r\n// song @by Cardiacs\r\n// script @by eefano\r\nconst i_chords = x => x.s(\"recorder_tenor_sus\").clip(1).decay(1.2).sustain(0).release(0.5)\r\nconst i_sax    = x => x.s(\"sax\").gain(0.3).clip(1).release(0)\r\nconst i_bass   = x => x.s(\"triangle\").clip(1).release(0.1)\r\nconst i_drums  = x => x.bank(\"YamahaRY30\").clip(1).gain(0.08)\r\nconst i_piano  = x => x.piano().gain(0.2)\r\n\r\nconst I_chord = n(\"[0,2,4]\")\r\nconst p_up = n(\"[-5@0.5 -4 -3 [-2 -1] 0 1 2@0.5]\").clip(0.7)\r\nconst p_dw = p_up.rev()\r\n\r\nfunction stackme(sc, chordpart, saxpart, drumpart) {\r\n  return stack(chordpart.scale(sc).apply(i_chords), saxpart.scale(sc).apply(i_sax), s(drumpart).apply(i_drums))\r\n}\r\n\r\nconst s1=stackme(\"f#:major\"    ,I_chord,p_up,\"cr,bd\")\r\nconst s2=stackme(\"a#:major\"    ,I_chord,p_up,\"[bd sd bd*2 sd bd*2 sd]\")\r\nconst s3=stackme(\"b:whole:tone\",I_chord,p_dw,\"[sd@0.5 sd sd [ht ht] lt lt bd@0.5]\")\r\nconst s4=stackme(\"f#:major\"    ,I_chord,p_up,\"[bd sd [~ bd] sd bd sd],hh*6\")\r\n\r\narrange([3,s1],[1/1.2,s2.fast(1.2)],[1/1.3,s3.fast(1.3)],[4,s4]).cpm(165/4)\r\n  //.pianoroll()",
+      "aliases": [
+        "budsandspawn",
+        "buds",
+        "and",
+        "spawn",
+        "buds and",
+        "and spawn"
+      ],
+      "title_tokens": [
+        "buds",
+        "and",
+        "spawn"
+      ],
+      "path_tokens": [
+        "budsandspawn",
+        "js"
+      ]
+    },
+    {
+      "id": "bugfromheaven",
+      "slug": "bugfromheaven",
+      "title": "Bug From Heaven (wip)",
+      "source_path": "bugfromheaven.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/bugfromheaven.js",
+      "author": "Tim",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [
+        "sawtooth",
+        "sd"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "bright",
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "bright ambient",
+        "airy ambient",
+        "reverb at 1 bpm",
+        "sawtooth lead",
+        "reverb ambient",
+        "bug style"
+      ],
+      "snippet": "// \"Bug From Heaven (wip)\"\n// song @by Tim Smith\n// script @by eefano\nsetcps(108/60/2)\nconst standardtuning = [40,45,50,55,59,64];\nconst fingering = \n{A:\"0:0:2:2:2:0\",Am:\"0:0:2:2:1:0\",A7:\"x:0:2:0:2:0\",D:\"x:0:0:2:3:2\",Dm:\"x:0:0:2:3:1\",D7:\"x:0:0:2:1:2\",\n E:\"0:2:2:1:0:0\",Em:\"0:2:2:0:0:0\",E7:\"0:2:2:1:3:0\",G7:\"3:2:0:0:0:1\",C:\"x:3:2:0:1:0\",\n // guitar only chords\n Dx:\"x:0:0:2:3:2\",Ds:\"x:0:0:1:3:0\",\n Ax:\"0:0:2:2:2:0\",Amx:\"0:0:2:2:1:0\",\n Ex:\"0:2:2:1:0:0\",Emx:\"0:2:2:0:0:0\",\n};\nconst gstrum = \n{u:\"<[[1,[~ 3@10],4]@2 ~]!2 [1,4,5]>*3\", \n v:\"<[[0,[~ 3@10],5]@2 ~]!2 [0,3,4]>*3\", \n w:\"<[[1,[~ 3@10],4]@2 ~]!2 [1,2,3]>*3\", \n x:\"<[1,[~ 2@50],[~ ~ 4@50]] ~@3>/4\",\n z:\"<[[3,4,5] ~]*2>\", \n k:\"<[[2,3,4] ~]*2>\",\n n:\"~\"\n};\nconst bstrum = {u:\"<[1 2]>\", v:\"<[2 1]>\", w:\"<[1 0]>\", x:\"~\", z:\"~\", k:\"~\", n:\"0\"};\n\nconst gString = register('gString', (n, pat) => \n  (pat.fmap((v) => { if(v[n]=='x') return note(0).velocity(0);\n      return note(v[n]+standardtuning[n]); } \n  ).innerJoin()));\nconst guitar = (strums,fingers,tuning=standardtuning) => (strums.pickOut(\n    [fingers.pickOut(fingering).gString(0),fingers.pickOut(fingering).gString(1),fingers.pickOut(fingering).gString(2)",
+      "aliases": [
+        "bugfromheaven",
+        "bug",
+        "from",
+        "heaven",
+        "(wip)",
+        "bug from",
+        "from heaven",
+        "heaven (wip)"
+      ],
+      "title_tokens": [
+        "bug",
+        "from",
+        "heaven",
+        "wip"
+      ],
+      "path_tokens": [
+        "bugfromheaven",
+        "js"
+      ]
+    },
+    {
+      "id": "bustybeez",
+      "slug": "bustybeez",
+      "title": "Busty Beez",
+      "source_path": "bustybeez.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/bustybeez.js",
+      "author": "Cardiacs",
+      "bpm": 0,
+      "cpm": 0,
+      "instruments": [
+        "bd",
+        "sd",
+        "cr",
+        "mt",
+        "lt"
+      ],
+      "techniques": [
+        "delay",
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "busty style",
+        "dark music",
+        "dark music",
+        "dark music",
+        "dark music"
+      ],
+      "snippet": "// \"Busty Beez\" (work in progress)\n// song @by Cardiacs\n// script @by eefano\nsetcps(182 / 60 / 8)\nconst beez = `<~@8 \n      i@28 j@18 k@5 l@2 m@30 n@22 o@22\n      i@28 j@18 k@5 l@2 m@30 n@22 o@22\n      n@22 m@30 k@5 l@2 k@5 p@16\n      i@28 j@18 j@18 k@5 l@2 m@30 k@5 l@2 m@30 n@22 o@22\n      i@28 j@18 k@5 l@2 m@30 n@22 o@22\n      i@28 j@18 k@5 l@2 m@30 n@22 o@22\n      n@22 m@30 k@5 l@2 k@5 p@16\n      i@28 j@18 j@18 k@5 l@2 m@30 k@5 l@2 m@30 n@22 q@6 p@16\n      i@28 j@18 j@18 j@18 j@18 j@18 j@18 j@18 j@18 ~@18 >`\nconst melody = {\n  i: \"<b4@3 c5 g4@2 g4 f4 c#4 c#4@2 a4@2:4 a4 b4@2 b4 f#4 d#4 b3 c4 d#4 g#4 c5@2 c#5 c#4@2>\",\n  j: \"<d4 c#4 b3 b3 b4@2 a4 g4 f4 d#4 d#4 c#4 b3 g4@2 f4 d#4 c#4>\",\n  k: \"<c#4 c4@2 a#3@2>\",\n  l: \"<f#4@2>\",\n  m: \"<e4@2 a3@2 g#3 a#3 c4 c#4 d4 e4 f#4 [g#4 ~] g#4@2 a#4@2 c5@2 c#5@2 c5@2 f#4@2 g4@5 ~>\",\n  n: \"<g4 d4 b3 c#4 d#4 c#4 c4 a#3 a#3 d4 g4 g#4@2 a#4@2 a#4@2 f4 d4@2 g#4@2>\",\n  o: \"<g4@6 g4@12 g#4 d#4 a#4 b4>\",\n  p: \"<g4@4 g4@4 g4@3 g4 g#4 d#4 a#4 b4>\",\n  q: \"<g#4@2 g4@4>\" }\nconst ch0rds = {\n  i: \"<G@3 C@3 C#@3 A@4 F@3 B@4 G#@5 F#@3>\",\n  j: \"<G@10 A@8>\",\n  k: \"<F#@5>\",\n  l: \"<D@2>\",\n  m: \"<A@4 C#@4 D@4 E@2 A#@4 A@2 F@2 B@2 D#@6>\",",
+      "aliases": [
+        "bustybeez",
+        "busty",
+        "beez",
+        "busty beez"
+      ],
+      "title_tokens": [
+        "busty",
+        "beez"
+      ],
+      "path_tokens": [
+        "bustybeez",
+        "js"
+      ]
+    },
+    {
+      "id": "byebyespirit",
+      "slug": "byebyespirit",
+      "title": "Bye Bye Spirit",
+      "source_path": "byebyespirit.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/byebyespirit.js",
+      "author": "The",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [
+        "triangle"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 1 bpm",
+        "arpeggio at 1 bpm",
+        "triangle lead",
+        "reverb ambient",
+        "arpeggio ambient",
+        "bye style"
+      ],
+      "snippet": "// \"Bye Bye Spirit\" (Work In Progress)\n// song @by The Sea Nymphs\n// script @by eefano\nsetDefaultVoicings('legacy')\nsetcps(140/60*3/4/3)\n\nconst ch = [\"<Cm A# D# D E F C A E G# C# Cm F Cm F>\", \n            \"<A@8 ~ Em A G C B ~ A G C B ~ A G D Em ~ G D Em ~ ~>\"]\nconst bs = [\"<c2 a#1 d#2 d2 e2 f2 c2 a1 e2 g#1 c#2 c2 f2 c2 f2>\"\n           ,\"<a1 g1 f#1 f1 a1 g1 f#1 f1 ~ e2 a1 g1 c2 b1@2 a1 g1 c2 b1@2 a1 g1 f#1 e2@2 g1 f#1 e2@2 ~>\"]\nconst me = [\"<g4@2 ~ a#4@2 ~ g4@2 ~ f#4 d4 a3 g#3 b3 e4 a3 c4 f4 e4@4 ~@2 e4 b3 g#3 g#3 c4 g#4 f4 c#4@2 d#4 d4 c4 a3@2 ~ g4@3 a3@3>*3\"\n           ,`<[a3 b3 c#4] g3 c#4 g3 [a3 b3 c#4] [g3@2 b3] c#4 g3 ~ \n              [e4 ~ e4] [a3 ~ a3] [b3 ~ b3] [[g3@4 f#3]@2 e3] b3 ~ \n              [a3 ~ a3] [b3 ~ b3] [[g3@4 f#3]@2 e3] b3 ~ g3 b3@2 ~ g3 b3@2 g3 ~ ~ >`]\n\npiano: \"<0@30 1@30>\".pickRestart(ch).chord().anchor(\"e4\".add(\"<~ -2 2>*3\")).voicing().struct(\"<~ x x>*3\").piano().room(0.8).gain(0.4)\n\nbass: \"<0@30 1@30>\".pickRestart(bs).note().piano().room(.8).gain(0.6)\n\nbowed: n(\"<0 1 2 2 1 0>*3\").chord(\"<~@15 0@15 ~@30>\".pickRestart(ch)).anchor(\"g5\").voicing().s('gm_pad_bowed').sustain(0.4).room(0.7).gain(0.5)",
+      "aliases": [
+        "byebyespirit",
+        "bye",
+        "spirit",
+        "bye bye",
+        "bye spirit"
+      ],
+      "title_tokens": [
+        "bye",
+        "bye",
+        "spirit"
+      ],
+      "path_tokens": [
+        "byebyespirit",
+        "js"
+      ]
+    },
+    {
+      "id": "cabinet",
+      "slug": "cabinet",
+      "title": "Cabinet",
+      "source_path": "cabinet.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/cabinet.js",
+      "author": "Spratleys",
+      "bpm": 17,
+      "cpm": 17,
+      "instruments": [
+        "triangle",
+        "bd",
+        "sd"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 17 bpm",
+        "triangle lead",
+        "reverb ambient",
+        "cabinet style"
+      ],
+      "snippet": "// \"Cabinet\" (work in progress)\n// song @by Spratleys Japs\n// script @by eefano\nsetDefaultVoicings('legacy')\nfunction arr(p,l) { return [l,p.slow(l)]; }\n\nconst h1 = arr(`D@8 A F@3`,24/2);\nconst h2 = arr(`D@5 E C@3 A@2 B G@2 E@7 F# D@2 B C# A@2 F#@3 G# E@2`,68/2);\nconst h3 = arr(`C#@8 D# B@2 G# A# F#@2 D#@3 F C#@3 A# C G#@2 F@3 G D#@3 C@2 D A#@2 G@3 A F@2`,88/2);\n\nconst chords = arrange(h1,h2,h3);\n\n\nstack(\n  chord(chords).rootNotes(3).s('triangle').lpf(400).gain(0.6),\n  chord(chords).anchor(\"E5\").voicing().s('gm_drawbar_organ').gain(0.35),\n\n  s(\"sleighbells\").struct(\"x*6\").gain(3),\n  s(\"[bd sd]\").gain(0.4).room(2),\n  s(\"rd*6\").gain(0.01)\n \n).cpm(133/8).pianoroll()",
+      "aliases": [
+        "cabinet"
+      ],
+      "title_tokens": [
+        "cabinet"
+      ],
+      "path_tokens": [
+        "cabinet",
+        "js"
+      ]
+    },
+    {
+      "id": "cadenza",
+      "slug": "cadenza",
+      "title": "The Cardiacs Cadence",
+      "source_path": "cadenza.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/cadenza.js",
+      "author": "eefano",
+      "bpm": 60,
+      "cpm": 60,
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient",
+        "downtempo"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "dark downtempo",
+        "airy downtempo",
+        "reverb at 60 bpm",
+        "reverb ambient",
+        "reverb downtempo",
+        "the style"
+      ],
+      "snippet": "// \"The Cardiacs Cadence\"\r\n// script @by eefano\r\nsetDefaultVoicings('legacy')\r\nconst magic = \"<G@3 Bm E@3 G#m C#@3 Fm A#@3 Dm>\";\r\n\r\nstack(\r\nchord(magic).anchor(\"G4\".transpose(\"<3 0 -3 0>\")).voicing().struct(\"x\").piano().gain(cosine.segment(16).range(0.5,1).slow(8)),\r\nchord(magic).anchor(\"B5\".transpose(\"<0 -3 6 3>/16\")).voicing().s(\"gm_drawbar_organ\").gain(0.8),\r\n\"<G2 E2 C#2 A#2>/4\".transpose(\"<0 <-12 -8>>\").struct(\"x!2\").note().lpf(180).s(\"gm_electric_bass_finger\").gain(1)\r\n).cpm(120/2).room(0.5).pianoroll()",
+      "aliases": [
+        "cadenza",
+        "the",
+        "cardiacs",
+        "cadence",
+        "the cardiacs",
+        "cardiacs cadence"
+      ],
+      "title_tokens": [
+        "the",
+        "cardiacs",
+        "cadence"
+      ],
+      "path_tokens": [
+        "cadenza",
+        "js"
+      ]
+    },
+    {
+      "id": "cinghiale",
+      "slug": "cinghiale",
+      "title": "Cinghiale",
+      "source_path": "cinghiale.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/cinghiale.js",
+      "author": "Franco",
+      "bpm": 1,
+      "cpm": 1,
+      "key": "c4:major",
+      "instruments": [
+        "sawtooth",
+        "triangle"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 1 bpm",
+        "arpeggio at 1 bpm",
+        "sawtooth lead",
+        "reverb ambient",
+        "arpeggio ambient",
+        "cinghiale style"
+      ],
+      "snippet": "// \"L'Era Del Cinghiale Bianco\" \r\n// song @by Franco Battiato\r\n// script @by eefano\r\nsetCps(127/60/2)\r\nsetDefaultVoicings('legacy')\r\nstack(\r\n  \"<0@16 1@14 >\".pickRestart([\"<[0 1]!2 [0 2] [0 3]>/4\",\"<[4!2]@14>\"]).pickRestart(\r\n   [\"<[7 6 5 6 7 5 6 7]!2>\".add(\"<0 1>\")\r\n   ,\"<[9 8 7 8]*3@1.5 [9 ~!1]@0.5>\"\r\n   ,\"<9 [~ 7 8 6]>\",\"<9 [~ 7 8 9]>\"\r\n   ,\"<7@3 6@3 7@5 8 9 7 5@3 6@3 7@5 ~@5>*4\"\r\n  ]).n().scale(\"c4:major\").transpose(\"<[0 -5]@16 [[0@7 -5@8]!2]@14 >\").s(\"sawtooth\").vib(5).vmod(0.1).clip(0.85).attack(0.05).release(0.1).gain(0.6)\r\n\r\n,\"<0@16 [1!2]@14 >\".pickRestart([\"<[Am G C@2]!2 [Em D G@2]!2>/4\",\"<Am@3 G@3 C@5 ~@3 Em@3 D@3 G@5 ~@5>*4\"])\r\n  .chord().anchor(\"C4\").voicing().s(\"triangle\").lpf(1200).attack(0.01).gain(0.35)\r\n      \r\n,\"<0@16 1@14 >\".pickRestart([\"[[bd <~!7 bd>] sd],<hh!31 oh>*4\",\r\n                       \"<bd [sd bd] bd bd [sd bd] bd sd>*2,<hh!17 oh>*4\"]).s().bank(\"YamahaRY30\").clip(1).gain(0.4)\r\n).room(0.4)",
+      "aliases": [
+        "cinghiale"
+      ],
+      "title_tokens": [
+        "cinghiale"
+      ],
+      "path_tokens": [
+        "cinghiale",
+        "js"
+      ]
+    },
+    {
+      "id": "clandeisiciliani",
+      "slug": "clandeisiciliani",
+      "title": "The Sicilian Clan",
+      "source_path": "clandeisiciliani.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/clandeisiciliani.js",
+      "author": "Ennio",
+      "bpm": 30,
+      "cpm": 30,
+      "instruments": [
+        "rim"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 30 bpm",
+        "reverb ambient",
+        "the style"
+      ],
+      "snippet": "// \"The Sicilian Clan\" (work In Progress)\r\n// song @by Ennio Morricone\r\n// script @by eefano\r\nconst chrds = \"<Am@3 E  Edim@2 D@3  Ddim E7@2 Am@3 [B@2 A#]@3 A@2 Am@2 E@2 Am@4>*2\";\r\nconst anchr = \"<E4@3 E4 E4@2   D4@3 D4  D4@2 C4@3 [B3@2 A#3]@3 A3@2 A3@2 G#3@2 A3@4>*2\";\r\nconst dickt = {\r\n    '': ['0 4 7', '4 7 12', '7 12 16'], // major chords (no symbol)\r\n    m: ['0 3 7', '3 7 12', '7 12 15'], // minor chords via 'm'\r\n    dim: ['0 3 6', '3 6 12', '6 12 15'], // diminished\r\n    7: ['4 7 10'], // upper 7th\r\n  };\r\nstack(\r\nn(\"<0@12 1@2>\".pickRestart([\"<[~ 0 1 0 2@2]!14 [~ 0 1 2 2@2] [~ 1 4 3 4@2]>*8/6\",\"<2 ~>\"]))\r\n  .chord(chrds).dict(dickt).anchor(anchr).voicing().s(\"gm_electric_guitar_jazz\").gain(0.8).color('red'),\r\nn(\"<[2@2 ~ 2 1@2 ~@2]!4>\")\r\n  .chord(chrds).dict(dickt).anchor(chrds.rootNotes(2)).voicing().s(\"gm_electric_bass_finger\").lpf(190).gain(1).color('blue'),\r\n\"<A4@2 C5 B4 A#4@2 A4@3 C5 B4 A#4 A4@2 C5@2 B4 A#4@2 A4@2 C5 B4 A#4 A4@2 ~@2>*2\"\r\n  .note().s(\"gm_oboe\").gain(0.4).color('green'),\r\nchord(chrds).anchor(\"G4\").struct(\"x*4\").dict(dickt).voicing().s(\"gm_synth_strings_2\").gain(0.2).color('yellow'),\r\n\r\ns(\"[~ rim]*2\").bank(\"AlesisHR16\").gain(0.4),",
+      "aliases": [
+        "clandeisiciliani",
+        "the",
+        "sicilian",
+        "clan",
+        "the sicilian",
+        "sicilian clan"
+      ],
+      "title_tokens": [
+        "the",
+        "sicilian",
+        "clan"
+      ],
+      "path_tokens": [
+        "clandeisiciliani",
+        "js"
+      ]
+    },
+    {
+      "id": "clubbed",
+      "slug": "clubbed",
+      "title": "Clubbed",
+      "source_path": "clubbed.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/clubbed.js",
+      "author": "eefano",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [
+        "hh",
+        "bd",
+        "sd",
+        "oh"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 1 bpm",
+        "reverb ambient",
+        "clubbed style"
+      ],
+      "snippet": "// \"Clubbed\"\n// @by eefano\nsetcps(162/60/3)\nconst standardtuning = [40,45,50,55,59,64];\nconst fingering = \n{A:\"x:0:2:2:2:0\",Am:\"x:0:2:2:1:0\",A7:\"x:0:2:0:2:0\",D:\"x:0:0:2:3:2\",Dm:\"x:0:0:2:3:1\",D7:\"x:0:0:2:1:2\",\n E:\"0:2:2:1:0:0\",Em:\"0:2:2:0:0:0\",E7:\"0:2:2:1:3:0\",G7:\"3:2:0:0:0:1\",C:\"x:3:2:0:1:0\",\n};\nconst strumming = \n{d: \"<[1,3,4]*8>/3\", u:\"<[2,4,5]*8>/3\"\n};\nconst gString = register('gString', (n, pat) => \n  (pat.fmap((v) => { if(v[n]=='x') return note(0).velocity(0);\n      return note(v[n]+standardtuning[n]); } \n  ).innerJoin()));\nconst guitar = (strums,fingers,tuning=standardtuning) =>\n  (strums.pickRestart(strumming).pickOut(\n    [fingers.pickOut(fingering).gString(0),fingers.pickOut(fingering).gString(1),fingers.pickOut(fingering).gString(2)\n    ,fingers.pickOut(fingering).gString(3),fingers.pickOut(fingering).gString(4),fingers.pickOut(fingering).gString(5)]));\n\nguy: \"<0@2 1 0 1 0>/24\".pickRestart([\"<Am Dm>/4\",\"<Em G7>/4\"]).layer(\n  x=>guitar(\"<u d>/3\",x).s(\"gm_electric_guitar_clean:2\").clip(0.5).release(0.1).gain(0.9).room(0.2).layer(p=>p.pan(1),p=>p.pan(0).late(.01)),\n  x=>chord(x).anchor(\"g5\").voicing().s(\"gm_percussive_organ\").gain(0.8).mask(\"<~@3 1@6 ~@3>/12\").room(.4)",
+      "aliases": [
+        "clubbed"
+      ],
+      "title_tokens": [
+        "clubbed"
+      ],
+      "path_tokens": [
+        "clubbed",
+        "js"
+      ]
+    },
+    {
+      "id": "disto",
+      "slug": "disto",
+      "title": "Disto",
+      "source_path": "disto.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/disto.js",
+      "bpm": 2,
+      "cpm": 2,
+      "key": "c#2:minor",
+      "instruments": [
+        "supersaw"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 2 bpm",
+        "supersaw lead",
+        "reverb ambient",
+        "disto style"
+      ],
+      "snippet": "setcps(90/60)\n\ng: n(\"<[[0,4]]*3>\")\n  .scale(\"c#2:minor\").s(\"supersaw\").transpose(\"<0 2 [3 1]>/8\")\n  .lpa(0).lpe(10).lpd(0.2).lpr(1).lpf(\"<[10 10 100]>\").dist(\"8:0.18\")\n\ns: n(\"<[[5 ~]*3] 4 4b 3 [1 2 1] 0 [4 5 2] 4 >\")\n  .scale(\"c#4:minor\").transpose(\"<0 2 [3 1]>/8\")\n.s(\"supersaw\").lpf(500).dist(\"10:0.12\").room(0.2)\n  .mask(\"<0@3 1@4 >/8\").hush()\n\nd: \"[<bd*3 [~ bd bd] [sd ~ bd] [mt lt bd] [[sd,[~ sd@6]] sd mt] >,<oh!4 ~>,<cr>/5]\"\n  .pickOut({bd:s(\"EmuDrumulator_bd\").velocity(1).lpf(1000),\n           sd:s(\"EmuDrumulator_sd\").velocity(1),\n           oh:s(\"EmuDrumulator_oh\").pan(0.6).speed(0.7).velocity(0.2),\n           mt:s(\"EmuDrumulator_mt\").velocity(0.6),\n           lt:s(\"EmuDrumulator_lt\").velocity(0.6),\n           cr:s(\"SequentialCircuitsDrumtracks_cr\").speed(1.3).pan(0.4).velocity(0.5)})\n  .room(0.9).gain(0.5)\n  .mask(\"<0 1@5 0 1 >/8\")",
+      "aliases": [
+        "disto"
+      ],
+      "title_tokens": [
+        "disto"
+      ],
+      "path_tokens": [
+        "disto",
+        "js"
+      ]
+    },
+    {
+      "id": "edenontheair",
+      "slug": "edenontheair",
+      "title": "Edenontheair",
+      "source_path": "edenontheair.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/edenontheair.js",
+      "bpm": 24,
+      "cpm": 24,
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "polyrhythm"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 24 bpm",
+        "polyrhythm at 24 bpm",
+        "reverb ambient",
+        "polyrhythm ambient",
+        "edenontheair style"
+      ],
+      "snippet": "setDefaultVoicings('legacy')\r\n\r\nconst chrds = \"A@2 E@2 A F#m B@2 E@2 A ~ F#@4 A@2 ~ F#@4 ~@2\".slow(25/4);\r\n\r\nstack(\r\nn(run(6).palindrome().fast(5)).clip(2).chord(chrds).anchor(chrds.rootNotes(5)).voicing().s(\"gm_electric_guitar_jazz\"),\r\nchord(chrds).anchor(\"B4\").voicing().s(\"gm_piccolo\")\r\n             \r\n).gain(\"0.4@12 1@4 0.4@3 1@4 0.4@2\".slow(25/4)).cpm(95/4).room(0.5)",
+      "aliases": [
+        "edenontheair"
+      ],
+      "title_tokens": [
+        "edenontheair"
+      ],
+      "path_tokens": [
+        "edenontheair",
+        "js"
+      ]
+    },
+    {
+      "id": "elpueblo",
+      "slug": "elpueblo",
+      "title": "El Pueblo Unido Jamas Sera Vencido",
+      "source_path": "elpueblo.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/elpueblo.js",
+      "author": "Inti",
+      "bpm": 0,
+      "cpm": 0,
+      "key": "a5:minor",
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "airy music",
+        "airy music",
+        "airy music",
+        "airy music",
+        "airy music"
+      ],
+      "snippet": "// \"El Pueblo Unido Jamas Sera Vencido\" (work in progress)\n// song @by Inti-Illimani\n// script @by eefano\nsetCps(95/60/4)\nconst standardtuning = [40,45,50,55,59,64];\nconst fingering = \n{Am:\"0:0:2:2:1:0\",C:\"x:3:2:0:1:0\",Dm:\"x:0:0:2:3:1\",E7:\"0:2:2:1:3:0\",G7:\"3:2:0:0:0:1\",\n F:\"1:3:3:2:1:1\",A7:\"x:0:2:2:2:3\",E:\"0:2:2:1:0:0\",B7:\"0:2:4:2:4:2\"\n};\nconst sk = 300, sh = silence, strumming = \n{d: stack(0,timeCat([1,sh],[sk,1]),timeCat([2,sh],[sk,2]),timeCat([3,sh],[sk,3]),timeCat([4,sh],[sk,4]),timeCat([5,sh],[sk,5]))\n,u: stack(5,timeCat([1,sh],[sk,4]),timeCat([2,sh],[sk,3]),timeCat([3,sh],[sk,2]),timeCat([4,sh],[sk,1]),timeCat([5,sh],[sk,0]))\n};\n\nconst gString = register('gString', (n, pat) => \n  (pat.fmap((v) => { if(v[n]=='x') return note(0).velocity(0);\n      return note(v[n]+standardtuning[n]); } \n  ).innerJoin()));\nconst guitar = (strums,fingers,tuning=standardtuning) =>\n  (strums.pickRestart(strumming).pickOut(\n    [fingers.pickOut(fingering).gString(0),fingers.pickOut(fingering).gString(1),fingers.pickOut(fingering).gString(2)\n    ,fingers.pickOut(fingering).gString(3),fingers.pickOut(fingering).gString(4),fingers.pickOut(fingering).gString(5)]));\n\nstack(\n  guitar(\"<d [d@2 u]>*4\",",
+      "aliases": [
+        "elpueblo",
+        "el",
+        "pueblo",
+        "unido",
+        "jamas",
+        "sera",
+        "vencido",
+        "el pueblo",
+        "pueblo unido",
+        "unido jamas",
+        "jamas sera",
+        "sera vencido"
+      ],
+      "title_tokens": [
+        "el",
+        "pueblo",
+        "unido",
+        "jamas",
+        "sera",
+        "vencido"
+      ],
+      "path_tokens": [
+        "elpueblo",
+        "js"
+      ]
+    },
+    {
+      "id": "enjoythesilence",
+      "slug": "enjoythesilence",
+      "title": "Enjoy The Silence (coda)",
+      "source_path": "enjoythesilence.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/enjoythesilence.js",
+      "author": "Depeche",
+      "bpm": 0,
+      "cpm": 0,
+      "instruments": [
+        "triangle",
+        "bd",
+        "sd",
+        "hh"
+      ],
+      "techniques": [
+        "reverb",
+        "breakbeat"
+      ],
+      "moods": [
+        "airy"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "triangle lead",
+        "enjoy style",
+        "airy music",
+        "airy music",
+        "airy music"
+      ],
+      "snippet": "// \"Enjoy The Silence (coda)\"\r\n// song @by Depeche Mode\r\n// script @by eefano\r\nsetCps(113/60/4)\r\nawait samples({'gtr': 'gtr/0001_cleanC.wav'}, 'github:tidalcycles/Dirt-Samples/master/');\r\n\r\nconst melodia   = x => x.note().s(\"ocarina\").gain(0.6).clip(1).release(0.1)\r\nconst guitar    = x => x.note().s(\"gtr\").room(1).gain(0.25).clip(1).release(0.5)\r\nconst accordi   = x => x.note().s(\"recorder_bass_sus\").gain(1.5).clip(1).release(0.5)\r\nconst basso     = x => x.note().s(\"triangle\").gain(0.8).clip(1).sustain(0.8)\r\nconst ritmo     = x => x.bank(\"AlesisHR16\").clip(1).gain(0.08)\r\n\r\nconst scala = cat('c minor')  // IV VI I III\r\nstack(\r\n\"<[3,5,0] [5,0,2] [0,2,4] [2,4,-1]>\".scale(scala).apply(accordi),\r\n\"<[2@3 3] [0@3 2] [4@3 6] [2@3 3] [0@3 1] [-1@3 -2] -3 [0 1]>\".scale(scala).transpose(12).apply(melodia),\r\n\"~@2 2 <7 9 6 6>@2 2 <8 6 4 4>@2\".scale(scala).transpose(-12).apply(guitar),\r\n\"<-4 -2 0 -1>\".struct(\"[[x ~]!2 x x@0.5 [x ~]!2 x@0.5 [x ~]!2]\").scale(scala).apply(basso),\r\ns(\"bd!4,[~ sd]!2,[~ hh!2 hh*2]!2\").apply(ritmo),\r\n//s(\"hh!4\").apply(ritmo)\r\n)",
+      "aliases": [
+        "enjoythesilence",
+        "enjoy",
+        "the",
+        "silence",
+        "(coda)",
+        "enjoy the",
+        "the silence",
+        "silence (coda)"
+      ],
+      "title_tokens": [
+        "enjoy",
+        "the",
+        "silence",
+        "coda"
+      ],
+      "path_tokens": [
+        "enjoythesilence",
+        "js"
+      ]
+    },
+    {
+      "id": "epicbiopic",
+      "slug": "epicbiopic",
+      "title": "Epic Biopic",
+      "source_path": "epicbiopic.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/epicbiopic.js",
+      "author": "eefano",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [
+        "square",
+        "lt",
+        "mt",
+        "cr"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "dark",
+        "bright",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "bright ambient",
+        "reverb at 1 bpm",
+        "arpeggio at 1 bpm",
+        "square lead",
+        "square bass",
+        "reverb ambient",
+        "arpeggio ambient",
+        "epic style"
+      ],
+      "snippet": "// \"Epic Biopic\" version 1.0\n// song @by eefano\nconst split = register('split', (deflt, callback, pat) => callback(deflt.map((d,i)=> pat.withValue((v)=>{\n  const isobj = v.value !== undefined; const value = isobj ? v.value : v;\n  const result = Array.isArray(value)?(i<value.length?value[i]:d):(i==0?value:d);\n  return (i==0 && isobj) ? {...v,value:result} : result; }))));\nconst toscale = register('toscale', (pat) => pat.withValue((v)=>\n  v.endsWith('m') ? [v.substring(0,v.length-1),'minor']:[v,'major']));\nsetCps(1)\norch: \"<~ a@2 b a@2 b c@6 d@2 a@2 b e@2 f@9 i@6 g@4 h ~>/5\".pickRestart({\n  a:\"<B@3 Am F>\", \n  b:\"<F# C#@2 E@2>\",\n  c:\"<Fm@4:1 F#@2:1 A#@4:1>\",\n  d:\"<Fm@2:2 F@3:2 D#m:2 D@3:2 A:2>\",\n  e:\"<A@6 ~ Cm@3:4>\",\n  f:\"<G@2:4 B:4 F#m@2:4 A@2:4 Em@2:4 G:4 Dm:4 F@2:4 <Cm!2 [C F#]>@2:4>\",\n  g:\"<C#@2:2 Dm@2:2 D#@2:2 F@3:2 C#:2 G#@4:2 A#m@2:2 F@4:2>\",\n  h:\"<F@3 ~@2>\",\n  i:\"<[[Fm@4:1 F#@2:1 A#@4:1]!2]@20 [Fm@2:2 F@3:2 D#m:2 D@3:2 A:2]@10>\"\n}).split([0,0],t=>stack(\n \n  chord(t[0]).anchor('c5').voicing().s(t[1].pickOut([\n    \"supersaw\".lpf(5000).velocity(.9),\n    \"triangle\".velocity(.65),\n    \"supersaw\".lpf(4800).velocity(.51).attack(.05).release(.05),",
+      "aliases": [
+        "epicbiopic",
+        "epic",
+        "biopic",
+        "epic biopic"
+      ],
+      "title_tokens": [
+        "epic",
+        "biopic"
+      ],
+      "path_tokens": [
+        "epicbiopic",
+        "js"
+      ]
+    },
+    {
+      "id": "eversoclosely",
+      "slug": "eversoclosely",
+      "title": "The Everso Closely Guarded Line (Coda)",
+      "source_path": "eversoclosely.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/eversoclosely.js",
+      "author": "Cardiacs",
+      "bpm": 0,
+      "cpm": 0,
+      "instruments": [
+        "bd",
+        "sd",
+        "cr",
+        "mt",
+        "lt"
+      ],
+      "techniques": [
+        "reverb",
+        "breakbeat",
+        "arpeggio"
+      ],
+      "moods": [
+        "dark",
+        "airy"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "the style",
+        "dark music",
+        "dark music",
+        "dark music",
+        "dark music"
+      ],
+      "snippet": "// \"The Everso Closely Guarded Line (Coda)\" - Work In Progress\n// song @by Cardiacs\n// script @by eefano\nsetCps(93.2/60*3/4/9)\nsetDefaultVoicings('legacy')\nconst epic = \"<D Dm Am D Gm C F Am A#>*9\";\nconst mels ={0:\"d4@2 a d4 g c4 f a d4\"\n            ,1:\"a@7 c4@3 d4@6 e4@2 c4@7 d4@2\"\n            ,2:\"a@7 e4 c4 [d4@3 e4]@2 f#4 ~ g4@2 [c4@3 d4]@2 e4 [c4@5 ~]@4 c5@2 ~ d5@2\"\n            ,3:\"a@2 f#4 f4@2 a ~ e4@2 d4@2 a ~ g4@2 c4@2 e4 ~ f4@2 c5@2 e4 ~ d4@2\"\n            ,4:\"a d4 f#4 [a4 e5 c5]@6 d5 a4 f#4 [a4 g4]@4 c5@3 a4 f4 [e4 c4]@4 d4@2\"\n            ,5:\"a d4 f#4 [a4 c5 a4]@6 d5 a4 f#4 [a4 g4]@4 c5@3 a4 f4 [e4 c4]@4 d4@2\"\n            ,6:\"f#4 f4 e4 f#4 g4 e4 f4 [a@2 c4] [[a#@3 c4]@2 d4]\"\n            ,7:\"[f#4 f4]@6 <e4 [e4 e4@2]>@3 [d4@3 e4]@2 f#4 [g4 a#4 c5 a4]@8 f4 e4 <[c5@2 ~ a#4@2] [c4@3 a#@2]>@5\"\n            ,8:\"[~@25 d4@29]/2\"\n            ,9:\"<0,1,2,3,4,5,6,7>*9\"}\nstack\n(\"<0 1 2 3 4 0 1 2 3 [4@26 ~] 0 1 2 3 [[4@25 ~@29],8]@2 >\".pickRestart(mels).sub(12).note().s(\"gm_overdriven_guitar\").gain(.8)\n,\"<~ ~ ~ ~ 5 5 6 7@2 [2@4 ~] 5 5 6 7 [[5@25 ~@29],8]@2>\".pickRestart(mels).note().s(\"gm_tenor_sax\").gain(.8).color(\"yellow\")",
+      "aliases": [
+        "eversoclosely",
+        "the",
+        "everso",
+        "closely",
+        "guarded",
+        "line",
+        "(coda)",
+        "the everso",
+        "everso closely",
+        "closely guarded",
+        "guarded line",
+        "line (coda)"
+      ],
+      "title_tokens": [
+        "the",
+        "everso",
+        "closely",
+        "guarded",
+        "line",
+        "coda"
+      ],
+      "path_tokens": [
+        "eversoclosely",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-addeg",
+      "slug": "addeg",
+      "title": "arrays not supported",
+      "source_path": "functions/addeg.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/addeg.js",
+      "key": "C:major",
+      "instruments": [],
+      "techniques": [],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "arrays style",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "const addeg = register('addeg', (amount, pat) => pat.withValue(old => {\n  \n    const isObject = typeof old === 'object';\n    const hasN = isObject && old.n !== undefined;\n    \n    let v = isObject ? (hasN ? old.n : old.value) : old;\n    if(Array.isArray(v)) return silence;  // arrays not supported\n\n    if (typeof v === 'string')\n    {\n      let i = v.indexOf('#'); if(i<0) i=v.length;\n      let j = v.indexOf('b'); if(j<0) j=v.length;\n      if (j<i) i=j;\n\n      v = String( Number(v.substring(0, i)) + amount ) + v.substring(i, v.length); \n    }\n    else v = v + amount; // simple number add  \n  \n    return isObject ? (hasN ? { ...old, n:v } : { ...old, value:v}) : v;\n  }));\n\n$: n(\"<0 [1 1#] 2 [3 3b]>*2\").addeg(\"<0 3>/2\").scale(\"C:major\")",
+      "aliases": [
+        "addeg",
+        "arrays",
+        "not",
+        "supported",
+        "arrays not",
+        "not supported"
+      ],
+      "title_tokens": [
+        "arrays",
+        "not",
+        "supported"
+      ],
+      "path_tokens": [
+        "functions",
+        "addeg",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-ascending",
+      "slug": "ascending",
+      "title": "Ascending",
+      "source_path": "functions/ascending.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/ascending.js",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [],
+      "techniques": [
+        "arpeggio"
+      ],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "arpeggio at 1 bpm",
+        "arpeggio ambient",
+        "ascending style",
+        "ambient track"
+      ],
+      "snippet": "setcps(1)\n\nconst rem = register('rem', (r, pat) => pat.withValue(v => v % r))\n\nconst t = time.sub(time.div(4).floor().mul(3))\n\n\"c2\".add(t.pickmod([0, 4, 7]).add(t.div(3).floor().rem(5).mul(12)))\n  .note().fast(4)\n  ._pianoroll()",
+      "aliases": [
+        "ascending"
+      ],
+      "title_tokens": [
+        "ascending"
+      ],
+      "path_tokens": [
+        "functions",
+        "ascending",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-changetempowitharrows",
+      "slug": "changetempowitharrows",
+      "title": "Changetempowitharrows",
+      "source_path": "functions/changetempowitharrows.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/changetempowitharrows.js",
+      "instruments": [],
+      "techniques": [],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "changetempowitharrows style",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "let mytempo = 0\nwindow.onkeydown = (e) => {\n    if (e.key === 'ArrowLeft') { mytempo -= 1; console.log(mytempo); }\n    if (e.key === 'ArrowRight') { mytempo += 1; console.log(mytempo); }\n}\nconst addmytempo = register('addmytempo', (pat) => pat.withValue((v) => {\n    if (v.cps !== undefined) return { ...v, cps: v.cps + (mytempo / 60) };\n    else return v;\n}));\n\nnote(\"c d e f\").cps(100 / 60).addmytempo()",
+      "aliases": [
+        "changetempowitharrows"
+      ],
+      "title_tokens": [
+        "changetempowitharrows"
+      ],
+      "path_tokens": [
+        "functions",
+        "changetempowitharrows",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-keyboardtrigger",
+      "slug": "keyboardtrigger",
+      "title": "improved @by damu",
+      "source_path": "functions/keyboardtrigger.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/keyboardtrigger.js",
+      "author": "damu",
+      "instruments": [
+        "bd",
+        "hh",
+        "cp"
+      ],
+      "techniques": [],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "improved style",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "// improved @by damu \n\n// Global toggle state\nconst keystatus = {};\n\n// Toggle on Ctrl+number keydown\nwindow.addEventListener('keydown', (e) => {\n  if (e.repeat) return;\n\n  if (e.ctrlKey && e.key >= '1' && e.key <= '9') {\n    // No '+' and no backticks in the string itself\n    const id = 'Ctrl' + e.key;\n    keystatus[id] = !(keystatus[id] ?? false);\n  }\n});\n\n// Pattern combinator: 1 when unmuted, 0 when muted\nregister('mykeys', (key, pat) =>\n  pat.withValue(() => (keystatus[key] ? 0 : 1))\n);\n\n\n$: s(\"bd:2(4,8)\").mask(\"1\".mykeys(\"Ctrl1\"))\n\n$: s(\"[~ hh]*4\").mask(\"1\".mykeys(\"Ctrl2\"))\n\n$: s(\"[~ cp:12]*2\").mask(\"1\".mykeys(\"Ctrl3\"))",
+      "aliases": [
+        "keyboardtrigger",
+        "improved",
+        "@by",
+        "damu",
+        "improved @by",
+        "@by damu"
+      ],
+      "title_tokens": [
+        "improved",
+        "by",
+        "damu"
+      ],
+      "path_tokens": [
+        "functions",
+        "keyboardtrigger",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-manualchords",
+      "slug": "manualchords",
+      "title": "major",
+      "source_path": "functions/manualchords.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/manualchords.js",
+      "instruments": [],
+      "techniques": [
+        "arpeggio"
+      ],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "major style",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "setcps(.5)\n\nconst at = register('at', (i, pat) => pat.withValue(x => x[i]))\n\nconst mychords = {\n  M: \"0,4,7\",      // major\n  Mi: \"4,7,12\",    // major I inversion\n  Mii: \"-5,0,4\",    // major II inversion\n  m: \"0,3,7\"       // minor\n}\n\n$: \"<<c4:M c4:Mi> e4:m d4:M d4:Mii>\"\n  .apply(x => x.at(0).add(x.at(1).pick(mychords))).struct(\"[x*4]@3 x\")\n  .note().piano()._pianoroll()\n\n  \n$: stack(\"bd\", \"<~ sd>\", \"<hh*2 oh>*2\".gain(.2)).s().fast(4).bank(\"tr909\")",
+      "aliases": [
+        "man",
+        "ualchords",
+        "man ualchords",
+        "manualchords",
+        "major"
+      ],
+      "title_tokens": [
+        "major"
+      ],
+      "path_tokens": [
+        "functions",
+        "manualchords",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-markovchain",
+      "slug": "markovchain",
+      "title": "bd   sd    hh",
+      "source_path": "functions/markovchain.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/markovchain.js",
+      "instruments": [],
+      "techniques": [
+        "polyrhythm"
+      ],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "let markovstates = {};\n                   \nlet markovtables = {\n  'drums':\n     //bd   sd    hh\n  [[  0,  .2,  .8],  // bd\n   [ .3,   0,  .7],  // sd\n   [ .9,  .1,   0]]  // hh\n\n, 'chords':  \n  [[  .2,  .2,  .4,  .2],  \n   [ .5,   .3,  .2,  .1],\n   [  0,   .2,   .7,  .1],\n   [ .7,  .1,   .1,  .1]] \n }\n\nconst markov = register('markov', (id, pat) => pat.withHap((hap)=> {   \n\n     if(markovstates[id]===undefined) markovstates[id]=[0];\n     const mystate = markovstates[id];\n     const mytable = markovtables[id];\n     //console.log(mytable)\n  \n     const p = hap.whole.begin.n;\n     while(mystate.length<=p)\n       {\n         const prev = mystate[mystate.length-1];\n         const t = mytable[prev];\n         let next = prev;\n         for(let i=0,j=t[i];i<t.length;i++,j+=t[i]) if(hap.value<j) { next = i; break; }\n         mystate.push(next);\n         //console.log(mystate);\n       }\n     return hap.withValue((v)=>mystate[p]);\n}))\n\n$: s(rand.segment(1).markov('drums').pick([\"bd\",\"sd\",\"hh\"])).fast(8)\n\n$: chord(rand.late(.2).segment(1).markov('chords').pick([\"C\",\"Dm\",\"F\",\"A\"])).fast(2).voicing().piano()",
+      "aliases": [
+        "markovchain",
+        "bd",
+        "sd",
+        "hh",
+        "bd sd",
+        "sd hh"
+      ],
+      "title_tokens": [
+        "bd",
+        "sd",
+        "hh"
+      ],
+      "path_tokens": [
+        "functions",
+        "markovchain",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-midinotetrigger",
+      "slug": "midinotetrigger",
+      "title": "WARNING WARNING WARNING",
+      "source_path": "functions/midinotetrigger.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/midinotetrigger.js",
+      "instruments": [],
+      "techniques": [],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "warning style",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "// WARNING WARNING WARNING\n// - This actually CRASHES Firefox on Linux! BEWARE. Chrome is fine.\n// - Everytime strudel is refreshed, midi event are registered again causing leaks at a certain point.\n\nvar keystatus = {}\n\nnavigator.requestMIDIAccess().then((midiAccess)=>{\n    for (const entry of midiAccess.inputs) {\n    const input = entry[1];\n    console.log(input.name);  // CHECK CONSOLE FOR AVAILABLE MIDI DEVICES\n    if(input.name=='Midi Through Port-0') {  // <-- INSERT THE MIDI DEVICE NAME HERE\n        input.onmidimessage = (ev)=>{\n          if(ev.data.length==3 && ev.data[0]==0x90) {     // <-- 0x90 IS CHANNEL 1, 0x91 CHANNEL 2, etc.\n            const n = ev.data[1]; console.log('Note ' + n);   // CHECK CONSOLE WHEN NOTE DETECTED \n            keystatus[n] = !(keystatus[n] ?? false)\n          }}}}});\n\nconst mykeys = register('mykeys', (key, pat) => pat.withValue((v) => {\n    return v ^ keystatus[key] ? 1 : 0;\n}));\n\n$: note(\"c d e f\").mask(\"0\".mykeys(60))\n$: note(\"c d e f\").mask(\"0\".mykeys(62))\n$: note(\"c d e f\").mask(\"0\".mykeys(64))",
+      "aliases": [
+        "midinotetrigger",
+        "warning",
+        "warning warning"
+      ],
+      "title_tokens": [
+        "warning",
+        "warning",
+        "warning"
+      ],
+      "path_tokens": [
+        "functions",
+        "midinotetrigger",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-rebaser",
+      "slug": "rebaser",
+      "title": "Rebaser",
+      "source_path": "functions/rebaser.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/rebaser.js",
+      "key": "C:chromatic",
+      "instruments": [],
+      "techniques": [],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "rebaser style",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "const rebaser = register('rebaser', (base, pat) =>\n  pat.withValue(v => {\n    if (typeof v !== 'string') return v;\n    const i = v.indexOf('i');\n    if (i < 0) return v;\n    return Number(v.substring(0, i)) + base * (v.length - i)\n  }));\n\n$: n(\"<0 1 2 3 4 0i 1i 2i 3i 4i 4ii 4i>*4\".rebaser(12)).scale(\"C:chromatic\")",
+      "aliases": [
+        "rebaser"
+      ],
+      "title_tokens": [
+        "rebaser"
+      ],
+      "path_tokens": [
+        "functions",
+        "rebaser",
+        "js"
+      ]
+    },
+    {
+      "id": "functions-tenbandeq",
+      "slug": "tenbandeq",
+      "title": "Tenbandeq",
+      "source_path": "functions/tenbandeq.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/functions/tenbandeq.js",
+      "key": "c2:major",
+      "instruments": [
+        "supersaw"
+      ],
+      "techniques": [
+        "arpeggio"
+      ],
+      "moods": [
+        "dark",
+        "bright",
+        "warm"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "supersaw lead",
+        "tenbandeq style",
+        "dark music",
+        "dark music",
+        "dark music"
+      ],
+      "snippet": "$: n(\"0 3 <4 2> [5 6]\".add(\"<-7 0 7>\")).scale(\"c2:major\").s('supersaw').layer(\n\nx=>x.lpf(31.25).hpf(31.25).gain(slider(0,0,1,.1)),\nx=>x.lpf(62.5 ).hpf(62.5 ).gain(slider(0.7,0,1,.1)),\nx=>x.lpf(125  ).hpf(125  ).gain(slider(1,0,1,.1)),\nx=>x.lpf(250  ).hpf(250  ).gain(slider(0.5,0,1,.1)),\nx=>x.lpf(500  ).hpf(500  ).gain(slider(0,0,1,.1)),\nx=>x.lpf(1000 ).hpf(1000 ).gain(slider(0.7,1,.1)),\nx=>x.lpf(2000 ).hpf(2000 ).gain(slider(0,0,1,.1)),\nx=>x.lpf(4000 ).hpf(4000 ).gain(slider(1,0,1,.1)),\nx=>x.lpf(8000 ).hpf(8000 ).gain(slider(0,0,1,.1)),\nx=>x.lpf(16000).hpf(16000).gain(slider(0,0,1,.1))\n\n).postgain(.5)._spectrum()",
+      "aliases": [
+        "tenbandeq"
+      ],
+      "title_tokens": [
+        "tenbandeq"
+      ],
+      "path_tokens": [
+        "functions",
+        "tenbandeq",
+        "js"
+      ]
+    },
+    {
+      "id": "happybirthday",
+      "slug": "happybirthday",
+      "title": "HAPPY BIRTHDAY",
+      "source_path": "happybirthday.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/happybirthday.js",
+      "bpm": 30,
+      "cpm": 30,
+      "instruments": [
+        "hh",
+        "bd",
+        "rim"
+      ],
+      "techniques": [
+        "reverb",
+        "polyrhythm"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 30 bpm",
+        "polyrhythm at 30 bpm",
+        "reverb ambient",
+        "polyrhythm ambient",
+        "happy style"
+      ],
+      "snippet": "// HAPPY BIRTHDAY\r\nsetDefaultVoicings('legacy')\r\n\r\nconst chrds = \"F@3 C@6 F@6 Bb@3 F@2 C F@3\".slow(8);\r\n\r\nstack(\r\n\"[C4@3 C4] D4 C4 F4 E4@2 [C4@3 C4] D4 C4 G4 F4@2 [C4@3 C4] C5 A4 F4 E4 D4 [Bb4@3 Bb4] A4 F4 G4 F4@2\".slow(8).early(1/3).note().s(\"gm_harmonica\").gain(0.4).color('green'),\r\nchord(chrds).anchor(\"G4\").struct(\"x*3\").voicing().piano().gain(0.2).color('yellow'),\r\nn(\"2 ~ ~ 2 1 ~\").chord(chrds).anchor(chrds.rootNotes(2)).voicing().s(\"gm_electric_bass_finger\").lpf(190).gain(1).color('blue'),\r\n\r\ns(\"hh*3, <bd ~>, ~ ~ rim\").bank(\"KorgDDM110\").gain(0.2)\r\n              \r\n).cpm(120/4).room(0.3)//.pianoroll();",
+      "aliases": [
+        "happy",
+        "birthday",
+        "happy birthday",
+        "happybirthday"
+      ],
+      "title_tokens": [
+        "happy",
+        "birthday"
+      ],
+      "path_tokens": [
+        "happybirthday",
+        "js"
+      ]
+    },
+    {
+      "id": "happybirthdayramones",
+      "slug": "happybirthdayramones",
+      "title": "HAPPY BIRTHDAY BURNSIE",
+      "source_path": "happybirthdayramones.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/happybirthdayramones.js",
+      "author": "Ramones",
+      "bpm": 50,
+      "cpm": 50,
+      "instruments": [
+        "oh",
+        "bd",
+        "sd"
+      ],
+      "techniques": [
+        "reverb",
+        "polyrhythm"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 50 bpm",
+        "polyrhythm at 50 bpm",
+        "reverb ambient",
+        "polyrhythm ambient",
+        "happy style"
+      ],
+      "snippet": "// \"HAPPY BIRTHDAY BURNSIE\"\r\n// song @by Ramones\r\n// script @by eefano\r\nsetDefaultVoicings('legacy')\r\n\r\nconst chrds = \"F@3 C@6 F@6 Bb@3 F@2 C F@3\".slow(8);\r\n\r\nstack(\r\n\"C4*2 [D4 C4]@3 F4 E4 ~@2 C4*2 [D4 C4]@3 G4 F4 ~@2 C4*2 [C5 A4]@3 ~ [E4 D4]@3 Bb4*2 [A4 F4]@3 G4 F4 ~@2\".slow(8).early(1/4).note().s(\"gm_distortion_guitar\").gain(1).color('green'),\r\n\r\nn(\"0,2\").chord(chrds).anchor(\"E3\").mode('root').struct(\"[[x ~]*2 x*2]*2\").voicing().s(\"gm_distortion_guitar\").clip(0.95).gain(0.7).color('yellow'),\r\nn(\"0\").chord(chrds).anchor(\"E2\").mode('root').voicing().s(\"gm_electric_bass_finger\").lpf(190).gain(1).color('blue'),\r\n\r\n  s(\"<[~@5 crow crow ~]!2 ~ [~@3 crow crow ~@3 ]>\").slow(2).gain(1.2),\r\n  \r\n  s(\"oh*4, <bd!3 [bd*2 ~]>*2 , [~ sd]*2\").bank(\"Linn9000\").gain(0.15)\r\n              \r\n).cpm(200/4).room(0.3)//.scope()//.pianoroll()",
+      "aliases": [
+        "happy",
+        "birthdayramones",
+        "happy birthdayramones",
+        "happybirthdayramones",
+        "birthday",
+        "burnsie",
+        "happy birthday",
+        "birthday burnsie"
+      ],
+      "title_tokens": [
+        "happy",
+        "birthday",
+        "burnsie"
+      ],
+      "path_tokens": [
+        "happybirthdayramones",
+        "js"
+      ]
+    },
+    {
+      "id": "heymoon",
+      "slug": "heymoon",
+      "title": "Hey Moon",
+      "source_path": "heymoon.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/heymoon.js",
+      "author": "John",
+      "bpm": 1,
+      "cpm": 1,
+      "key": "g4:major",
+      "instruments": [
+        "supersaw",
+        "hh",
+        "bd",
+        "sd"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 1 bpm",
+        "supersaw lead",
+        "reverb ambient",
+        "hey style"
+      ],
+      "snippet": "// \"Hey Moon\" (work in progress)\n// song @by John Maus\n// script @by eefano\nsetcps(88/60)\n\nconst split = register('split', (deflt, callback, pat) => \n  callback(deflt.map((d,i)=>pat.withValue((v)=>Array.isArray(v)?(i<v.length?v[i]:d):(i==0?v:d)))));\n\nc: n(\"<~ 1 2 3>*2\").chord(\"<F C G F>/2\").anchor(\"<F4 C4 G4 F4>/2\").voicing().s(\"gm_pad_warm\").release(2).room(0.6).gain(0.6)\n\nm: \"<0@16>/2\".pickRestart([\n  \"<~!14 3 1 3@2 ~@4 0 5 4 4 4 [5 3@3]@2 ~!5 [1 0] -1b 0@2 0 [0 0] ~!14 >*2\",\n  \"<~!15 3 3@3 0 0@2 5@2 4@2 3 2 2 3 3 0 0  >*2\"])\n .layer(x=>x.scale(\"g4:major\").note().s(\"gm_piccolo\").pan(0.4).room(1).gain(0.5),\n        x=>x.scale(\"g2:major\").note().s(\"supersaw\").pan(0.6).room(1).gain(0.6))\n\n\n$: s(\"<hh*2>\").gain(0.3).room(1)\n$: s(\"<bd>/2\").gain(0.1).room(1)\n$: s(\"<[~ <~!3 sd>] sd>\").gain(0.3).room(1)",
+      "aliases": [
+        "heymoon",
+        "hey",
+        "moon",
+        "hey moon"
+      ],
+      "title_tokens": [
+        "hey",
+        "moon"
+      ],
+      "path_tokens": [
+        "heymoon",
+        "js"
+      ]
+    },
+    {
+      "id": "humanperformance",
+      "slug": "humanperformance",
+      "title": "Human Performance",
+      "source_path": "humanperformance.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/humanperformance.js",
+      "bpm": 1,
+      "cpm": 1,
+      "key": "a2:major",
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 1 bpm",
+        "reverb ambient",
+        "human style"
+      ],
+      "snippet": "// \"Human Performance\" (work in progress)\n// @song by Parquet Courts\n// @script by eefano\nsetcps(110 / 60 / 2)\n\nconst song = \"<0@2 1@11 1@11 1@6 2@3 3@24 4@4 1@11 1@11 1@6 2@3 3@24 4@4>\"\n\nconst zero = register('zero', (pat) => pat.withValue((v)=>0))  \n\nconst chseq = song.pickRestart([\"~\",\"<B@2 F#m@2 E@2 D@2 D A@2>\",\"<B@3>\".struct(\"x*4\"),\n                           \"<A@3 <F#m!2 E D B F#m E D>@9>*4\".struct(\"x*4\"),\"<F#m@4>\"])\n\nconst cs = zero(chseq).pickRestart([\"<[0,[~ 1@40],[~@2 2@40],[~@3 3@40]]@2>\"])\nconst ds= \"<0@3 0@2 0 0@2 0!2 0@2>*4\".pickRestart([\"[0,1,2,3]\"])\n\nconst cln = x=>x.s(\"gm_electric_guitar_clean:2\").lpf(1800).gain(.7)\nconst dst = x=>x.s(\"gm_electric_guitar_clean:2\").hpf(100).lpf(1800).clip(1).gain(.7)\n\n\n$: n(song.pick([cs,cs,ds,ds,cs])).chord(chseq).mode('above').anchor('e3')\n  .voicing().mode(\"root\").pickF(song,[cln,cln,cln,dst,cln])  ._pianoroll()\n\n$: n(song.pickRestart([\"~\", \"<~ 8 8 7 9 8 ~ ~ ~ 7 7 5 8 7 ~ ~ ~ 8 8 7 9 8 7 6 7 5 ~ 4 7 5 ~ ~ ~ 7 7 6 7 2@2 ~@5>*4\",\n                       \"<7@2 ~ [7 5] [9 7]@2 ~@100>*4\",\n                       \"<<[12!2 11 12]!2 [9!3 8] [9 8 7 9] [9!3 8] [9 8 7 9] [9!3 8] [9 8 7 9]> ~@2>\",\"~\"]))",
+      "aliases": [
+        "man",
+        "performance",
+        "man performance",
+        "humanperformance",
+        "human",
+        "human performance"
+      ],
+      "title_tokens": [
+        "human",
+        "performance"
+      ],
+      "path_tokens": [
+        "humanperformance",
+        "js"
+      ]
+    },
+    {
+      "id": "hydraswap",
+      "slug": "hydraswap",
+      "title": "Hydraswap",
+      "source_path": "hydraswap.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/hydraswap.js",
+      "instruments": [
+        "sawtooth",
+        "bd",
+        "hh",
+        "cr"
+      ],
+      "techniques": [
+        "delay",
+        "filter-sweep",
+        "arpeggio",
+        "polyrhythm"
+      ],
+      "moods": [
+        "airy",
+        "warm"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "sawtooth lead",
+        "hydraswap style",
+        "airy music",
+        "airy music",
+        "airy music"
+      ],
+      "snippet": "await initHydra() \n\nlet bass = note(\"<C3 Eb3 G2 Bb2>\").euclid(3,8).s(\"sawtooth\").lpf(sine.range(400, 1000))\nlet kick = s(\"<[bd ~ ~ bd]!3 [bd(5,8,1)]> \")\nlet hihat = s(\"hh!6 [hh*2 hh]!2\").slow(2)\nlet final = stack(note(\"c3@4, c2@4\").s(\"sawtooth\").lpf(1000), \n                  s(\"cr\")).delay(.5).delaytime(\".75\")\nlet silence = s(\"bd\").hush()\n\nlet sequence = \"0@4 1@4 2@8 3 4@7\".slow(24)\n\nsolid(0,0,0)\n.add(osc(10, 0.1, 10)  ,H(sequence.pick([1,0,0,1])))\n.add(noise()           ,H(sequence.pick([0,1,0,1])))\n.add(shape()           ,H(sequence.pick([0,0,1,0])))\n.out()\n             \nsequence.pick([ bass,                   // = 0\n                stack(bass, kick),      // = 1\n                stack(bass,kick,hihat), // = 2\n                final,                  // = 3\n                silence])               // = 4",
+      "aliases": [
+        "hydraswap"
+      ],
+      "title_tokens": [
+        "hydraswap"
+      ],
+      "path_tokens": [
+        "hydraswap",
+        "js"
+      ]
+    },
+    {
+      "id": "ilredelmondo",
+      "slug": "ilredelmondo",
+      "title": "Il Re Del Mondo (intro)",
+      "source_path": "ilredelmondo.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/ilredelmondo.js",
+      "author": "Franco",
+      "bpm": 0,
+      "cpm": 0,
+      "instruments": [
+        "triangle",
+        "hh",
+        "bd",
+        "sd",
+        "oh",
+        "lt"
+      ],
+      "techniques": [
+        "polyrhythm"
+      ],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "triangle lead",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "// \"Il Re Del Mondo (intro)\"\r\n// song @by Franco Battiato\r\n// script @by eefano\r\nsetCps(91/60/4)\r\nconst accordi   = x => x.note().s(\"recorder_tenor_sus\").clip(1).release(0.5)\r\nconst melodia   = x => x.note().s(\"sax\").gain(0.3).clip(1).release(0.5)\r\nconst walking   = x => x.note().s(\"triangle\").clip(1).release(0.1)\r\nconst ritmo     = x => x.bank(\"YamahaRY30\").clip(1).gain(0.08)\r\nconst scaleggio = x => x.piano().gain(0.2)\r\n\r\nconst myscale = \"[e:major e:minor]!3 [e:major]@0.5\".slow(14)\r\n\r\nconst scala2 = \"<e:major e:minor>\".slow(2.5)\r\n\r\nconst verse = stack(\r\n\"[4 5 6 7]*2\".scale(scala2).note().apply(scaleggio),  \r\n\"[0@4 [7 ~]!2 0@3 7@2 ~ 7 ~ 0@3 7@3]/2.5\".scale(scala2).transpose(-12).apply(walking),\r\ns(\"hh!4\").apply(ritmo),\r\n\"<-3,-2,-1,0,1,2,3 ~@1000>\".scale(myscale).velocity(0).apply(melodia).color('black')\r\n)\r\n\r\nconst chorus = stack(\r\n\"[0,2,4]/2\".scale(myscale).apply(accordi),\r\n\"[-3@3 -2 -1@3 0 -1@8 0@3 1 2@3 3 2@8 2@8 2@8 1@8]/14\".scale(myscale).transpose(12).apply(melodia),\r\n\"~ -3 [0 ~] [0 ~] [1 ~] [1 ~] [2 3] [4 ~] \".scale(myscale).apply(walking),\r\ns(\"[[bd [sd [~ bd]] [bd bd] sd,hh!7 oh]!13 [bd sd sd*4 lt*4,hh!3 oh ~!4]]/14\").apply(ritmo),\r\n)\r\n\r\narrange([10,verse],[14,chorus])",
+      "aliases": [
+        "ilredelmondo",
+        "il",
+        "re",
+        "del",
+        "mondo",
+        "(intro)",
+        "il re",
+        "re del",
+        "del mondo",
+        "mondo (intro)"
+      ],
+      "title_tokens": [
+        "il",
+        "re",
+        "del",
+        "mondo",
+        "intro"
+      ],
+      "path_tokens": [
+        "ilredelmondo",
+        "js"
+      ]
+    },
+    {
+      "id": "jamsessions-swampyreggae",
+      "slug": "swampyreggae",
+      "title": "Swampy Reggae",
+      "source_path": "jamsessions/swampyreggae.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/jamsessions/swampyreggae.js",
+      "key": "a4:minor",
+      "instruments": [
+        "sine",
+        "bd",
+        "hh"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "intense"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "sine lead",
+        "sine bass",
+        "swampy style",
+        "airy music",
+        "airy music"
+      ],
+      "snippet": "// \"Swampy Reggae\"\n// Jam Session with ldlework\n\n$: s(\"<~ crow? ~!6>\").room(1) \n\n$: s(\"[bd <hh ~>]*2\").bank(\"tr909\").dec(.4)\n$: s(\"hh*8\").degradeBy(0.2)\n\n$: n(\"0 1 [4 2] [1,3*2]\").sound(\"jazz\").room(tri.range(0,1).fast(4))\n\n$: \"<<[e3 ~]*4 g2*3> [d3 b2] ~ [a2 [~ a2]] >*2\".clip(.9).note().fm(2).gain(.5)\n$: n(\"<0@7 1 2@4>\".pick([\n  \"<<0 ~>,<1 ~>,<~ 2>>*16\",\n  \"<0,1,2>*12\",\n  \"<0,[~ 1@10],[~@2 2@10]>*6\"])\n).chord(\"<0@2 1>/4\".pick([\"<~ <[Am ~]*2 <G C>>>*4\",\"<Em <F Am>>\"])).anchor(\"g4\").voicing()\n  .s('gm_electric_guitar_muted')\n\n$: n(\"<0@8 1@4>\".pick([\"<7 <4 8> 6 4>\",\"<7 6 8 7>\"])).scale(\"a4:minor\").s('sine')\n    .attack(.3).release(.3).gain(.3).hpf(1000)\n  .vib(5).vibmod(.2).trem(10)",
+      "aliases": [
+        "swampyreggae",
+        "swampy",
+        "reggae",
+        "swampy reggae"
+      ],
+      "title_tokens": [
+        "swampy",
+        "reggae"
+      ],
+      "path_tokens": [
+        "jamsessions",
+        "swampyreggae",
+        "js"
+      ]
+    },
+    {
+      "id": "jamsessions-tokyocandy",
+      "slug": "tokyocandy",
+      "title": "Tokyo Candy",
+      "source_path": "jamsessions/tokyocandy.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/jamsessions/tokyocandy.js",
+      "bpm": 0,
+      "cpm": 0,
+      "instruments": [
+        "square"
+      ],
+      "techniques": [
+        "reverb",
+        "panning",
+        "arpeggio",
+        "polyrhythm"
+      ],
+      "moods": [
+        "airy",
+        "intense"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "square lead",
+        "square bass",
+        "tokyo style",
+        "airy music",
+        "airy music"
+      ],
+      "snippet": "// \"Tokyo Candy\"\n// nudel jam session\n\nsetcps(115 / 60 / 4)\n\nlet scale = \"<f:major!4 g:major!4>/2\"\n\n$: \"<<-3 [1 0] 2 [1 4]> <2 4 0 2>>\"\n  .add(\"<0,7>/4\")\n  //.add(\"-5\")\n  .n().scale(scale)\n  .adsr(\".2:0.5:0.4:1\")\n  .s(\"saw\")\n  .lpf(1600)\n  .gain(0.6)\n\n$: n(\"< [0@3 7]@2 ~@2 4 3 2 [1 2@3]@2 0 ~ ~ >*8\".add(-7))\n  .scale(scale).s(\"gm_electric_bass_finger\").clip(.7).lpf(\"600\")\n\n$: \"<0 2>\".add(\"[0,2,4]\").add(\"<0 1 2 1>\")\n  .struct(\"<~ [<x*4 x*4 x*6>]@6 x>*8\")\n  .n().scale(scale).s(\"gm_piano:4\").clip(.6)\n  .gain(.3).attack(0).release(.3)\n\n$: s(\"tr909_bd\").struct(\"<x [~ x ~ ~] x ~>*4\").gain(.7)\n$: s(\"<~ [tr909_sd < ~@3 tr909_sd*2>]>*4\").gain(.7).room(.3)\n$: s(\"<~ tr909_oh>*8\").gain(.15).hpf(3000)\n$: s(\"<tr909_cr>/8\").gain(.15).hpf(3000)\n\n$: n(\"[- [4 2] [3 1] [2 0]]*2\").scale(scale).transpose(12)\n  .s(\"square\")\n  .jux(transpose(12))\n  .decay(sine.slow(5).range(0.05, 0.1))\n  .lpf(sine.slow(7).range(1000, 3000))\n  .room(0.6)\n  .gain(.4)",
+      "aliases": [
+        "tokyocandy",
+        "tokyo",
+        "candy",
+        "tokyo candy"
+      ],
+      "title_tokens": [
+        "tokyo",
+        "candy"
+      ],
+      "path_tokens": [
+        "jamsessions",
+        "tokyocandy",
+        "js"
+      ]
+    },
+    {
+      "id": "jitterbug",
+      "slug": "jitterbug",
+      "title": "Jitterbug (Coda)",
+      "source_path": "jitterbug.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/jitterbug.js",
+      "author": "Cardiacs",
+      "bpm": 29,
+      "cpm": 29,
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "polyrhythm"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 29 bpm",
+        "polyrhythm at 29 bpm",
+        "reverb ambient",
+        "polyrhythm ambient",
+        "jitterbug style"
+      ],
+      "snippet": "// \"Jitterbug (Coda)\"\r\n// song @by Cardiacs\r\n// script @by eefano\r\nsetDefaultVoicings('legacy')\r\nconst m1 = `f#4@3 d4@4 g4@6 g#4@4 f4@3 d#4@3 e4@4 c#4@6 b3@4 g#3@3 g#4@5 a4@4 f#4@3 d#4@3 f#4@4 g4@6 a4@4 a#4@6 d#4@3.9 ~@0.1 d#4@3`.slow(82/8);\r\nconst m2 = `f4@3 d4@4 d#4@5 e4@3 g4@4 e4@6 f#4@4 c4@2.9 ~@0.1 c4@3 g#3@4 a#3@4 b3@6 c#4@4 g4@6 a4@4 a#4@6 d#4@3.9 ~@0.1`.slow(73/8);\r\nconst m3 = `d#4@3 f#4@3.5 ~@0.5`.slow(7/8);\r\nconst m4 = `c#4@4 f#4@4 `.slow(8/8);\r\nconst m5 = `e4@4 g4@7.9 ~@0.1 f4@4 f#4@4.9 ~@0.1 d#4@3 e4@4 c#4@6.9 ~@0.1 f#4@2 f4@3.9 ~@0.1`.slow(41/8);\r\nconst melody = arrange([82/8,m1],[73/8,m2],[7/8,m3],[82/8,m1],[8/8,m4],[73/8,m2],[41/8,m5]);\r\n\r\nconst h1 = `D@2 G@2 C D#@2 G#@2 C# B@2 E@2 A F#m@2 B@2 G#@2 C#@2 A@2 D Cm@2 F#@2 D# Em@2 A@2 F# D#m@2 G#@2`.slow(40/4);\r\nconst h2 = `Cm F@2`.slow(3/4);\r\nconst h3 = `Bm@2 B@2 C@2 G@2 C A@2 D@2 Am C@2 G#@2 F#@2 E B@2 C#m@2 D# Em@2 A@2 F# D#m@2 G#@2`.slow(35/4);\r\nconst h4 = `Cm F#@2`.slow(3/4);\r\nconst h5 = `Cm F#@4 F@2`.slow(7/4);\r\nconst h6 = `C#m@2 D#@4 C#@2 F#@2 B@2 E@2 C#m@2 F#@2 A#@2`.slow(20/4);\r\nconst chords = arrange([40/4,h1],[3/4,h2],[35/4,h3],[3/4,h4],[40/4,h1],[7/4,h5],[35/4,h3],[20/4,h6]);\r\n\r\nstack(",
+      "aliases": [
+        "jitterbug",
+        "(coda)",
+        "jitterbug (coda)"
+      ],
+      "title_tokens": [
+        "jitterbug",
+        "coda"
+      ],
+      "path_tokens": [
+        "jitterbug",
+        "js"
+      ]
+    },
+    {
+      "id": "jitterbugreverse",
+      "slug": "jitterbugreverse",
+      "title": "Jitterbug (Coda)",
+      "source_path": "jitterbugreverse.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/jitterbugreverse.js",
+      "author": "Cardiacs",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "reversal"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 1 bpm",
+        "reversal at 1 bpm",
+        "reverb ambient",
+        "reversal ambient",
+        "jitterbug style"
+      ],
+      "snippet": "// \"Jitterbug (Coda)\" - In Reverse\n// song @by Cardiacs\n// script @by eefano\nsetDefaultVoicings('legacy')\nconst melody = \n  `f#4@3 d4@4 g4@6 g#4@4 f4@3 d#4@3 e4@4 c#4@6 b3@4 g#3@3 g#4@5 a4@4 f#4@3 d#4@3 f#4@4 g4@6 a4@4 a#4@6 d#4@3.9 ~@0.1 d#4@3\n   f4@3 d4@4 d#4@5 e4@3 g4@4 e4@6 f#4@4 c4@2.9 ~@0.1 c4@3 g#3@4 a#3@4 b3@6 c#4@4 g4@6 a4@4 a#4@6 d#4@3.9 ~@0.1\n   d#4@3 f#4@3.5 ~@0.5\n   f#4@3 d4@4 g4@6 g#4@4 f4@3 d#4@3 e4@4 c#4@6 b3@4 g#3@3 g#4@5 a4@4 f#4@3 d#4@3 f#4@4 g4@6 a4@4 a#4@6 d#4@3.9 ~@0.1 d#4@3\n   c#4@4 f#4@4\n   f4@3 d4@4 d#4@5 e4@3 g4@4 e4@6 f#4@4 c4@2.9 ~@0.1 c4@3 g#3@4 a#3@4 b3@6 c#4@4 g4@6 a4@4 a#4@6 d#4@3.9 ~@0.1\n   e4@4 g4@7.9 ~@0.1 f4@4 f#4@4.9 ~@0.1 d#4@3 e4@4 c#4@6.9 ~@0.1 f#4@2 f4@3.9 ~@0.1`\n  .rev();\nconst chords = \n `D@2 G@2 C D#@2 G#@2 C# B@2 E@2 A F#m@2 B@2 G#@2 C#@2 A@2 D Cm@2 F#@2 D# Em@2 A@2 F# D#m@2 G#@2\n  Cm F@2\n  Bm@2 B@2 C@2 G@2 C A@2 D@2 Am C@2 G#@2 F#@2 E B@2 C#m@2 D# Em@2 A@2 F# D#m@2 G#@2\n  Cm F#@2\n  D@2 G@2 C D#@2 G#@2 C# B@2 E@2 A F#m@2 B@2 G#@2 C#@2 A@2 D Cm@2 F#@2 D# Em@2 A@2 F# D#m@2 G#@2\n  Cm F#@4 F@2\n  Bm@2 B@2 C@2 G@2 C A@2 D@2 Am C@2 G#@2 F#@2 E B@2 C#m@2 D# Em@2 A@2 F# D#m@2 G#@2\n  C#m@2 D#@4 C#@2 F#@2 B@2 E@2 C#m@2 F#@2 A#@2`\n  .rev();",
+      "aliases": [
+        "jitterbugreverse",
+        "jitterbug",
+        "(coda)",
+        "jitterbug (coda)"
+      ],
+      "title_tokens": [
+        "jitterbug",
+        "coda"
+      ],
+      "path_tokens": [
+        "jitterbugreverse",
+        "js"
+      ]
+    },
+    {
+      "id": "lovegoeson",
+      "slug": "lovegoeson",
+      "title": "Love Goes On",
+      "source_path": "lovegoeson.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/lovegoeson.js",
+      "author": "The",
+      "bpm": 3,
+      "cpm": 3,
+      "key": "a3:minor",
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 3 bpm",
+        "reverb ambient",
+        "love style"
+      ],
+      "snippet": "// \"Love Goes On\" (work in progress)\n// song @by The Go-Betweens\n// script @by eefano\nconst standardtuning = [40,45,50,55,59,64];\n\nconst fingering = \n{Am:\"0:0:2:2:1:0\",C:\"x:3:2:0:1:0\",\n D:\"x:0:0:2:3:2\", Dm:\"x:0:0:2:3:1\",\n G:\"3:2:0:0:0:3\", G7:\"3:2:0:0:0:1\",\n F:\"1:3:3:2:1:1\", A7:\"x:0:2:2:2:3\",\n E:\"0:2:2:1:0:0\", Em:\"0:2:2:0:0:0\", E7:\"0:2:2:1:3:0\",\n B7:\"0:2:4:2:4:2\",Bm:\"0:2:4:4:3:2\"\n};\nconst sk = 300, sh = silence, strumming = \n{d: stack(0,timeCat([1,sh],[sk,1]),timeCat([2,sh],[sk,2]),timeCat([3,sh],[sk,3]),timeCat([4,sh],[sk,4]),timeCat([5,sh],[sk,5]))\n,u: stack(5,timeCat([1,sh],[sk,4]),timeCat([2,sh],[sk,3]),timeCat([3,sh],[sk,2]),timeCat([4,sh],[sk,1]),timeCat([5,sh],[sk,0]))\n};\n\nconst gString = register('gString', (n, pat) => \n  (pat.fmap((v) => { if(v[n]=='x') return note(0).velocity(0);\n      return note(v[n]+standardtuning[n]); } \n  ).innerJoin()));\nconst guitar = (strums,fingers,tuning=standardtuning) =>\n  (strums.pickRestart(strumming).pickOut(\n    [fingers.pickOut(fingering).gString(0),fingers.pickOut(fingering).gString(1),fingers.pickOut(fingering).gString(2)",
+      "aliases": [
+        "lovegoeson",
+        "love",
+        "goes",
+        "on",
+        "love goes",
+        "goes on"
+      ],
+      "title_tokens": [
+        "love",
+        "goes",
+        "on"
+      ],
+      "path_tokens": [
+        "lovegoeson",
+        "js"
+      ]
+    },
+    {
+      "id": "madeallup",
+      "slug": "madeallup",
+      "title": "Made All Up (wip)",
+      "source_path": "madeallup.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/madeallup.js",
+      "author": "Cardiacs",
+      "bpm": 2,
+      "cpm": 2,
+      "instruments": [
+        "triangle",
+        "bd",
+        "sd",
+        "cr"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "bright",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "bright ambient",
+        "reverb at 2 bpm",
+        "triangle lead",
+        "reverb ambient",
+        "made style"
+      ],
+      "snippet": "// \"Made All Up (wip)\"\n// song @by Cardiacs\n// script @by eefano\nconst split = register('split', (deflt, callback, pat) => callback(deflt.map((d,i)=> pat.withValue((v)=>{\n  const isobj = v.value !== undefined; const value = isobj ? v.value : v;\n  const result = Array.isArray(value)?(i<value.length?value[i]:d):(i==0?value:d);\n  return (i==0 && isobj) ? {...v,value:result} : result; }))));\nsetCps(138/60)\nconst sequence = \"<a@38 b@38 c@48 d@16 e@30 a@38 b@38 c@48 d@16 e@18 e@30>\";\norch: sequence.pickRestart({\n  a: `<C!2 [C B] B [B D] D!2          F!2 [F C] C [C D#] D#     A#!2 [A# F] F!2  D#!2 [D# A#] A# F!2 \n       G#!2 [G# D#] [D#@3 F]@2 F C   G!2 [G D] [D@3 E]@2 E B>`,\n  b: `<C#!2 [C# Fm] Fm [Fm A#] A# D#  F#!2 [F# C#] C# [C# E] E  B!2 [B F#] F#!2  E!2 [E B] B F#!2 \n       A!2 [A E] [E@3 F#]@2 F# C#    G#!2 [G# D#] [D#@3 F]@2 F C>`,\n  c: `<E@6 B!2>`,\n  d: `<D#@6 G#m!2 E@6 B!2 >`,\n  e: `<[F# D A]@6 [[[C#:1 ~]!2 [C#:1:-2 ~]!2 [C#:1:-4 ~]!2]!4]@24>`\n}).split([0,0,0],t=>stack(\n \n  chord(t[0])\n  .anchor(sequence.pickRestart(\n    {a:\"<b4@7 b4@6 b4@5 c5@6 d5@7 c#5@7>\",\n     b:\"<c5@7 c5@6 c5@5 c#5@6 d#5@7 d5@7>\",\n     c:\"<c4>\",d:\"<c4>\",e:\"<g5>\"",
+      "aliases": [
+        "madeallup",
+        "made",
+        "all",
+        "up",
+        "(wip)",
+        "made all",
+        "all up",
+        "up (wip)"
+      ],
+      "title_tokens": [
+        "made",
+        "all",
+        "up",
+        "wip"
+      ],
+      "path_tokens": [
+        "madeallup",
+        "js"
+      ]
+    },
+    {
+      "id": "magicandecstasy",
+      "slug": "magicandecstasy",
+      "title": "Magic And Ecstasy (Exorcist II OST)",
+      "source_path": "magicandecstasy.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/magicandecstasy.js",
+      "author": "Ennio",
+      "bpm": 2,
+      "cpm": 2,
+      "instruments": [
+        "supersaw",
+        "bd",
+        "sd",
+        "cr",
+        "oh",
+        "ht",
+        "mt",
+        "lt"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 2 bpm",
+        "supersaw lead",
+        "reverb ambient",
+        "magic style"
+      ],
+      "snippet": "// \"Magic And Ecstasy (Exorcist II OST)\" (wip)\n// song @by Ennio Morricone\n// script @by eefano\nsetcps(145/60)\nconst song =\"<[b,x] [b,o]@2 [b,c]@2 [b,f]@2 [b,o]@2 [b,f]@2 [b,c]@2 [b,o]@2 [b,c]@2>/24\"\n  \norchestra: song.pickRestart(\n{b:`<[a2 [a2 b2] a2 [a2 c3] a2 [a2 d3] [d#3 d3] [c#3 d3] d#3 [d3 c#3] [d3 d#3] [d3 c#3]]!2\n     [[a2:.9 b2:.9] [c3:.9 d3@3]@2 d#3 [d#3:.9 d3:.9] [c#3:.9 d3@3]@2 a2\n      [a2:.9 b2:.9] [c3:.9 d3@3]@2 d#3 d3 c#3 a2@2 d#3 d3 c#3 d3 c#3@2 c#3@2]@2 >/12`\n  .as(\"note:clip\").release(.05)\n  .layer(x=>x.s(\"gm_overdriven_guitar:6\").hpf(500).lpf(2500).gain(1.2).pan(.51),\n         x=>x.s(\"gm_electric_bass_finger\").transpose(-12).lpf(400).gain(.9).pan(.49))\n\n,o: stack(note(`<[~ c4] [a3 b3] c4 d4 d#4 f4 f#4 f4 g#4 f#4 f4 d#4 \n                 [[f4 d#4] a3] b3 c4 d4 d#4 f4 f#4 g#4 c5 c#5 [[d#5 d5] a4] d5 \n                 c#5 c5 a4 [[d#4 d4] a3] d5 c#5 c5 a4 d#5 d5 c#5 d5 \n                 [[d#5 d5] a4] d5 c#5 d5 c#5 a4 d#4 d4 c#4 [d4 [a3 d4]] d#4 d4>`)\n           .layer(x=>x.piano().gain(.7),\n                  x=>x.s(\"gm_dulcimer\").gain(.15),\n                  x=>x.s(\"gm_piccolo\").gain(.25).transpose(12),\n                  x=>x.s(\"gm_violin\").gain(.40)),",
+      "aliases": [
+        "magicandecstasy",
+        "magic",
+        "and",
+        "ecstasy",
+        "(exorcist",
+        "ii",
+        "ost)",
+        "magic and",
+        "and ecstasy",
+        "ecstasy (exorcist",
+        "(exorcist ii",
+        "ii ost)"
+      ],
+      "title_tokens": [
+        "magic",
+        "and",
+        "ecstasy",
+        "exorcist",
+        "ii",
+        "ost"
+      ],
+      "path_tokens": [
+        "magicandecstasy",
+        "js"
+      ]
+    },
+    {
+      "id": "mammalschilling",
+      "slug": "mammalschilling",
+      "title": "Mammals Chilling",
+      "source_path": "mammalschilling.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/mammalschilling.js",
+      "author": "eefano",
+      "bpm": 3,
+      "cpm": 3,
+      "key": "f4:major",
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 3 bpm",
+        "reverb ambient",
+        "mammals style"
+      ],
+      "snippet": "// \"Mammals Chilling\" version 1.0\n// song @by eefano\nconst split = register('split', (deflt, callback, pat) => callback(deflt.map((d,i)=> pat.withValue((v)=>{\n  const isobj = v.value !== undefined; const value = isobj ? v.value : v;\n  const result = Array.isArray(value)?(i<value.length?value[i]:d):(i==0?value:d);\n  return (i==0 && isobj) ? {...v,value:result} : result; }))));\nsetCps(155/60)\n\norch: \"<a b@2 a [b@11 ~]@2 c e d c>/40\".pickRestart({\n  a: \"<<F:f3:h D7:g3:i> ~>/5\",\n  b: \"<F:f3:h@8 Em7:b3:i@12 C:f3:i@8 D7:g3:h@12>\",\n  c: \"<Bm7:b3:j@8 Em7:b3:k@8 F:g3:j@8 C:f3:k@8 G7:b3:j@4 G7:b3:l@4>\".velocity(1.4),\n  d: \"<Bm7:b3:j@8 Em7:b3:k@8 F:g3:k@8 C:f3:k@8 D7:f3:j@8 >\".velocity(1.6),\n  e: \"<<F:f3:h Em7:b3:i C:f3:h D7:g3:i> ~>/5\".velocity(1.3),\n}).split([0,0,0],s=>stack(\n   n(s[2].pickRestart({\n     h:\"<~ [<0@2 2 1>@3 ~]>*2\", i:\"<~ [<3@2 0 1>@3]>*2\",\n     j:\"<0 2>/2\", k:\"<1 <0 2>>/2\", l:\"<2 ~>/8\"\n  })).chord(s[0]).anchor(s[1].transpose(-22)).mode('above').voicing()\n    .s(\"gm_pizzicato_strings:4\").gain(1.35).color('green'),\n\n   n(s[2].pickRestart(\n     {h:\"<[[0,[~ 1@40],[~@2 2@40],[~@3 3@40]] ~@2]>/2\",\n      i:\"<[[3,[~ 2@40],[~@2 1@40],[~@3 0@40]] ~@2]>/2\",",
+      "aliases": [
+        "mammalschilling",
+        "mammals",
+        "chilling",
+        "mammals chilling"
+      ],
+      "title_tokens": [
+        "mammals",
+        "chilling"
+      ],
+      "path_tokens": [
+        "mammalschilling",
+        "js"
+      ]
+    },
+    {
+      "id": "mouthbreather",
+      "slug": "mouthbreather",
+      "title": "Mouth Breather",
+      "source_path": "mouthbreather.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/mouthbreather.js",
+      "author": "The",
+      "bpm": 7,
+      "cpm": 7,
+      "instruments": [
+        "bd",
+        "sd",
+        "oh",
+        "cr"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 7 bpm",
+        "arpeggio at 7 bpm",
+        "reverb ambient",
+        "arpeggio ambient",
+        "mouth style"
+      ],
+      "snippet": "// \"Mouth Breather\" (work in progress)\n// composed @by The Jesus Lizard\n// script @by eefano\nsetcps(215/60*2)\n\nconst xposes = \"<0@9 -5 -7 0@4 ~ 0@2 -5 -7 ~@2>/48\"\ng:\"<0@5 1 0 1 0@3 ~@2 0 ~ 0@4 ~@2 >/48\".pickRestart(\n  [stack(\"<c3@9 c#3 c3@2>\",\"<g3 f3@2 g3@4 f3 g3 g#3 g3 f3>\".add(\"<0,5>\")).struct(\"<x!4 ~!2 x!9 x@3 x!6>\")\n  ,\"<[c3,g3,c4]@6 ~@42>\".add(-3).penv(-3).patt(1)\n  ]).note().transpose(xposes).s(\"gm_electric_guitar_clean:2\").distort(\"10:.17\").room(.1)\n\nb:\"<~@3 0@2 ~ 0 ~ 0@6 ~ 0@4 ~@2 >/48\".pickRestart([\"<c2!3 c2@2 ~ c2!3 <[c#2 f2 c#2] [c2 f2 g2]>@3>\"])\n  .note().transpose(xposes).s(\"gm_electric_bass_pick\").release(.06).distort(\"5:.3\").room(.2).color('green')\n\nd:\"<~ 0@14 ~ 0@6>/48\".pickRestart(\n  [stack(s(\"<bd ~ bd ~!2 bd!2 ~!2 bd ~!2 bd ~!2 bd ~ bd ~ bd ~!2 bd ~>\"),\n        s(\"<~!3 sd ~!6 sd ~!5 sd ~!3 sd ~!3>\").gain(1.4),\n        s(\"<oh>/2\").speed(1.03).gain(.3).pan(.4),\n        s(\"<cr>/12\").speed(1.1).gain(.2).pan(.6))])\n  .room(.8).color('cyan')\n\n// all((x)=>x.scope({scale:.05})) //._pianoroll({minMidi:10,maxMidi:60,autorange:false})",
+      "aliases": [
+        "mouthbreather",
+        "mouth",
+        "breather",
+        "mouth breather"
+      ],
+      "title_tokens": [
+        "mouth",
+        "breather"
+      ],
+      "path_tokens": [
+        "mouthbreather",
+        "js"
+      ]
+    },
+    {
+      "id": "mouthbreathercomplex",
+      "slug": "mouthbreathercomplex",
+      "title": "Mouth Breather",
+      "source_path": "mouthbreathercomplex.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/mouthbreathercomplex.js",
+      "author": "The",
+      "bpm": 7,
+      "cpm": 7,
+      "instruments": [
+        "bd",
+        "sd",
+        "oh",
+        "cr"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 7 bpm",
+        "arpeggio at 7 bpm",
+        "reverb ambient",
+        "arpeggio ambient",
+        "mouth style"
+      ],
+      "snippet": "// \"Mouth Breather\" (work in progress, complex variant)\n// composed @by The Jesus Lizard\n// script @by eefano\nsetcps(215/60*2)\nconst fvi = register('fvi', (i, d, pat) => pat.filterValues(v=>v[i]==d))\nconst ati = register('ati', (i, d, pat) => pat.withValue((v)=>{\n  const isobj = v.value !== undefined; const value = isobj ? v.value : v;\n  const result = Array.isArray(value)?(i<value.length?value[i]:d):(i==0?value:d);\n  return (i==0 && isobj) ? {...v,value:result} : result; }));\n\n// Index0 = Instrument, Index1 = Part, Index2 = Transpose\n`<G@3 [G,D]@6 [G,D,B]@6 [G:1,D]@3 [G,D,B]@3 [G:1,D]@3 [G,D,B]@3 [G:0:-5,D,B:0:-5]@3 [G:0:-7,D,B:0:-7]@3 \n  [D,B]@6 [G,D,B]@3 ~ [G,D,B]@6 [G:0:-5,D,B:0:-5]@3 [G:0:-7,D,B:0:-7]@3 D@3 ~@3 >/16`\n.layer(  \n x=>x.fvi(0,'G').ati(1,0).pickRestart(\n  [stack(\"<c3@9 c#3 c3@2>\".pan(.51),\"<g3 f3@2 g3@4 f3 g3 g#3 g3 f3>\".add(\"<0,5>\").pan(.49)).struct(\"<x!4 ~!2 x!9 x@3 x!6>\")\n  ,\"<[c3,g3,c4]@3 ~@45>\".add(-8).penv(-3).patt(.6).lpf(3000)\n  ]).note()\n  .transpose(x.fvi(0,'G').ati(2,0))\n   .s(\"gm_electric_guitar_clean:2\").hpf(80).distort(\"10:.17\").room(.1)\n \n,x=>x.fvi(0,'B').ati(1,0).pickRestart(\n  [\"<c2!3 c2@2 ~ c2!3 <[c#2 f2 c#2] [c2 f2 g2]>@3>\"])\n  .note()",
+      "aliases": [
+        "mouthbreathercomplex",
+        "mouth",
+        "breather",
+        "mouth breather"
+      ],
+      "title_tokens": [
+        "mouth",
+        "breather"
+      ],
+      "path_tokens": [
+        "mouthbreathercomplex",
+        "js"
+      ]
+    },
+    {
+      "id": "nudelimprov1",
+      "slug": "nudelimprov1",
+      "title": "Nudelimprov1",
+      "source_path": "nudelimprov1.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/nudelimprov1.js",
+      "bpm": 30,
+      "cpm": 30,
+      "instruments": [
+        "supersaw",
+        "bd"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "intense",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "intense ambient",
+        "reverb at 30 bpm",
+        "arpeggio at 30 bpm",
+        "supersaw lead",
+        "reverb ambient",
+        "arpeggio ambient",
+        "nudelimprov1 style"
+      ],
+      "snippet": "setcpm(120/4)\nlet key = \"<c:major c:minor>/2\";\nlet tra = \"0, 3, 5\".add(\"<0 [0 2]>/2\");\n\n$: n(\"<6 3> - [2 <1 0>] <0*2 ->\")\n.scale(key)\n.scaleTranspose(tra)\n.s(\"kawai\")\n.lpf(\"<2000 1000 500>/2\")\n.gain(\"<0 .3 .7@2>/8\")\n\n\n$: n(\"<[2 -]*4 [0 -]*6>\")\n.scale(key)\n.s(\"supersaw\")\n.scaleTranspose(tra)\n.transpose(\"<0 -5>/8\")\n.room(.5)\n.gain(.5)\n\n$: n(\"<0 0 0>\").scale(key).transpose(-12)\n  .penv(\"<0 12 -12>\")\n  .patt(.3)\n  .s(\"gm_fretless_bass\")\n  .gain(1)\n\n$: s(\"white*16\").clip(.5)\n.speed(\"<<1@2 1 2> <2 3>>*16\")\n.hpa(.05).hpd(.05).hpe(3).hpf(\"<1000@2 2000 500>*8\")\n.gain(0.4)\n\n$: s(\"<<bd bd*2> ~@14 <~@15 bd>>*8\")\n.speed(1.2).lpf(1000).gain(0.6).room(1)\n\n$: \ns(\"- - [clap | -] clap*2:<0 4 5 1>\").room(.6).gain(.5)",
+      "aliases": [
+        "nudelimprov1"
+      ],
+      "title_tokens": [
+        "nudelimprov1"
+      ],
+      "path_tokens": [
+        "nudelimprov1",
+        "js"
+      ]
+    },
+    {
+      "id": "oddeven",
+      "slug": "oddeven",
+      "title": "Odd Even",
+      "source_path": "oddeven.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/oddeven.js",
+      "author": "Cardiacs",
+      "bpm": 30,
+      "cpm": 30,
+      "key": "g2:lydian",
+      "instruments": [],
+      "techniques": [],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "odd style",
+        "ambient track",
+        "ambient track",
+        "ambient track"
+      ],
+      "snippet": "// \"Odd Even\" (Work In Progress)\n// song @by Cardiacs\n// script @by eefano\nsetDefaultVoicings('legacy')\nconst k = 0.01;\n\nstack(\n \n  n(stack(\"0@2 0 3@2 3 0 3\",\n          \"1@2 1 2@2 2 1 2\".late(k),\n          \"2@2 2 1@2 1 2 1\".late(k*2),\n          \"3@2 3 0@2 0 3 0\".late(k*3)))\n     .chord(\"<G [Bm E] [G@3 C]>\".slow(2)).voicing()\n     .s(\"gm_electric_guitar_jazz\").clip(1).release(0.2).gain(0.5),\n     \n     \n     `< ~!4\n       [4 3 [2 ~] [1 ~] 0@2 4@2]\n       [4 3 [2 ~] [1 ~] 0@2 7@2]\n     >`.scale(\"g2:lydian\").note().s(\"gm_bassoon\")\n\n).cpm(120/4)//.pianoroll()",
+      "aliases": [
+        "oddeven",
+        "odd",
+        "even",
+        "odd even"
+      ],
+      "title_tokens": [
+        "odd",
+        "even"
+      ],
+      "path_tokens": [
+        "oddeven",
+        "js"
+      ]
+    },
+    {
+      "id": "oh",
+      "slug": "oh",
+      "title": "Oh",
+      "source_path": "oh.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/oh.js",
+      "author": "Tim",
+      "bpm": 23,
+      "cpm": 23,
+      "instruments": [
+        "bd",
+        "sd",
+        "hh"
+      ],
+      "techniques": [
+        "reverb",
+        "polyrhythm"
+      ],
+      "moods": [
+        "dark",
+        "bright",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "bright ambient",
+        "reverb at 23 bpm",
+        "polyrhythm at 23 bpm",
+        "reverb ambient",
+        "polyrhythm ambient"
+      ],
+      "snippet": "// \"Oh\" \r\n// song @by Tim Smith Spratleys Japs\r\n// script @by eefano\r\nsetDefaultVoicings('legacy')\r\nconst ln = 24;\r\nconst cresc = saw.range(0.4,0.7).slow(ln*2);\r\nconst chrds = \"G#@4 F#@2 B@3 E A@2 D G@2 A G@4 A G@4 G# C# F# B E A@2 B A@2 C D#@6 F@2 D#@4\".slow(ln);\r\nconst meldy = \"[d#5@4 d#5@2 d#5@3 e5 c#5@2 d5 d5@2 c#5 b4@4 c#5 b4@4 c5 f5 a#4 d#5 g#4 e5 [b4@3 d#5] f#5 d#5@2 e5 g4 g5@3 f5 a5@4 a#5@3]\".slow(ln);\r\nstack(     \r\n  meldy.note().s('gm_piccolo').velocity(.9).gain(add(cresc,0.1)).color(\"yellow\"), \r\n  \r\n  chord(chrds).anchor(\"C4\".transpose(run(12).slow(ln))).voicing().s('gm_choir_aahs').velocity(.8).pan(0.6).gain(add(cresc,tri.range(0,0.1).slow(ln))),\r\n  chord(chrds).anchor(\"C5\".transpose(run(12).slow(ln))).voicing().s('gm_string_ensemble_2').pan(0.4).gain(add(cresc,tri.range(0,0.1).slow(ln))),\r\n  \r\n  n(\"[0 1 2 3 4 3 4 5 4 3 2 3 2 1]*1.7\").chord(chrds).anchor(\"C6\").voicing().s('gm_oboe').room(0.5).gain(0.2),\r\n  chrds.rootNotes(\"[1 2]!2\").struct(\"x*8\").clip(0.90).note().s('gm_electric_bass_finger').lpf(280).gain(0.5),\r\n\r\n  s(\"[bd!2 ~ bd]*2\").bank(\"AkaiLinn\").lpf(300).gain(0.15),\r\n  s(\"<~ sd>*4\").bank(\"AkaiLinn\").hpf(250).lpf(3500).gain(0.30),",
+      "aliases": [
+        "oh"
+      ],
+      "title_tokens": [
+        "oh"
+      ],
+      "path_tokens": [
+        "oh",
+        "js"
+      ]
+    },
+    {
+      "id": "oldmacdonald",
+      "slug": "oldmacdonald",
+      "title": "old mcdonalds has bad samples",
+      "source_path": "oldmacdonald.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/oldmacdonald.js",
+      "bpm": 18,
+      "cpm": 18,
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 18 bpm",
+        "arpeggio at 18 bpm",
+        "reverb ambient",
+        "arpeggio ambient",
+        "old style"
+      ],
+      "snippet": "// old mcdonalds has bad samples\r\nsetDefaultVoicings('legacy')\r\nconst beast = [\"crow\",\"space\",\"gm_bird_tweet\",\"space:4\",\"clash\",\"space:1\"]\r\nconst bsequ = \"<~@2 0 ~@3 1 0 ~@3 2 1 0 ~@3 3 2 1 0 ~@3 4 3 2 1 0 ~@2>\".pick(beast)\r\nconst chrds = \"F [A# F] [F C] [F@3 ~]\";\r\nconst strct = \"[[x ~]!2] [[x ~]!2 x  ~]\";\r\nconst bstrc = \"[[~ x]!2] [[~ x]!2 ~  x]\";\r\nconst trnsp = \"<0!4 1!5 2!6 3!7 4!8 ~>\";\r\n\r\n\"<[0,3] [0,1] 2 0!2 [0,1] [2,1] 2 0!2 [0,1] [2,1]!2 2 0!2 [0,1] [2,1]!3 2 0!2 [0,1] [2,1]!4 2 [0@7 ~] ~>\".pick(\r\n[stack(\r\n  \"F5*2 [F5 C5] D5*2 C5 A5*2 G5*2 F5@2\".note().clip(0.9),\r\n  chord(chrds).anchor(\"G4\").voicing().struct(\"[~ x]*4 [[~ x]*2 [x@3 ~]]\").gain(0.6),\r\n  n(\"[2 1]*4\").chord(chrds).anchor(\"F2\").voicing().struct(\"[x ~]*8\").gain(0.6),\r\n ).piano().add(note(trnsp))\r\n,\"~@7 [C5 D5]\".note().clip(0.8).piano().add(note(trnsp)) \r\n,stack(\r\n  stack(\r\n  \"[[F5*2 ~]!2] [[F5 ~]!2 F5*2 ~]\".note(),\r\n chord(\"F\").anchor(\"G4\").voicing().struct(strct).gain(0.6),\r\n  \"F2\".struct(strct).note().gain(0.6)\r\n    ).clip(0.8).piano().add(note(trnsp)),\r\n \"F\".struct(bstrc).s(bsequ).release(0))\r\n \r\n,\"0,1,2,3,4,5\".pick(beast).gain(0) // samples preload trick\r\n]).cpm(140/8).room(0.4)",
+      "aliases": [
+        "oldmacdonald",
+        "old",
+        "mcdonalds",
+        "has",
+        "bad",
+        "samples",
+        "old mcdonalds",
+        "mcdonalds has",
+        "has bad",
+        "bad samples"
+      ],
+      "title_tokens": [
+        "old",
+        "mcdonalds",
+        "has",
+        "bad",
+        "samples"
+      ],
+      "path_tokens": [
+        "oldmacdonald",
+        "js"
+      ]
+    },
+    {
+      "id": "omalley",
+      "slug": "omalley",
+      "title": "Omalley",
+      "source_path": "omalley.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/omalley.js",
+      "author": "Deerhoof",
+      "bpm": 74,
+      "cpm": 74,
+      "key": "g3:major",
+      "instruments": [
+        "hh"
+      ],
+      "techniques": [
+        "delay",
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "hiphop",
+        "lofi"
+      ],
+      "prompt_seeds": [
+        "airy hiphop",
+        "calm hiphop",
+        "airy lofi",
+        "calm lofi",
+        "delay at 74 bpm",
+        "reverb at 74 bpm",
+        "delay hiphop",
+        "delay lofi",
+        "reverb hiphop",
+        "reverb lofi",
+        "omalley style"
+      ],
+      "snippet": "// \"O'Malley, Former Underdog\" (work in progress)\n// song @by Deerhoof\n// script @by eefano\nsetDefaultVoicings('legacy')\nconst crdpart = \"<~@6 0@17 1@4 0@17 1@4 2@10>\".pickRestart(\n[\"< C@2 D@2 [[C ~]!3 D@2 [D ~] D@2]@2 G@2 D@3 Am G D A D@2 >\"\n,\"< Em@2 D@2 >\"\n,\"< [G A] [[C ~]!3 D@2 [D ~] D@2]!3 D >/2\"\n,\"< G [D@6 G@10] >\"\n]);\nstack(\"~\"\n,\"<0@6 1@17 2@4 1@17 2@4 3@2 ~@8>\".pickRestart(\n[\"< <~ 0 1 2 3 4 5 6 7 4 5 6 7 8 9 10 11 7 8 9 10 11 12 13> ~>*8\".sub(7)\n,\"< ~@2 5 6 7@2 6 5 6 ~ 4 ~@3 8 ~@11 7 8 9@2 8 7 8 ~ 6 ~@3 11@4 10 9 10 ~ 8 ~ 9@2 8 7 8 ~ 6 ~ 7 6 5 ~ 6 ~ 4 ~@5 >*4\"\n,\"< 7@3 8 9@2 12@2 11@3 8 6@4 >*4\"\n,\"< 7@2 6@2 5 6 5 4 >*4\"\n,\"< 7 ~@7 6 ~@7 5 ~@2 5 ~ 5 4 ~@9 >*4\"\n]).n().scale(\"g3:major\").s(\"gm_lead_1_square\").room(0.4).delay(0.4).dfb(0.3).dt(60/128).gain(0.65)\n\n,crdpart.chord().anchor(\"A4\").voicing().s(\"gm_lead_8_bass_lead\").room(0.4).color(\"blue\").gain(0.5)\n\n,s(\"hh*2\").bank(\"RolandTR909\").room(0.2).color(\"yellow\").gain(0.2)\n).cpm(147/2)",
+      "aliases": [
+        "omalley"
+      ],
+      "title_tokens": [
+        "omalley"
+      ],
+      "path_tokens": [
+        "omalley",
+        "js"
+      ]
+    },
+    {
+      "id": "pumpupthejam",
+      "slug": "pumpupthejam",
+      "title": "Pump Up The Jam",
+      "source_path": "pumpupthejam.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/pumpupthejam.js",
+      "author": "Technotronic",
+      "bpm": 31,
+      "cpm": 31,
+      "key": "c4:minor",
+      "instruments": [
+        "square",
+        "oh",
+        "hh",
+        "bd",
+        "cp",
+        "sd",
+        "cr"
+      ],
+      "techniques": [
+        "delay",
+        "reverb",
+        "breakbeat",
+        "arpeggio",
+        "polyrhythm"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "delay at 31 bpm",
+        "reverb at 31 bpm",
+        "breakbeat at 31 bpm",
+        "square lead",
+        "square bass",
+        "delay ambient",
+        "reverb ambient",
+        "pump style"
+      ],
+      "snippet": "// \"Pump Up The Jam\" - Work In Progress\n// song @by Technotronic\n// script @by eefano\nconst pickRestart = register('pickRestart', (arr, pat) => pat.pick(arr.map((x)=>x.restart(pat.collect().fmap(v=>v+1)))))\nconst as = register('as', (mapping, pat) => { mapping = Array.isArray(mapping) ? mapping : [mapping];\n  return pat.fmap((v) => { v = Array.isArray(v) ? v : [v, 0];\n    return Object.fromEntries(mapping.map((prop, i) => [prop, v[i]])); }); });\nstack(\"~\"\n,\"<~@8 0@4 1@4 ~@8>\".pickRestart(\n  [\"[u [u e] a [u i] [u ~] [a u] [i a] [o@3 i] ~ [a e] [a i] [o@3 i] [~ u@2 a] [e e] [o i] [o@3 i]]/4\"\n  ,\"~ [u i] [u ~ ~ a] [i i@2 o]\"\n]).vowel().s(\"z_sawtooth\").clip(0.8).gain(1.4)\n             \n,\"<~@16 0@8>\".pickRestart(\n  [\"[ ~@2 4 [5:1 ~] ~ [~ 0] [3:-1@5 3:1@2 2]@2 ~ [4@3:1 3 3@3 2 2@3 3 4:1@3 0 0@2 2:2@2]@5 [~ ~ 0@2 ~ 0@2 -2:-3]@2 ]/4\"\n]).as(\"n:penv\").scale(\"c4:minor\").clip(0.90).patt(\"0.15\").s(\"square\").delay(0.3).dfb(0.3).dt(60/128).gain(0.7)\n            \n,\"<0@32>\".pickRestart(\n  [\"[~@13 [[~@3 [0,-2,-4]@2 ~]@3 [0,-2,-4] [1,-1,-3]!2]@3 ]/4\"\n]).scale(\"c4:minor\").note().clip(0.7).s(\"z_sawtooth\").color(\"red\").adsr(\"0.07:.1:0.6:0.1\").gain(0.5)\n\n,\"<0@12 0 1 ~@2 3@8>\".pickRestart(",
+      "aliases": [
+        "pumpupthejam",
+        "pump",
+        "up",
+        "the",
+        "jam",
+        "pump up",
+        "up the",
+        "the jam"
+      ],
+      "title_tokens": [
+        "pump",
+        "up",
+        "the",
+        "jam"
+      ],
+      "path_tokens": [
+        "pumpupthejam",
+        "js"
+      ]
+    },
+    {
+      "id": "pyramidsong",
+      "slug": "pyramidsong",
+      "title": "Pyramid Song (wip)",
+      "source_path": "pyramidsong.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/pyramidsong.js",
+      "author": "Radiohead",
+      "bpm": 0,
+      "cpm": 0,
+      "instruments": [
+        "triangle",
+        "bd",
+        "sd",
+        "mt",
+        "lt",
+        "cr"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "triangle lead",
+        "pyramid style",
+        "airy music",
+        "airy music",
+        "airy music"
+      ],
+      "snippet": "// \"Pyramid Song (wip)\"\n// song @by Radiohead\n// script @by eefano\nsetcps(104/60/4)\nconst split = register('split', (deflt, callback, pat) => callback(deflt.map((d,i)=> pat.withValue((v)=>{\n  const isobj = v.value !== undefined; const value = isobj ? v.value : v;\n  const result = Array.isArray(value)?(i<value.length?value[i]:d):(i==0?value:d);\n  return (i==0 && isobj) ? {...v,value:result} : result; }))));\n\nlet chr = {X:\"f#2,c#3,a#3,c#4,f#4\", Y:\"g2,d3,b3,d4,f#4\", Z:\"a2,e3,a3,c#4,f#4\", J:\"g2,d3,b3,d4,g4\", K:\"f#2,c#3,a#3,c#4,g4\",\n           V:\"f#2,c#3,a3,c#4,f#4\", W:\"e2,b2,g#3,b3,f#4\"}\n\npiano: \"<[i1 i2 i3 i4] ooooh [v1 v2]!4 ooooh@2 [v1 v2]!3 [v1 v3] [v3 v2] [i1 i2 i3 i2] [i3 i2 i3 i2] end>/8\".pickRestart(\n {i1:`<[[X:.6 X:.8]@3 Y:.5@2 [Z:.5 Z:.5]@3]>/2`, i2: `<[[Z:.4 Y:.4]@3 Y:.3@2 [J:.6 J:.9]@3]>/2`, \n  i3:`<[[K:.8 X:.6]@3 Y:.5@2 [Z:.5 Z:.5]@3]>/2`, i4: `<[[Z:.4 Y:.4]@3 Y:.4@2 [Y:.4 Y:.7]@3]>/2`,\n  ooooh:`<[[X X]@3 Y@2 [Z Z]@3] [[Z Y]@3 Y@2 [X X]@3] [[X X]@3 Y@2 [Z Z]@3] [[Z Y]@3 Y@2 [Y Y]@3]>/2`,\n  v1:`<[[X X]@3 Y@2 [Z Z]@3] [[Z Y]@3 Y@2 [X X]@3]>/2`,\n  v2:`<[[V V]@3 W@2 [W W]@3] [[Y Y]@3 Y@2 [Y Y]@3]>/2`,\n  v3:`<[[V V]@3 W@2 [W W]@3] [[Y Y]@3 X@2 [X X]@3]>/2`,\n  end:`<X:1>/8`,",
+      "aliases": [
+        "pyramidsong",
+        "pyramid",
+        "song",
+        "(wip)",
+        "pyramid song",
+        "song (wip)"
+      ],
+      "title_tokens": [
+        "pyramid",
+        "song",
+        "wip"
+      ],
+      "path_tokens": [
+        "pyramidsong",
+        "js"
+      ]
+    },
+    {
+      "id": "rhythmofthenight",
+      "slug": "rhythmofthenight",
+      "title": "The Rhythm Of The Night",
+      "source_path": "rhythmofthenight.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/rhythmofthenight.js",
+      "author": "Corona",
+      "bpm": 32,
+      "cpm": 32,
+      "key": "c4:minor",
+      "instruments": [
+        "bd",
+        "oh",
+        "hh",
+        "cp",
+        "sd",
+        "cr"
+      ],
+      "techniques": [
+        "delay",
+        "reverb",
+        "breakbeat",
+        "arpeggio",
+        "polyrhythm"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "delay at 32 bpm",
+        "reverb at 32 bpm",
+        "breakbeat at 32 bpm",
+        "delay ambient",
+        "reverb ambient",
+        "the style"
+      ],
+      "snippet": "// \"The Rhythm Of The Night\" - Work In Progress\n// song @by Corona\n// script @by eeefano\nsetDefaultVoicings('legacy')\nconst as = register('as', (mapping, pat) => { mapping = Array.isArray(mapping) ? mapping : [mapping];\n  return pat.fmap((v) => { v = Array.isArray(v) ? v : [v, 0];\n    return Object.fromEntries(mapping.map((prop, i) => [prop, v[i]])); }); });\n\nconst crdpart = \"<~ 0@10 1@24 0@19>\".pickRestart(\n[\"Ab Cm Bb F@2\".slow(5)\n,\"Bb@3 Ab@3 Cm@2\".slow(8)\n]);\nstack \n(\"<0 1@4 0 1@4 ~@8 2 3@7 2 3@7 0 1@4 0 1@4 0 1@4 0 1@4>\".pickRestart(\n  [\"~ [4@3 ~]!3 7:5 6 4 3\"\n  ,\"2:-1 0:-2 ~@4 6:1 4:-1 6 4:2 ~@4 [4:2 3]@3 ~@6 4 7:5 6 [4@2 ~] [3:-1 2@3]@2 0 ~@2\".slow(4)\n  ,\"~@6 [6 ~]!2\"\n  ,\"6 5@0.5 [5 ~] [4 ~]!2 [3 ~] 3:2@1.5 ~@7 6@2 6:2 [5 ~ ]!2 4 3@2 4 2 0:-2 ~@7 [0 2]@3 3@2 4 6:4 4:-4 ~ 0 2 0 4 ~ 0 0:2@2 ~@7\".slow(7)\n]).as(\"n:penv\").scale(\"c4:minor\").patt(\"0.07\").s(\"gm_lead_1_square\").room(0.4).delay(0.3).dfb(0.35).dt(60/128).gain(0.85)\n\n,crdpart.chord().anchor(\"F4\").voicing().s(\"gm_synth_strings_1\").color(\"blue\").gain(0.4)\n\n,\"<~@11 1@23 ~ 0@19>\".pickRestart(\n  [\"2 ~@2 2 ~@2 2 ~@3 2 ~@3 2 ~\"\n  ,\"[2 ~@2 2 ~@2 2 ~]!2\"",
+      "aliases": [
+        "rhythmofthenight",
+        "the",
+        "rhythm",
+        "of",
+        "night",
+        "the rhythm",
+        "rhythm of",
+        "of the",
+        "the night"
+      ],
+      "title_tokens": [
+        "the",
+        "rhythm",
+        "of",
+        "the",
+        "night"
+      ],
+      "path_tokens": [
+        "rhythmofthenight",
+        "js"
+      ]
+    },
+    {
+      "id": "satiesfaction",
+      "slug": "satiesfaction",
+      "title": "low Effort, high Satie",
+      "source_path": "satiesfaction.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/satiesfaction.js",
+      "author": "eefano",
+      "bpm": 3,
+      "cpm": 3,
+      "key": "<b3:lydian c#4:locrian>/48",
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 3 bpm",
+        "arpeggio at 3 bpm",
+        "reverb ambient",
+        "arpeggio ambient",
+        "low style"
+      ],
+      "snippet": "// \"low Effort, high Satie'sfaction\"\n// song @by eefano\n\nsetcps(185 / 60)\nstack(\n  n(\"<0 1 2 [1 3 4] 5 4 [6 2 3] 1 4 0>/3\".add(\"<7@24 14>/17\")),\n  n(\"<[3,5,9] [2,5,9] [2,4,9]>/3\".sub(7)).gain(\"<.35 .45 .25 .35>\"),\n  n(\"<[5@3 4] 5>/8\".sub(14).gain(\"<.7@9 .8>/10\"))\n)\n  .scale(\"<b3:lydian c#4:locrian>/48\").s(\"piano\")\n  .postgain(sine.mul(.3).add(1.2).segment(48).slow(48 * 7))\n  .room(\".8\").clip(1)",
+      "aliases": [
+        "satiesfaction",
+        "low",
+        "effort,",
+        "high",
+        "satie",
+        "low effort,",
+        "effort, high",
+        "high satie"
+      ],
+      "title_tokens": [
+        "low",
+        "effort",
+        "high",
+        "satie"
+      ],
+      "path_tokens": [
+        "satiesfaction",
+        "js"
+      ]
+    },
+    {
+      "id": "shanghai",
+      "slug": "shanghai",
+      "title": "Shanghai",
+      "source_path": "shanghai.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/shanghai.js",
+      "author": "King",
+      "bpm": 1,
+      "cpm": 1,
+      "key": "ab4:major",
+      "instruments": [
+        "triangle",
+        "hh",
+        "bd",
+        "sd"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 1 bpm",
+        "arpeggio at 1 bpm",
+        "triangle lead",
+        "reverb ambient",
+        "arpeggio ambient",
+        "shanghai style"
+      ],
+      "snippet": "// \"Shanghai\" (work in progress)\n// song @by King Gizzard\n// script @by eefano\n\nsetcps(81 / 60)\n\nshangai: n(\"<0 1 2 ~ 4 5!2 ~ 4 2 1 5 8 7 9!2 7 8 5 1 2 4 ~ 5!2 4 ~ 2 1 0 -7!8>*4\").scale('ab4:major').clip(.5).s(\"triangle\").room(.8)\n\nchords: n(\"<[0,2,4]!4>\".add(\"<0 1 0 1 -2 0>/8\")).scale(\"<ab3:major@5 bb3:major@1>/8\").piano().gain(.5)\n\nbass: n(\"<0@7 -4 0@6 0@4 -4 0@9 3@2 4@2>*4\".add(\"<0 1 0 1 5 1>/8\")).scale('ab1:major').clip(.95).s(\"gm_electric_bass_finger\").lpf(800)\n\nhh: s(\"<hh*4>\").bank('9000').speed(1.5).gain(.2)\nbd: s(\"<[bd@3 <~ bd>] ~>\").bank('9000').gain(.7)\nsd: s(\"<~ sd>\").bank('9000').gain(.7)",
+      "aliases": [
+        "shanghai"
+      ],
+      "title_tokens": [
+        "shanghai"
+      ],
+      "path_tokens": [
+        "shanghai",
+        "js"
+      ]
+    },
+    {
+      "id": "shedontusejelly",
+      "slug": "shedontusejelly",
+      "title": "She don",
+      "source_path": "shedontusejelly.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/shedontusejelly.js",
+      "author": "The",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "bright",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "bright ambient",
+        "reverb at 1 bpm",
+        "reverb ambient",
+        "she style"
+      ],
+      "snippet": "// \"She don't use jelly\" (work in progress)\n// composed @by The Flaming Lips\n// script @by eefano\nconst gString = register('gString', (n,tuning, pat) => \n  (pat.fmap((v) => { if(v[n]=='x') return note(0).velocity(0);\n      return note(v[n]+tuning[n]); } \n  ).innerJoin()));\nconst guitar = (strums,fingers,tuning=[40,45,50,55,59,64]) => (strums.pickOut(\n    [fingers.pickOut(fingering).gString(0,tuning),fingers.pickOut(fingering).gString(1,tuning),fingers.pickOut(fingering).gString(2,tuning)\n    ,fingers.pickOut(fingering).gString(3,tuning),fingers.pickOut(fingering).gString(4,tuning),fingers.pickOut(fingering).gString(5,tuning)]));\nconst split = register('split', (deflt, callback, pat) => callback(deflt.map((d,i)=> pat.withValue((v)=>{\n  const isobj = v.value !== undefined; const value = isobj ? v.value : v;\n  const result = Array.isArray(value)?(i<value.length?value[i]:d):(i==0?value:d);\n  return (i==0 && isobj) ? {...v,value:result} : result; }))));\n\nsetCps(86 / 60 )\nconst fingering = \n{D5:\"x:5:7:7:x:x\",G5:\"3:5:5:x:x:x\",A5:\"5:7:7:x:x:x\",\n D:\"10:12:12:11:10:10\",C:\"8:10:10:9:8:8\",G:\"3:5:5:4:3:3\",A:\"5:7:7:6:5:5\"\n};\nconst sk = 300, sh = silence, strumming =",
+      "aliases": [
+        "shedontusejelly",
+        "she",
+        "don",
+        "she don"
+      ],
+      "title_tokens": [
+        "she",
+        "don"
+      ],
+      "path_tokens": [
+        "shedontusejelly",
+        "js"
+      ]
+    },
+    {
+      "id": "sparky",
+      "slug": "sparky",
+      "title": "Sparky",
+      "source_path": "sparky.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/sparky.js",
+      "bpm": 30,
+      "cpm": 30,
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 30 bpm",
+        "reverb ambient",
+        "sparky style"
+      ],
+      "snippet": "await samples({'gtr': 'gtr/0001_cleanC.wav'}, 'github:tidalcycles/Dirt-Samples/master/');\r\n\r\nconst melodia   = x => x.note().s(\"ocarina\").gain(0.6).clip(1).release(0.1).color(2)\r\nconst guitar    = x => x.note().s(\"gtr\").room(1).gain(0.20).clip(1).release(0.3)\r\nconst accordi   = x => x.note().s(\"recorder_bass_sus\").gain(1.5).clip(1).release(0.5)\r\nconst basso     = x => x.note().s(\"gm_electric_bass_pick\").gain(0.8).clip(1).sustain(0.8)\r\nconst ritmo     = x => x.bank(\"AlesisHR16\").clip(1).gain(0.08)\r\n\r\nconst scala = \"<c#4:major [f#4:major b3:major] [g#4:minor e4:major] [a4:major f#4:minor] [e4:major a4:major]>\"\r\n  stack(\r\n \"<[0,2,4]*2>\".struct(\"[x ~]*4\").scale(scala).apply(accordi),\r\n \"<[4 2 0 4]*2 >\".scale(scala).transpose(-12).apply(guitar),\r\n \"-3\".struct(\"[x ~]*4\").scale(scala).transpose(-12).apply(basso),\r\ns(\"[sd,hh*2]!4\").apply(ritmo),\r\n).cpm(120/4)",
+      "aliases": [
+        "sparky"
+      ],
+      "title_tokens": [
+        "sparky"
+      ],
+      "path_tokens": [
+        "sparky",
+        "js"
+      ]
+    },
+    {
+      "id": "stacktricks",
+      "slug": "stacktricks",
+      "title": "Stacktricks",
+      "source_path": "stacktricks.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/stacktricks.js",
+      "instruments": [],
+      "techniques": [],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "stacktricks style",
+        "electronic music",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "stack(\"c\",\"e\",\"g\")\n  \n    .withHap((hap)=>{ \n        hap.context.tempvalue=hap.value;\n        hap.value=hap.context.stacking===undefined?0:hap.context.stacking[0];\n        return hap;})\n    \n    .eq(\"<0 1 2>\").filterValues((val) => val)\n    \n    .withHap((hap)=>{ \n        hap.value=hap.context.tempvalue;\n        delete hap.tempvalue;\n        return hap;})\n\n  .note().piano()",
+      "aliases": [
+        "stacktricks"
+      ],
+      "title_tokens": [
+        "stacktricks"
+      ],
+      "path_tokens": [
+        "stacktricks",
+        "js"
+      ]
+    },
+    {
+      "id": "strangerthings",
+      "slug": "strangerthings",
+      "title": "Strangerthings",
+      "source_path": "strangerthings.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/strangerthings.js",
+      "bpm": 1,
+      "cpm": 1,
+      "key": "<c3:major>/2",
+      "instruments": [
+        "supersaw"
+      ],
+      "techniques": [
+        "polyrhythm"
+      ],
+      "moods": [
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "warm ambient",
+        "polyrhythm at 1 bpm",
+        "supersaw lead",
+        "polyrhythm ambient",
+        "strangerthings style",
+        "stranger things",
+        "retro synthwave",
+        "80s nostalgia"
+      ],
+      "snippet": "setcps(0.7);\n\np1: n(\"0 2 4 6 7 6 4 2\")\n  .scale(\"<c3:major>/2\")\n  .s(\"supersaw\")\n  .distort(0.7)\n  .superimpose((x) => x.detune(\"<0.5>\"))\n  .lpenv(perlin.slow(3).range(1, 4))\n  .lpf(perlin.slow(2).range(100, 2000))\n  .gain(0.3);\np2: \"<a1 e2>/8\".clip(0.8).struct(\"x*8\").s(\"supersaw\").note();",
+      "aliases": [
+        "stranger",
+        "things",
+        "stranger things",
+        "strangerthings"
+      ],
+      "title_tokens": [
+        "strangerthings"
+      ],
+      "path_tokens": [
+        "strangerthings",
+        "js"
+      ]
+    },
+    {
+      "id": "strudelman",
+      "slug": "strudelman",
+      "title": "Strudelman will eat you",
+      "source_path": "strudelman.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/strudelman.js",
+      "author": "eefano",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [
+        "cr"
+      ],
+      "techniques": [],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "strudelman style",
+        "ambient track",
+        "ambient track",
+        "ambient track"
+      ],
+      "snippet": "// \"Strudelman will eat you\"\n// @by eefano\nsetcps(1)\n\ndie: s(\"cr/16\").late(666)\n  .bank(rand.range(0,3).pick([\"RolandTR707\",\"RolandS50\",\"SequentialCircuitsDrumtracks\",\"Linn9000\"]))\n  .clip(rand.range(1,3))\n  .loop(1).loopBegin(.1)\n  .loopEnd(rand.range(.18,.3))\n  .speed(rand.range(.06,.10))\n  .pan(rand.range(.3,.7))\n  .gain(.2).attack(.5).release(3).color('black')\n\ndoom: note(\"a1/8\").late(333)\n  .s(rand.range(0,40).pick([\"numbers:0\",\"numbers:1\",\"numbers:2\",\"numbers:3\",\"numbers:4\",\n                            \"numbers:5\",\"numbers:6\",\"numbers:7\",\"numbers:8\",\"numbers:9\",\"~\"]))\n  .speed(rand.range(.2,.3))\n  .gain(.9).color('black')\n\npain: s(`<[RolandTR707_cr,RolandS50_cr,SequentialCircuitsDrumtracks_cr,Linn9000_cr,\n         numbers:0,numbers:1,numbers:2,numbers:3,numbers:4,\n         numbers:5,numbers:6,numbers:7,numbers:8,numbers:9] ~@666>`).gain(0).color('black')",
+      "aliases": [
+        "strudel",
+        "man",
+        "strudel man",
+        "strudelman",
+        "will",
+        "eat",
+        "you",
+        "strudelman will",
+        "will eat",
+        "eat you"
+      ],
+      "title_tokens": [
+        "strudelman",
+        "will",
+        "eat",
+        "you"
+      ],
+      "path_tokens": [
+        "strudelman",
+        "js"
+      ]
+    },
+    {
+      "id": "strudelwall",
+      "slug": "strudelwall",
+      "title": "Strudelwall",
+      "source_path": "strudelwall.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/strudelwall.js",
+      "author": "eefano",
+      "bpm": 44,
+      "cpm": 44,
+      "instruments": [],
+      "techniques": [],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "strudelwall style",
+        "ambient track",
+        "ambient track",
+        "ambient track"
+      ],
+      "snippet": "// \"Strudelwall\"\n// guitar prototype @by eefano\nconst standardtuning = [40,45,50,55,59,64];\n\nconst fingering = \n{C:\"x:3:2:0:1:0\",A:\"x:0:2:2:2:0\",G:\"3:2:0:0:0:3\",E:\"0:2:2:1:0:0\",D:\"x:0:0:2:3:2\"\n,Am:\"0:0:2:2:1:0\",Em:\"0:2:2:0:0:0\",Dm:\"x:0:0:2:3:1\",Em7:\"0:2:2:0:3:3\", G_:\"3:2:0:0:3:3\"\n,Dsus4:\"x:x:0:2:3:3\",A7sus4:\"x:0:2:0:3:3\"\n};\nconst sk = 300, sh = silence, strumming = \n{d: stack(0,timeCat([1,sh],[sk,1]),timeCat([2,sh],[sk,2]),timeCat([3,sh],[sk,3]),timeCat([4,sh],[sk,4]),timeCat([5,sh],[sk,5]))\n,u: stack(5,timeCat([1,sh],[sk,4]),timeCat([2,sh],[sk,3]),timeCat([3,sh],[sk,2]),timeCat([4,sh],[sk,1]),timeCat([5,sh],[sk,0]))\n//{d: \"[~@0 0@300],[~@1 1@300],[~@2 2@300],[~@3 3@300],[~@4 4@300],[~@5 5@300]\"\n//,u: \"[~@5 0@300],[~@4 1@300],[~@3 2@300],[~@2 3@300],[~@1 4@300],[~@0 5@300]\"\n};\n\nconst gString = register('gString', (n, pat) => \n  (pat.fmap((v) => { if(v[n]=='x') return note(0).velocity(0);\n      return note(v[n]+standardtuning[n]); } \n  ).innerJoin()));\nconst guitar = (strums,fingers,tuning=standardtuning) =>\n  (strums.pickRestart(strumming).pickOut(\n    [fingers.pickOut(fingering).gString(0),fingers.pickOut(fingering).gString(1),fingers.pickOut(fingering).gString(2)",
+      "aliases": [
+        "strudel",
+        "wall",
+        "strudel wall",
+        "strudelwall"
+      ],
+      "title_tokens": [
+        "strudelwall"
+      ],
+      "path_tokens": [
+        "strudelwall",
+        "js"
+      ]
+    },
+    {
+      "id": "strumtest1",
+      "slug": "strumtest1",
+      "title": "Strumtest1",
+      "source_path": "strumtest1.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/strumtest1.js",
+      "bpm": 14,
+      "cpm": 14,
+      "instruments": [],
+      "techniques": [
+        "arpeggio"
+      ],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "arpeggio at 14 bpm",
+        "arpeggio ambient",
+        "strumtest1 style",
+        "ambient track"
+      ],
+      "snippet": "const k = 0.02;\n\nfunction tablature(te,tB,tG,tD,tA,tE)\n  { return stack(tE.add(64).late(k*5),\n                 tA.add(59).late(k*4),\n                 tD.add(55).late(k*3),\n                 tG.add(50).late(k*2),\n                 tB.add(45).late(k),\n                 te.add(40)); }\n\nconst guitar = seq(tablature(\"0\",\"2\",\"2\",\"1\",\"0\",\"0\"),\n                   tablature(\"0\",\"3\",\"2\",\"0\",\"1\",\"0\"),\n                   \"~\");\n\nstack(\n  guitar.note().s(\"gm_electric_guitar_jazz\").clip(1).release(0.4).gain(0.5),\n\n).cpm(110/4/2).pianoroll()",
+      "aliases": [
+        "strumtest1"
+      ],
+      "title_tokens": [
+        "strumtest1"
+      ],
+      "path_tokens": [
+        "strumtest1",
+        "js"
+      ]
+    },
+    {
+      "id": "strumtest2",
+      "slug": "strumtest2",
+      "title": "Strumtest2",
+      "source_path": "strumtest2.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/strumtest2.js",
+      "bpm": 35,
+      "cpm": 35,
+      "instruments": [],
+      "techniques": [
+        "polyrhythm"
+      ],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "polyrhythm at 35 bpm",
+        "polyrhythm ambient",
+        "strumtest2 style",
+        "ambient track"
+      ],
+      "snippet": "setDefaultVoicings('legacy')\nconst k = 0.01;\n\nstack(\n  n(stack(\"~ -1\",\"~@0.5 0@1.5\",\"1 1\".late(k),\"~ 2\".late(k*2),\"~ 3\".late(k*3)))\n     .chord(\"G!2 Bm E \".slow(4)).anchor(\"G4!2 F#4 E4\".slow(4)).voicing()\n     .s(\"gm_electric_guitar_jazz\").clip(1).release(0.4).gain(0.5),\n\n).cpm(140/4).pianoroll()",
+      "aliases": [
+        "strumtest2"
+      ],
+      "title_tokens": [
+        "strumtest2"
+      ],
+      "path_tokens": [
+        "strumtest2",
+        "js"
+      ]
+    },
+    {
+      "id": "strumtest3",
+      "slug": "strumtest3",
+      "title": "Strumtest3",
+      "source_path": "strumtest3.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/strumtest3.js",
+      "bpm": 35,
+      "cpm": 35,
+      "instruments": [],
+      "techniques": [
+        "polyrhythm"
+      ],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "polyrhythm at 35 bpm",
+        "polyrhythm ambient",
+        "strumtest3 style",
+        "ambient track"
+      ],
+      "snippet": "setDefaultVoicings('legacy')\n\nconst k = 0.01;\n\nstack(\n  n(stack(\"0@2 0 3@2 3 0 3\",\n          \"1@2 1 2@2 2 1 2\".late(k),\n          \"2@2 2 1@2 1 2 1\".late(k*2),\n          \"3@2 3 0@2 0 3 0\".late(k*3)))\n     .chord(\"G!2 Bm E \".slow(4)).anchor(\"G4!2 F#4 A4\".slow(4)).voicing()\n     .s(\"gm_electric_guitar_jazz\").clip(1).release(0.2).gain(0.5),\n\n).cpm(140/4).pianoroll()",
+      "aliases": [
+        "strumtest3"
+      ],
+      "title_tokens": [
+        "strumtest3"
+      ],
+      "path_tokens": [
+        "strumtest3",
+        "js"
+      ]
+    },
+    {
+      "id": "swimandsleep",
+      "slug": "swimandsleep",
+      "title": "Swim And Sleep Like A Shark",
+      "source_path": "swimandsleep.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/swimandsleep.js",
+      "author": "Unknown",
+      "bpm": 2,
+      "cpm": 2,
+      "key": "e:major",
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "arpeggio",
+        "polyrhythm"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 2 bpm",
+        "arpeggio at 2 bpm",
+        "polyrhythm at 2 bpm",
+        "reverb ambient",
+        "arpeggio ambient",
+        "swim style"
+      ],
+      "snippet": "// \"Swim And Sleep Like A Shark\" (Work In Progress)\r\n// song @by Unknown Mortal Orchestra\r\n// script @by eefano\r\nsetCps(123/60)\r\nPattern.prototype.enumerate = function () {\r\n  const pat = this.sortHapsByPart()\r\n  return new Pattern(state => {\r\n    const haps = pat.query(state.withSpan(span => span.begin.wholeCycle()))\r\n    const chunks = haps.length\r\n    return haps.map((hap, i) => new Hap(hap.whole, hap.part.intersection(state.span), [hap.value, i, chunks])\r\n                  ).filter(hap => hap.part != undefined)\r\n  }).splitQueries()\r\n}\r\nPattern.prototype.warp = function (tpat) {\r\n  const pat = this;\r\n  return tpat.enumerate().withValue(v => pat.zoom(Fraction(v[1]).div(v[2]), \r\n                                                  Fraction(v[1]).add(1).div(v[2])) ).outerJoin()}\r\nfunction tablature(te,tB,tG,tD,tA,tE)\r\n  { return stack(te.add(64),tB.add(59),tG.add(55),tD.add(50),tA.add(45),tE.add(40)); }\r\n\r\nconst parts = \r\n{theme: tablature(\r\n\"~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~  ~ ~  ~ ~  ~  ~  ~ 11  ~\",\r\n\"9 ~ 9 ~ 10 9 7 ~ 9 6 ~ 10 ~ 10 ~ 12 14 14  ~ 13\",\r\n\"~ ~ ~ ~  ~ ~ ~ ~ ~ ~ 6  ~ ~  ~ ~  ~  ~  ~  ~  ~\",\r\n\"~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~  ~ ~  ~ ~  ~  ~  ~  ~  ~\",",
+      "aliases": [
+        "swi",
+        "man",
+        "dsleep",
+        "swi man",
+        "man dsleep",
+        "swimandsleep",
+        "swim",
+        "and",
+        "sleep",
+        "like",
+        "shark",
+        "swim and",
+        "and sleep",
+        "sleep like",
+        "like shark"
+      ],
+      "title_tokens": [
+        "swim",
+        "and",
+        "sleep",
+        "like",
+        "shark"
+      ],
+      "path_tokens": [
+        "swimandsleep",
+        "js"
+      ]
+    },
+    {
+      "id": "swimmingsnake",
+      "slug": "swimmingsnake",
+      "title": "Swimming With The Snake",
+      "source_path": "swimmingsnake.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/swimmingsnake.js",
+      "author": "Tim",
+      "bpm": 2,
+      "cpm": 2,
+      "key": "c#:minor",
+      "instruments": [
+        "triangle",
+        "supersaw"
+      ],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 2 bpm",
+        "arpeggio at 2 bpm",
+        "triangle lead",
+        "reverb ambient",
+        "arpeggio ambient",
+        "swimming style"
+      ],
+      "snippet": "// \"Swimming With The Snake\" - Work In Progress\r\n// song @by Tim Smith of Cardiacs\r\n// script @by eefano\r\nsetCps(95/60)\r\nconst rando1 = `4 5 6 3 5 6 5 2 3 4 5 2 6 ~ 7 6 \r\n4 2 5 3 6 5 3 7 4 5 6 3 7 ~ 9 4 6 7 3 5 3 6 5 1 4 5 3 4 2 3 4 5\r\n7 8 9 7 8 9 10 6 3 7 6 4 5 6 7 8 9 3 5 6 7 8 3 5 6 7 5 6 7 9 8@2`\r\nconst rando2 = `0 1 2 -1 0 1 -2 2 1 5 4 -3 0 1 2 -2\r\n2 1 0 1 2 0 1 0 1 -1 0 -2 0 -1 -2 -1 -2 -3 -2 -1 0 -1 0 -2 -1 -2 1 0 ~ 0 -2 0\r\n1 3 0 1 -1 2 1 0 -1 -2 -1 0 1 -3 -1 0 1 -2@2 -1 0 1 -1 -2 1 3 4 5 -1 2 3 1`\r\nconst halo = x => \r\n  x.slow(20).scale(\"c#:minor\").add(12).note()\r\nconst part = stack(rando1.apply(halo).gain(0.2), rando2.apply(halo).gain(0.1))\r\nconst pats =\r\n{ba1: \"[0@8 -1@4 -2@2 -3@2 -2@8]/24\"\r\n,ba2: \"[-2 -1 0]/6\"\r\n,ba4: \"[-1 -2 -3 2 -2 -5 [-4 -3 -2 -1 0 2 -4 -3]@12 -2@8]/26\"\r\n,al2: \"[[5,2] ~ [5,2] [3,0] ~ [3,0] [4,1] ~ [4,1] [0,-3] ~ [0,-3]]/6\"\r\n,vr1: \"[~@0.5 11 13!2 11@4 ~ 11 13!2 11 9 10 11 <[ 9@2.5 8@2 7@3 ~] [~@0.5 9@3 ~@5]>@8.5 ]/24\"\r\n,vr4: \"[10 13 11 9 10 11 [9!2]@3 [7!2]@3 ~@14]/26\"\r\n,tr1: \"[0 3 1 4 2 5 -1 2 0 3 1 4 2 5 3 6 4 1 2 -1 3 0 4 1]/6\"\r\n}\r\nstack(part.layer(x=>x.pan(0.2),x=>x.pan(0.8).late(3/4)).s(\"gm_pad_warm\").release(0.05).room(0.5).color(\"white\")",
+      "aliases": [
+        "swimming",
+        "snake",
+        "swimming snake",
+        "swimmingsnake",
+        "with",
+        "the",
+        "swimming with",
+        "with the",
+        "the snake"
+      ],
+      "title_tokens": [
+        "swimming",
+        "with",
+        "the",
+        "snake"
+      ],
+      "path_tokens": [
+        "swimmingsnake",
+        "js"
+      ]
+    },
+    {
+      "id": "tablaturetest",
+      "slug": "tablaturetest",
+      "title": "NOT WORKING UNTIL mixJoin is implemented",
+      "source_path": "tablaturetest.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/tablaturetest.js",
+      "instruments": [
+        "triangle"
+      ],
+      "techniques": [],
+      "moods": [],
+      "genres": [],
+      "prompt_seeds": [
+        "triangle lead",
+        "not style",
+        "electronic music",
+        "electronic music",
+        "electronic music"
+      ],
+      "snippet": "// NOT WORKING UNTIL mixJoin is implemented\n\nconst k = 2;\n\nconst tablature = (pat) => reify(pat)\n  .fmap(([te,tB,tG,tD,tA,tE]) => stack(\n      pure(tE+64).late(k*5).color(\"#FFF0F0\"),\n      pure(tA+59).late(k*4).color(\"#FFE0E0\"),\n      pure(tD+55).late(k*3).color(\"#FFD000\"),\n      pure(tG+50).late(k*2).color(\"#FFD8D8\"),\n      pure(tB+45).late(k*1).color(\"#FFD0D0\"),\n      pure(te+40).late(k*0).color(\"#FFE8E8\"))    \n  ).outerJoin()\n\nconst guitar = tablature(\"0:2:2:1:0:0!2 0:3:2:0:1:0 ~\");\n\nstack(\n  \"E3 C3 ~\".s(\"triangle\"),\n  guitar.note().s(\"gm_electric_guitar_jazz\").clip(1).release(0.4).gain(0.5),\n\n).slow(5).pianoroll()",
+      "aliases": [
+        "tablaturetest",
+        "not",
+        "working",
+        "until",
+        "mixjoin",
+        "is",
+        "implemented",
+        "not working",
+        "working until",
+        "until mixjoin",
+        "mixjoin is",
+        "is implemented"
+      ],
+      "title_tokens": [
+        "not",
+        "working",
+        "until",
+        "mixjoin",
+        "is",
+        "implemented"
+      ],
+      "path_tokens": [
+        "tablaturetest",
+        "js"
+      ]
+    },
+    {
+      "id": "tarantella",
+      "slug": "tarantella",
+      "title": "Endless Tarantella",
+      "source_path": "tarantella.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/tarantella.js",
+      "author": "eefano",
+      "bpm": 2,
+      "cpm": 2,
+      "key": "a:minor",
+      "instruments": [],
+      "techniques": [
+        "polyrhythm"
+      ],
+      "moods": [
+        "dark",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "calm ambient",
+        "polyrhythm at 2 bpm",
+        "polyrhythm ambient",
+        "endless style"
+      ],
+      "snippet": "// \"Endless Tarantella\"\n// script @by eefano\nsetcps(140/60)\n\n//let pizza = run(16).slow(16) \nlet pizza = rand.range(0,16).segment(16).slow(16)\n\niamme: pizza.pick([\"4 ~ 4\",\"7 ~ 7\",\"4\",\"4 ~ 4\",\"5 ~ 5\",\"5 6 5\",\"4\",\"4 ~ 5\",\"4@2 3\",\"3 ~ 4\",\"3@2 2\",\"2 ~ 3\",\"4 5 4\",\"3 2 1\",\"0\",\"7 ~ 7\"])\n  .scale(\"a:minor\").s('gm_clarinet').note()\n\nlet pasta = pizza.pick([0,0,0,0,1,1,0,0,2,2,0,0,2,2,0,0]).fast(2)\n\nfuniculi: pasta.pick([\"[0 ~] [-3 ~]\",\"[3 ~] [-2 ~]\",\"[1 ~] [-3 ~]\"]).slow(2)\n  .scale(\"a2:minor\").s('gm_tuba').note().lpf(800)\n\nfunicula: pasta.pick([\"[~@2 [0,2,4]]!2\",\"[~@2 [1,3,5]]!2\",\"[~@2 [4,-1,1]]!2\"]).slow(2)\n  .scale(\"a3:minor\").s('gm_harmonica').note()\n\nuagliu: s(\"tambourine\")",
+      "aliases": [
+        "tarantella",
+        "endless",
+        "endless tarantella"
+      ],
+      "title_tokens": [
+        "endless",
+        "tarantella"
+      ],
+      "path_tokens": [
+        "tarantella",
+        "js"
+      ]
+    },
+    {
+      "id": "togooffandthings",
+      "slug": "togooffandthings",
+      "title": "To Go Off And Things",
+      "source_path": "togooffandthings.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/togooffandthings.js",
+      "author": "Cardiacs",
+      "bpm": 4,
+      "cpm": 4,
+      "key": "d5:whole:tone",
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 4 bpm",
+        "arpeggio at 4 bpm",
+        "reverb ambient",
+        "arpeggio ambient"
+      ],
+      "snippet": "// \"To Go Off And Things\"\n// song @by Cardiacs\n// script @by eefano\nsetcps(230/60)\n\n$: `<0@28 1@14 2@14 1@14 2@14 3@28 1@14 2@14 3@28 1@28 4@28 \n     ~@28 5@56 6@14 ~@24 7@24 ~@2 ~@42 1@14 2@14 3@21 [3,4]@7 0@3 ~@53>`\n  .pickRestart([\n  \"<[0,6]@6 ~>\",\n  \"<[8 7 6 5 6 7 8 9 8 7 6 <5 ~>]@6 ~>\",\n  \"<[9 7 8]@6 6 5@5 ~@2>\",\n  \"<[-2 [<2b 2 2b>@2 ~]!3]*3@6 ~ >\",\n  irand(15).seg(1),\n  \"<0@8 -1@6 -2@8 -3@6>\".sub(6),\n  \"<-6@6 ~>\",\n  \"<~ 7 ~ 5 5 ~ ~ ~ 7 ~ ~ 6 ~ 7 ~ 5 5 ~ 7 7 ~ ~ 9 7 >\"\n]).n().scale(\"d5:whole:tone\").s(\"gm_synth_strings_1\").gain(.9)\n\n$: `<0@28 0@28 0@28 1@28 0@28 1@28 2@28 1@28 \n     3@84 4@14 5@24 6@24 7@2 8@14 9@20 ~ 10@7 0@28 1@28 [8!5 ~]@3 ~@53>`\n  .pickRestart([\n  \"<6*12@6 ~>\",\n  \"<[[4,6,8b] [4,6b,8] [4,6,8b]]@6 ~>\",\n  \"<[0,4b,6]@6 ~>\",\n  \"<6@3 7 8@3 9 6@3 7 8@3 9 8 9 8 7 6 ~ 8 9 8 7 6 ~ >*2\".add(\"<3 4 5@2 [5,7]@2 >/14\"),\n  \"<9 8 7 6 9 8 7 6 9 8 7 6 ~ ~>*2\".add(\"5,7\"),\n  \"<0*2 [0,4b,2] -2*2 [-2,6,2b] 2*2 [2,4,6b]>\",\n  \"<1*2 [1,5b,3] -1*2 [-1,5,3b] 3*2 [3,5,7b]>\",\n  \"<[4,6,2b] [5,7,3b]>\",\n  \"[0,6]\".struct(\"[x*2 [x x*2] [x*2]!4 ~]/7\"),\n  irand(12).add(8).seg(2),\n  \"<12 ~ 12 10 ~ 10 ~ ~ 16!3 13 ~ ~>*2\",",
+      "aliases": [
+        "togooffand",
+        "things",
+        "togooffand things",
+        "togooffandthings",
+        "to",
+        "go",
+        "off",
+        "and",
+        "to go",
+        "go off",
+        "off and",
+        "and things"
+      ],
+      "title_tokens": [
+        "to",
+        "go",
+        "off",
+        "and",
+        "things"
+      ],
+      "path_tokens": [
+        "togooffandthings",
+        "js"
+      ]
+    },
+    {
+      "id": "ventocaldo",
+      "slug": "ventocaldo",
+      "title": "Il Vento Caldo Dell",
+      "source_path": "ventocaldo.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/ventocaldo.js",
+      "author": "Alice",
+      "bpm": 2,
+      "cpm": 2,
+      "key": "c#4:major",
+      "instruments": [
+        "triangle",
+        "sawtooth",
+        "bd",
+        "sd",
+        "hh",
+        "cr"
+      ],
+      "techniques": [
+        "reverb",
+        "polyrhythm"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 2 bpm",
+        "polyrhythm at 2 bpm",
+        "triangle lead",
+        "reverb ambient",
+        "polyrhythm ambient"
+      ],
+      "snippet": "// \"Il Vento Caldo Dell'Estate (wip)\"\n// song @by Alice\n// script @by eefano\nconst split = register('split', (deflt, callback, pat) => callback(deflt.map((d,i)=> pat.withValue((v)=>{\n  const isobj = v.value !== undefined; const value = isobj ? v.value : v;\n  const result = Array.isArray(value)?(i<value.length?value[i]:d):(i==0?value:d);\n  return (i==0 && isobj) ? {...v,value:result} : result; }))));\nsetCps(115/60)\n\nsynt: \"<a@27 b@70 b@75 ~@56 b@70 b@75 ~@56 ~@87 ~@8>\".pickRestart({\n  a: \"<0@6 0@6 0@7 0@7 0@8 0@10 0@10>*2\",\n  b: \"<0@6 0@6 0@6 0@7 0@7 0@6 0@6 0@6 0@6 0@7 0@7 0@6 0@8 0@10 0@8 0@10 0@8 0@10 0@10 0@10>*2\"\n    \n}).pickRestart([\"<0 4 7 8 10 11 9 12 14 12>*2\"])\n  .scale(\"c#4:major\").note().s(\"gm_drawbar_organ:4\").room(.3).lpf(1200).gain(0.7).color('yellow')\n\nbass: \"<a@172 b@56 a@145 b@56 c@87 ~@8>\".pickRestart({\n  a: \"<[<c#2:1!22 [c#2:.8 c#2:.9] > <c#3:1!6 [c#3:.8 c#3:.9]>]>\".s(\"gm_electric_bass_finger:2\"),\n  b: \"<~@2 c#2:1@4 c2:1@2 a#1:1@6 c2:1@2 g#1:1@8 d#2:1@8 c2:1@8 f2:1@8 c#2:1@8>\".s(\"triangle\"),\n  c: \"<~@2 [[c#2!6 a#1!8 g#1!6 d#2!8 c2!8 f2!8 c#2!8]!2]@104>\".fast(1.2).s(\"gm_electric_bass_finger:2\"),",
+      "aliases": [
+        "ventocaldo",
+        "il",
+        "vento",
+        "caldo",
+        "dell",
+        "il vento",
+        "vento caldo",
+        "caldo dell"
+      ],
+      "title_tokens": [
+        "il",
+        "vento",
+        "caldo",
+        "dell"
+      ],
+      "path_tokens": [
+        "ventocaldo",
+        "js"
+      ]
+    },
+    {
+      "id": "verminmangle",
+      "slug": "verminmangle",
+      "title": "Vermin Mangle",
+      "source_path": "verminmangle.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/verminmangle.js",
+      "author": "Tim",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [],
+      "techniques": [
+        "delay",
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "delay at 1 bpm",
+        "reverb at 1 bpm",
+        "delay ambient",
+        "reverb ambient",
+        "vermin style"
+      ],
+      "snippet": "// \"Vermin Mangle\" (work in progress)\n// song @by Tim Smith (Cardiacs)\n// script @by eefano\nsetcps(52 / 60)\nconst song = `< i@8 j@27 >`\nconst melody = {\n  i: \"<f#4 ~ c#5@3 ~ a#4@2 g#4 ~ f#4 ~ a4@2 g#4 ~ f#4 ~ e4 ~ d4@2 ~@2 >*6\",\n  j: `<f#5@2 [e5@2 c#5] c#5 [f#4 a#4 c#5] [f#5@2 g#5] g#5 a5 [c#5@2 f#5 f#5@2 f#5] f#5 e5\n       [c#5 b4 a#4 f#4] f#4 g#4 [c#4@3 a#4 e5@2] [d5 c#5 b4] [b4 a4 g4] f#4!2 g#4 [c#4@2 f#4] f#4@2 ~@100>`,\n}\nconst ch0rds = {\n  i: \"<F#@2 E7@2>\",\n  j: \"<F#@2 E7@2 F#@2 E D F# D E F# B E F# E G D B E F# D E F#@2 E@2>\",\n}\n\n$: note(song.pickRestart(melody)).clip(.98)\n  .apply(song.pickRestart(\n    { i: x=>x.s(\"gm_trumpet\").pan(.3).gain(.6),\n      j: x=>x.s(\"gm_vibraphone:4\").vib(10).vibmod(.09).delay(.4).dt(.2).dfb(.10).gain(.7).dec(2)\n    }))\n     \n$: chord(song.pickRestart(ch0rds)).anchor('E4').voicing()\n  .layer(x=>x.s(\"gm_accordion:2\").struct(\"[~ x x]\").clip(.6).pan(.40).gain(.4),\n         x=>x.transpose(12).s(\"gm_string_ensemble_2:2\").pan(.5).gain(.4))\n\n$: n(\"[0 ~ ~]\").chord(song.pickRestart(ch0rds)).mode('root').anchor('f#2').voicing()\n  .s(\"gm_tuba:3\").gain(1)\n\n$: s(\"bassdrum2:2,tambourine:0\").clip(1.5).gain(1.5)\n\nall(x => x.room(.8))",
+      "aliases": [
+        "vermin",
+        "man",
+        "gle",
+        "vermin man",
+        "man gle",
+        "verminmangle",
+        "mangle",
+        "vermin mangle"
+      ],
+      "title_tokens": [
+        "vermin",
+        "mangle"
+      ],
+      "path_tokens": [
+        "verminmangle",
+        "js"
+      ]
+    },
+    {
+      "id": "veronicainecstasy",
+      "slug": "veronicainecstasy",
+      "title": "Veronica In Ecstasy",
+      "source_path": "veronicainecstasy.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/veronicainecstasy.js",
+      "author": "Tim",
+      "bpm": 30,
+      "cpm": 30,
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 30 bpm",
+        "reverb ambient",
+        "veronica style"
+      ],
+      "snippet": "// \"Veronica In Ecstasy\" (Chorus)\n// song @by Tim Smith (of Cardiacs)\n// script @by eefano\nsetDefaultVoicings('legacy')\nconst chrds = \"<B [F# A] [C G] [D C#] [E A] [B C#] [Fm A#] [E A] [A# Fm] [E F#] [E F#]>\";\nconst meldy = `[[f#6]*3 [f#6 [~ ~ f#6]]]  [[f#6]*3 [[f#6 e6 ~] e6]]\n               [[e6 e6 [e6 f#6]] [[g6 ~ d6] d6]]  [[d6 d6 [e6 f#6]] [g#6 f6 c#6]]\n               [[g#5 [ ~ ~ g#5]]  [[a5 b5] c#6 c#6]]  [[f#6]*3 [f6 c#6 g#5]]\n               [[g#5 [ ~ ~ g#5]] [[a#5 c6] d6 a#5]]  [[g#5 a5 b5] [c#6 d6 e6]]\n               [[d6 a#5 f5] [[g#5 ~] g#5]] ~ [~@3 [~ ~ f#6]]`.slow(11);\nstack(\n  meldy.clip(0.9).note(),\n  //meldy.transpose(\"-12\").note(),\n  chord(chrds).anchor(\"G4\").voicing().struct(\"<[[~ x x] [x@2 x] [~ x ~] x]!8 [x!4] [~ x ~ x]!2>\").gain(0.6),\n  chrds.rootNotes(2).note().struct(\"<[x@2 ~]*2!9 [x ~ [~ ~ x] ~]!2>\").gain(0.6),\n).cpm(120/4).room(0.4).piano()//.pianoroll()\n .room(    slider(1.93,0,10))\n  .rsize(   slider(2,0,8,1))",
+      "aliases": [
+        "veronicainecstasy",
+        "veronica",
+        "in",
+        "ecstasy",
+        "veronica in",
+        "in ecstasy"
+      ],
+      "title_tokens": [
+        "veronica",
+        "in",
+        "ecstasy"
+      ],
+      "path_tokens": [
+        "veronicainecstasy",
+        "js"
+      ]
+    },
+    {
+      "id": "veronicazigzag",
+      "slug": "veronicazigzag",
+      "title": "Veronicazigzag",
+      "source_path": "veronicazigzag.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/veronicazigzag.js",
+      "bpm": 26,
+      "cpm": 26,
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "reversal"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 26 bpm",
+        "reversal at 26 bpm",
+        "reverb ambient",
+        "reversal ambient",
+        "veronicazigzag style"
+      ],
+      "snippet": "setDefaultVoicings('legacy')\nconst chrds = \"<B [F# A] [C G] [D C#] [E A] [B C#] [Fm A#] [E A] [A# Fm] [E F#] [E F#]>\".rev();\nconst meldy = `[[f#6]*3 [f#6 [~ ~ f#6]]]  [[f#6]*3 [[f#6 e6 ~] e6]]\n               [[e6 e6 [e6 f#6]] [[g6 ~ d6] d6]]  [[d6 d6 [e6 f#6]] [g#6 f6 c#6]]\n               [[g#5 [ ~ ~ g#5]]  [[a5 b5] c#6 c#6]]  [[f#6]*3 [f6 c#6 g#5]]\n               [[g#5 [ ~ ~ g#5]] [[a#5 c6] d6 a#5]]  [[g#5 a5 b5] [c#6 d6 e6]]\n               [[d6 a#5 f5] [[g#5 ~] g#5]] ~ [~@3 [~ ~ f#6]]`.slow(11).rev();\nstack(\n  meldy.clip(0.9).note(),\n  chord(chrds).anchor(\"G4\").voicing().struct(\"<[[~ x x] [x@2 x] [~ x ~] x]!8 [x!4] [~ x ~ x]!2>\").gain(0.55),\n  n(\"0\").chord(chrds).mode(\"root:c3\").voicing().struct(\"<[x@2 ~]*2!9 [x ~ [~ ~ x] ~]!2>\").gain(0.7),\n).cpm(105/4).piano()\n.room(    slider(1.93,0,10))\n.rsize(   slider(2,0,8,1))",
+      "aliases": [
+        "veronicazigzag"
+      ],
+      "title_tokens": [
+        "veronicazigzag"
+      ],
+      "path_tokens": [
+        "veronicazigzag",
+        "js"
+      ]
+    },
+    {
+      "id": "vine",
+      "slug": "vine",
+      "title": "Vine",
+      "source_path": "vine.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/vine.js",
+      "author": "Tim",
+      "bpm": 1,
+      "cpm": 1,
+      "instruments": [
+        "sawtooth",
+        "cp"
+      ],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "dark",
+        "airy",
+        "calm",
+        "warm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "dark ambient",
+        "airy ambient",
+        "reverb at 1 bpm",
+        "sawtooth lead",
+        "reverb ambient",
+        "vine style"
+      ],
+      "snippet": "// \"Vine\" (work in progress)\n// composed @by Tim Smith of Spratleys Japs\n// script @by eefano\nsetCps(143 / 60 / 4)\nconst song = \"<0@8 1@28 2@24 3@24 1@25 1@28 2@36 3@24 4@16 5@12 6@66 7@66 8@66 ~@8>*4\"\nconst chordseq = song.pickRestart([\"~\",\n\"<C@3 G# C# Cm G# C# Cm B F# A@3>*2\", // verse\n\"<E B C# G# A# F>*2\", // chorus\n\"<G# C@2>/2\", \"~\", // post-chorus\n\"<E@4 C@2 A#@3 D@4 C@2 G#@5 D@4>*8\", // interlude\n\"<Dm@9 G@5 A@5 G@4 A@6 Dm@4 G@10 A@5 G@3 A@4 G@5 Dm@13 G@7 A@5 G@7 A@4 G@4 Dm@7 G@9 A@4 G@5 A@3 G@4>*8\", //snare      \n\"<Dm@9 G@5 A@5 G@4 A@6 Dm@4 G@9 A@6 G@3 A@4 G@5 Dm@13 G@7 A@5 G@7 A@4 G@4 Dm@7 G@9 A@4 G@5 A@3 G@4>*8\", //handclaps\n\"<Dm@9 G@6 A@5 G@4 A@6 Dm@4 G@9 A@6 G@3 A@4 G@5 Dm@13 G@7 A@5 G@7 A@4 G@4 Dm@7 G@9 A@4 G@5 A@3 G@3>*8\"]); //triangle\n\nvoice: song.pickRestart([\"~\",\n  note(\"<c4*2 c4 [a#3 c4] c4@2 ~ c4*2 d#4 f4 ~ d#4*2!2 d#4 c4 g#4 ~ g4 ~ [f#4 f4] [d#4 c#4] a#3 ~ [e4 d#4] e4 [e4 f#4] g#4@2 g#4>*4\"),\n  note(\"<[g#4@2 ~ f#4] [f#4@2 ~ f4] [f4@2 ~ d#4] [d#4@2 ~ d4] [d4@2 ~ c4] [c4 a4@3]>*2\").gain(1.4),\n  \"~\"\n]).s('gm_oboe').clip(.95).color('yellow')\n\nbass: n(song.pickRestart([\"~\",\"0*4\",\"[0@2 ~ 0]*2\",\"0*8\"])).chord(chordseq).mode(\"root:e2\").voicing()",
+      "aliases": [
+        "vine"
+      ],
+      "title_tokens": [
+        "vine"
+      ],
+      "path_tokens": [
+        "vine",
+        "js"
+      ]
+    },
+    {
+      "id": "waltzno2",
+      "slug": "waltzno2",
+      "title": "Waltz #2",
+      "source_path": "waltzno2.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/waltzno2.js",
+      "author": "Dmitri",
+      "key": "c4:minor",
+      "instruments": [],
+      "techniques": [
+        "reverb",
+        "arpeggio"
+      ],
+      "moods": [
+        "airy"
+      ],
+      "genres": [],
+      "prompt_seeds": [
+        "waltz style",
+        "airy music",
+        "airy music",
+        "airy music",
+        "airy music"
+      ],
+      "snippet": "// \"Waltz #2\" (cps function demo)\n// composed @by Dmitri Shostakovich\n// script @by eefano\nsetDefaultVoicings('legacy')\n\nmelody: \"<~@4 0@16 1@7 2@11.5 ~@3.5>\".pickRestart([\n  `<4 [2@2 1] [0@4 0 1]@2 [2 0 2] [4@2 5] 4 3 \n    3 [1@2 0] [0b@4 -3 0b]@2 [1 0b 1] [3 4 5] 4b 4>`,\n    \"<[9,7] [[8,6]@2 [7,5]] [[6,4]@2 [5,3]] [3,0] [8,6] [[7,5]@2 [6,4]] [6,4]>\", \n  \"<[~ [2 ~] [3 ~]] [[4 ~] [4 3] [4 5]] [[3 ~] [3 2] [3 4]] [[2 ~] ~ [4 ~]] > \".sub(\"<0 0 [0,2]>/4\") ])\n      .scale(\"c4:minor\").note().s(\"gm_oboe:2\").gain(0.7)._pianoroll({minMidi:10})\n   \npiano: \"<0@28 1@10 0@4>\".pickRestart([\n     n(\"<<0 -1> [4,5]!2>*3\").chord(\"<Cm@10 Fm@4 G@4 Cm@4 Fm@2 Bb@2 Eb Ab>\"),\n     n(\"<3 <[4,5] > ~>*3\").chord(\"<G Ab Cm Ab>\")\n          ]).anchor('f2').mode('root').voicing().piano()._pianoroll()\n\ntempochanges: cps(sine.segment(32).slow(16).mul(30).add(160).div(60*3)).gain(0)\n\nall(x=>x\n  //.ribbon(24,16)\n  .room(0.6))",
+      "aliases": [
+        "waltzno2",
+        "waltz",
+        "#2",
+        "waltz #2"
+      ],
+      "title_tokens": [
+        "waltz"
+      ],
+      "path_tokens": [
+        "waltzno2",
+        "js"
+      ]
+    },
+    {
+      "id": "whydoesmybrain",
+      "slug": "whydoesmybrain",
+      "title": "Why does my brain works so bad?",
+      "source_path": "whydoesmybrain.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/whydoesmybrain.js",
+      "author": "Moby",
+      "bpm": 49,
+      "cpm": 49,
+      "instruments": [],
+      "techniques": [
+        "arpeggio"
+      ],
+      "moods": [
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "calm ambient",
+        "arpeggio at 49 bpm",
+        "arpeggio ambient",
+        "why style",
+        "ambient track"
+      ],
+      "snippet": "// Why does my brain works so bad?\n// an example in chords and arps modularization\n// based on a song @by Moby\n\nsetcpm(98/4*2)\n\nconst mychords = {\n  m1:\"0,7,12,15\",         // minor 1\n  m2:\"0,12,15,19\",        // minor 2\n  M1:\"0,7,12,16\",         // major 1\n  M2:\"0,12,16,19\"         // major 2\n}\nconst myarps = {\n  u: \"0,1,2,3\",          \n  a: \"-@2 0 1 2 3@3\",    \n  b: \"-@2 0@2 [1,2,3]@4\", \n  c: \"-@2 0 1 [2,3]@4\"\n}\n\n$:   \"<a3!4    e3!4    g3!4    d3!4   >\"\n.add(\"<m1!4    m2!4    M1!4    M2!4   >\".pick(mychords))\n.arp(\"<u a u b u b u c u b u a u ~ u a>\".pick(myarps))\n.note().s('piano')._pianoroll()",
+      "aliases": [
+        "whydoesmybrain",
+        "why",
+        "does",
+        "my",
+        "brain",
+        "works",
+        "so",
+        "bad?",
+        "why does",
+        "does my",
+        "my brain",
+        "brain works",
+        "works so",
+        "so bad?"
+      ],
+      "title_tokens": [
+        "why",
+        "does",
+        "my",
+        "brain",
+        "works",
+        "so",
+        "bad"
+      ],
+      "path_tokens": [
+        "whydoesmybrain",
+        "js"
+      ]
+    },
+    {
+      "id": "woodeneye",
+      "slug": "woodeneye",
+      "title": "Woodeneye",
+      "source_path": "woodeneye.js",
+      "source_url": "https://github.com/eefano/strudel-songs-collection/blob/main/woodeneye.js",
+      "author": "Cardiacs",
+      "bpm": 2,
+      "cpm": 2,
+      "instruments": [],
+      "techniques": [
+        "reverb"
+      ],
+      "moods": [
+        "airy",
+        "calm"
+      ],
+      "genres": [
+        "ambient"
+      ],
+      "prompt_seeds": [
+        "airy ambient",
+        "calm ambient",
+        "reverb at 2 bpm",
+        "reverb ambient",
+        "woodeneye style"
+      ],
+      "snippet": "// \"Woodeneye\" (wip)\n// song @by Cardiacs\n// script @by eefano\nsetCps(200 / 60 / 2)\nconst song = \"<1@16 2@16 3@7 4@4>\"\nconst chordseq = song.pickRestart([\n    \"~\",\n    \"<[~ A:f4:.6:0!15]>/4\",\n    \"<[~ A:g4:.6!7] [F:f4:.6!8]>/2\",\n    \"<D:d4 G:d4 A:d4:.8@2 B:g4 C:g4 G:d4:.8>\",\n    \"<[~ D:g4:.6!3] [D:g4 A:d4]>\"])\n\nmello: chordseq.as(\"chord:anchor:clip:n\").voicing().speed(0.97).begin(.03).s('gm_synth_bass_1').lpf(2000).gain(.7).color('cyan')\n\ndrums: song.pickRestart([\n    \"<oh,<~ bd!3> [sd <~!3 [sd,oh]>]>*2\",\n    \"<hh,<~ bd!3> [sd <~!3 bd ~!3 [sd,oh]>]>*2\",\n    \"<hh,<~ bd!3> [sd <~!3 [sd,oh]>]>*2\",\n    \"<oh,[bd <~!3 bd>] sd>*2\",\n]).pickOut({\n    bd: s('linndrum_bd').lpf(2000).room(.2).velocity(.8),\n    sd: s('linndrum_sd').room(.2).velocity(.75),\n    hh: s('linndrum_hh').hpf(7000).speed(1.5).velocity(.4),\n    oh: s('linndrum_oh').speed(1.3).hpf(3000).velocity(.3).clip(1.2),\n})\n\nall(x => x.room(.1)\n    // .ribbon(2*4,1*8)\n)",
+      "aliases": [
+        "wooden",
+        "eye",
+        "wooden eye",
+        "woodeneye"
+      ],
+      "title_tokens": [
+        "woodeneye"
+      ],
+      "path_tokens": [
+        "woodeneye",
+        "js"
+      ]
+    }
+  ],
+  "generated_at": "2025-12-29T23:36:37.079Z",
+  "version": "1.0.0"
+}

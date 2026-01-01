@@ -1,0 +1,87 @@
+{
+  "songs_glob": "../strudel-songs-collection/*.js",
+  "output_dir": ".",
+  "song_overrides": {
+    "strangerthings": {
+      "title": "Stranger Things",
+      "id": "strangerthings"
+    },
+    "ameliewaltz": {
+      "title": "Amelie Waltz",
+      "id": "ameliewaltz"
+    },
+    "formachines": {
+      "title": "For Machines",
+      "id": "formachines"
+    },
+    "determination": {
+      "title": "Determination",
+      "id": "determination"
+    },
+    "edenontheair": {
+      "title": "Eden on the Air",
+      "id": "edenontheair"
+    },
+    "woodeneye": {
+      "title": "Woodeneye",
+      "id": "woodeneye"
+    },
+    "whydoesmybrain": {
+      "title": "Why Does My Brain",
+      "id": "whydoesmybrain"
+    },
+    "waltzno2": {
+      "title": "Waltz No. 2",
+      "id": "waltzno2"
+    },
+    "vine": {
+      "title": "Vine",
+      "id": "vine"
+    },
+    "shanghai": {
+      "title": "Shanghai",
+      "id": "shanghai"
+    },
+    "mammalschilling": {
+      "title": "Mammals Chilling",
+      "id": "mammalschilling"
+    },
+    "hydraswap": {
+      "title": "Hydra Swap",
+      "id": "hydraswap"
+    },
+    "epicbiopic": {
+      "title": "Epic Biopic",
+      "id": "epicbiopic"
+    },
+    "enjoythesilence": {
+      "title": "Enjoy The Silence",
+      "id": "enjoythesilence"
+    },
+    "bluemonday": {
+      "title": "Blue Monday",
+      "id": "bluemonday"
+    },
+    "pyramidsong": {
+      "title": "Pyramid Song",
+      "id": "pyramidsong"
+    },
+    "bigship": {
+      "title": "Big Ship",
+      "id": "bigship"
+    },
+    "rhythmofthenight": {
+      "title": "Rhythm of the Night",
+      "id": "rhythmofthenight"
+    },
+    "pumpupthejam": {
+      "title": "Pump Up The Jam",
+      "id": "pumpupthejam"
+    },
+    "shedontusejelly": {
+      "title": "She Don't Use Jelly",
+      "id": "shedontusejelly"
+    }
+  }
+}
+

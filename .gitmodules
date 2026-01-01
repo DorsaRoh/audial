@@ -1,0 +1,3 @@
+[submodule "dataset/strudel-songs-collection"]
+	path = dataset/strudel-songs-collection
+	url = https://github.com/eefano/strudel-songs-collection

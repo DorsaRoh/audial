@@ -1,0 +1,597 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  theme system - switch between themes by changing this single variable
+  options: 'white-pink', 'electric-blue', 'black-cyan'
+*/
+:root {
+  --theme: 'white-pink';
+}
+
+:root {
+  --bg: #f7f7f7;
+  --bg-alt: #ffffff;
+  --surface: #f7f7f7; /* left panel background color */
+  --surface-alt: #dddddda8; /* right panel background color */
+  --text: #FF0059; /* text color for left panel */
+  --text-alt: #2101247b; /* text color for right panel */
+  --accent: #FF0059; /* accent color for left panel */
+  --accent-alt: #210124; /* accent color for right panel */
+  --hover: #CC0047; /* darker fuchsia/hot pink for hover states */
+  --title: #CC0047; /* title default color */
+  --title-hover: #FF0059; /* title hover color */ 
+  --border: #5a5a5a1a; /* non-hover color of border */
+  --border-left-panel: #5a5a5a4d; /* non-hover color of border for left panel (border between left panel and header, and left panel and right panel) */
+  --border-right-panel: #95959568; /* border color for everything else in right panel */
+}
+
+
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 500;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* custom scrollbar - minimal */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+/* utility classes for theme colors */
+.bg-surface { background-color: var(--surface); }
+.bg-surface-alt { background-color: var(--surface-alt); }
+.bg-accent { background-color: var(--accent); }
+.text-dim { color: var(--text-dim); }
+
+/* strudel container */
+.strudel-container {
+  background: var(--surface) !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  /* allow content to flow, codemirror handles its own scrolling */
+  overflow: visible;
+}
+
+.strudel-container::-webkit-scrollbar { display: none; }
+
+.strudel-host {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface) !important;
+  min-height: 0;
+  min-width: 0;
+  flex: 1;
+  /* allow codemirror to manage its own scroll behavior */
+  overflow: visible;
+}
+
+.strudel-host::-webkit-scrollbar { display: none; }
+
+/* codemirror editor */
+.strudel-host .cm-editor {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  font-size: var(--panel-font-size);
+  line-height: 1.0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+  font-weight: 700;
+  background: var(--surface) !important;
+  display: flex;
+  flex-direction: column;
+  outline: none !important;
+}
+
+.strudel-host .cm-scroller {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto !important;
+  font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+  font-weight: 700;
+  padding: 24px 0 12px 0;
+  background: var(--surface) !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.strudel-host .cm-scroller::-webkit-scrollbar { display: none; }
+
+.strudel-host .cm-content {
+  padding: 0 12px;
+  background: transparent;
+  /* codemirror's lineWrapping extension handles wrapping, these help with overflow */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.strudel-host .cm-line {
+  padding: 0 4px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* gutter - clean and minimal */
+.strudel-host .cm-gutters {
+  background: transparent !important;
+  border-right: none !important;
+  padding-right: 0;
+  min-width: 36px !important;
+  flex-shrink: 0;
+}
+
+.strudel-host .cm-gutter {
+  min-width: 36px !important;
+}
+
+.strudel-host .cm-gutter.cm-lineNumbers {
+  min-width: 36px !important;
+}
+
+.strudel-host .cm-lineNumbers .cm-gutterElement {
+  color: rgba(255, 0, 89, 0.25);
+  font-size: var(--panel-font-size);
+  font-weight: 700;
+  padding: 0 12px 0 8px;
+  text-align: right;
+  min-width: 48px;
+}
+
+.cm-lineNumbers { display: block !important; }
+
+/* active line - very subtle */
+.strudel-host .cm-activeLine {
+  background: var(--accent-soft) !important;
+}
+
+.strudel-host .cm-activeLineGutter {
+  background: transparent !important;
+}
+
+/* syntax highlighting - ALL PINK */
+.strudel-host .cm-content,
+.strudel-host .cm-line,
+.strudel-host .cm-line * {
+  color: #FF0059 !important;
+}
+
+/* force all token types pink */
+.strudel-host [class*="tok-"],
+.strudel-host [class*="ͼ"] {
+  color: #FF0059 !important;
+}
+
+/* numbers */
+.strudel-host .tok-number,
+.strudel-host .ͼd {
+  color: #FF0059 !important;
+  font-weight: 800;
+}
+
+/* strings */
+.strudel-host .tok-string,
+.strudel-host .ͼe {
+  color: #FF0059 !important;
+}
+
+/* keywords */
+.strudel-host .tok-keyword {
+  color: #FF0059 !important;
+  font-weight: 700;
+}
+
+/* operators */
+.strudel-host .tok-operator {
+  color: #FF0059 !important;
+}
+
+/* variables and properties */
+.strudel-host .tok-variableName,
+.strudel-host .tok-propertyName {
+  color: #FF0059 !important;
+}
+
+/* atoms/labels/names */
+.strudel-host .tok-atom,
+.strudel-host .tok-labelName,
+.strudel-host .tok-name,
+.strudel-host .tok-literal,
+.strudel-host .tok-bool,
+.strudel-host .tok-null {
+  color: #FF0059 !important;
+}
+
+/* comments */
+.strudel-host .tok-comment,
+.strudel-host .ͼ1f {
+  color: #FF0059 !important;
+  font-style: normal;
+}
+
+/* brackets and punctuation */
+.strudel-host .tok-bracket,
+.strudel-host .tok-punctuation,
+.strudel-host .tok-paren {
+  color: #FF0059 !important;
+}
+
+/* block widgets - render as overlay so they don't affect line numbers */
+/* widgets take no vertical space but remain visible */
+.strudel-host .cm-widgetBuffer {
+  height: 0 !important;
+  overflow: visible !important;
+  position: relative !important;
+}
+
+.strudel-host .cm-widget {
+  position: absolute !important;
+  left: 48px !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+}
+
+/* pianoroll canvas - overlay style */
+.strudel-host canvas {
+  display: block !important;
+  width: 500px !important;
+  max-width: calc(100% - 60px) !important;
+  height: 44px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 640px) {
+  .strudel-host canvas {
+    width: 280px !important;
+    height: 36px !important;
+  }
+}
+
+/* widget containers - collapsed to preserve line number alignment */
+/* any block widgets that slip through are hidden */
+
+/* atomic range/slider decorations - remove all visual boxes */
+.strudel-host .cm-line span[aria-hidden="true"] {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* code highlighting during playback - active mini notation highlights */
+/* target the class we added to Strudel's highlight decorations */
+.strudel-host .strudel-active-highlight {
+  background: rgba(255, 0, 89, 0.12) !important;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  box-shadow: 0 0 8px rgba(255, 0, 89, 0.15);
+  animation: highlight-pulse 0.15s ease-out;
+  /* ensure the inline outline is visible */
+  outline-color: var(--accent) !important;
+}
+
+/* also target via attribute selector as fallback */
+.strudel-host .cm-line span[style*="outline"] {
+  background: rgba(255, 0, 89, 0.12) !important;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  box-shadow: 0 0 8px rgba(255, 0, 89, 0.15);
+}
+
+@keyframes highlight-pulse {
+  0% { 
+    background: rgba(255, 0, 89, 0.25);
+    box-shadow: 0 0 12px rgba(255, 0, 89, 0.2);
+  }
+  100% { 
+    background: rgba(255, 0, 89, 0.12);
+    box-shadow: 0 0 8px rgba(255, 0, 89, 0.15);
+  }
+}
+
+/* Strudel's initial mark decorations have green background on eval */
+.strudel-host .cm-line span[style*="background"] {
+  border-radius: 3px;
+  box-shadow: 0 0 4px rgba(0, 202, 40, 0.25);
+}
+
+/* mini notation highlighting - subtle accent (class-based fallback) */
+.strudel-host .cm-strudel-highlight {
+  background: rgba(255, 0, 89, 0.08);
+  border: 1px solid rgba(255, 0, 89, 0.2);
+  border-radius: 3px;
+  padding: 0 3px;
+  margin: 0 -3px;
+}
+
+.strudel-host .cm-strudel-highlight-active {
+  background: rgba(255, 0, 89, 0.12);
+  border-color: rgba(255, 0, 89, 0.3);
+  box-shadow: 0 0 8px rgba(255, 0, 89, 0.15);
+}
+
+/* flash animation - accent burst */
+.cm-flash { 
+  animation: flash-anim 0.15s ease-out;
+}
+
+@keyframes flash-anim {
+  0% { background-color: var(--accent-soft); }
+  100% { background-color: transparent; }
+}
+
+/* cursor and selection */
+.strudel-host .cm-cursor {
+  border-left-color: #3b82f6 !important;
+  border-left-width: 2px !important;
+}
+
+.strudel-host .cm-selectionBackground {
+  background: var(--selection) !important;
+}
+
+.strudel-host .cm-matchingBracket {
+  background: var(--accent-soft);
+  color: var(--accent) !important;
+  font-weight: 600;
+}
+
+/* error styling */
+.strudel-host .cm-lintRange-error {
+  background: rgba(255, 80, 80, 0.1);
+  border-bottom: 2px wavy #ff5050;
+}
+
+/* force theme backgrounds */
+.strudel-host,
+.strudel-host > div,
+.strudel-host .cm-editor,
+.strudel-host .cm-scroller {
+  background-color: var(--surface) !important;
+}
+
+/* cm-widget styling handled above in block widgets section */
+
+.strudel-host .cm-lineWrapper {
+  position: relative;
+}
+
+/* slider controls - minimal feedback only */
+.strudel-host input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--border);
+  height: 2px;
+  border-radius: 1px;
+  cursor: pointer;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.strudel-host input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--accent-glow);
+  transition: box-shadow 0.15s ease;
+  border: none !important;
+}
+
+.strudel-host input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.strudel-host input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* slider container - remove any box/border */
+.strudel-host span:has(> input[type="range"]),
+.strudel-host div:has(> input[type="range"]) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* inline slider widget - remove box decorations but preserve outlines for code highlighting */
+.strudel-host .cm-line span:has(> input[type="range"]),
+.strudel-host .cm-line div:has(> input[type="range"]) {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* target strudel slider widget wrapper specifically */
+.strudel-host .cm-slider,
+.strudel-host [class*="slider"],
+.strudel-host [class*="Slider"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+/* remove any box/border below slider in widget container */
+.strudel-host .cm-widgetBuffer + *,
+.strudel-host .cm-widget + * {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* responsive layout */
+@media (max-width: 1023px) {
+  .strudel-container,
+  .strudel-host {
+    min-height: 0;
+  }
+}
+
+/* mobile-specific styles */
+@media (max-width: 767px) {
+  :root {
+    --panel-font-size: 12px;
+  }
+  
+  /* smaller gutters on mobile */
+  .strudel-host .cm-gutters {
+    min-width: 28px !important;
+  }
+  
+  .strudel-host .cm-gutter {
+    min-width: 28px !important;
+  }
+  
+  .strudel-host .cm-gutter.cm-lineNumbers {
+    min-width: 28px !important;
+  }
+  
+  .strudel-host .cm-lineNumbers .cm-gutterElement {
+    padding: 0 6px 0 4px;
+    min-width: 32px;
+    font-size: 10px;
+  }
+  
+  /* tighter padding on mobile */
+  .strudel-host .cm-scroller {
+    padding: 12px 0 8px 0;
+  }
+  
+  .strudel-host .cm-content {
+    padding: 0 8px;
+  }
+  
+  .strudel-host .cm-line {
+    padding: 0 2px;
+  }
+  
+  /* smaller canvas on mobile */
+  .strudel-host canvas {
+    width: 200px !important;
+    height: 32px !important;
+  }
+  
+  /* claude panel border for mobile stacked layout */
+  .claude-panel-container {
+    border-top: 1px solid var(--border) !important;
+    margin-top: 0;
+  }
+}
+
+.break-words {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* input placeholder styling */
+input::placeholder {
+  color: var(--text-dim);
+  opacity: 0.7;
+}
+
+/* focus states */
+input:focus {
+  outline: none;
+}
+
+/* button reset */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+/* hover states - use darker fuchsia/hot pink */
+button:hover:not(:disabled),
+a:hover,
+summary:hover {
+  color: var(--hover) !important;
+}
+
+button:hover:not(:disabled) svg,
+a:hover svg {
+  color: var(--hover) !important;
+}
+
+/* background hover states */
+button:hover:not(:disabled) {
+  background-color: rgba(204, 0, 71, 0.1) !important;
+}
+
+/* play button - hot pink styling by default */
+button.play-button {
+  border: 1px solid #FF0059 !important;
+  background-color: rgba(204, 0, 71, 0.1) !important;
+  color: #FF0059 !important;
+}
+
+/* divider hover */
+.divider-hover:hover {
+  background-color: var(--hover) !important;
+}
+
+/* title hover - override global a:hover */
+a.title-link:hover {
+  color: var(--title-hover) !important;
+}
+
+/* header border - visible between header and left panel */
+/* right panel covers this border with matching border-top color */
+.claude-panel-container {
+  border-top: 1px solid var(--surface-alt);
+  margin-top: -1px;
+}
+
+/* toast animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.15s ease-out;
+}
