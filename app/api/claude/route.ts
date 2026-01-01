@@ -116,6 +116,42 @@ async function streamClaude(
   return fullText;
 }
 
+// streams OpenCode Zen Claude response (uses Anthropic SDK with custom baseURL)
+async function streamOpenCodeClaude(
+  client: Anthropic,
+  systemPrompt: string,
+  userPrompt: string,
+  maxTokens: number,
+  controller: ReadableStreamDefaultController,
+  encoder: TextEncoder,
+  model: string
+): Promise<string> {
+  const stream = await client.messages.stream({
+    model: model,
+    max_tokens: maxTokens,
+    system: systemPrompt,
+    messages: [{ role: "user", content: userPrompt }],
+  });
+
+  let fullText = "";
+
+  for await (const event of stream) {
+    if (event.type === "content_block_delta") {
+      const delta = event.delta as { type: string; text?: string };
+      if (delta.type === "text_delta" && delta.text) {
+        fullText += delta.text;
+        const data = JSON.stringify({
+          type: "content_block_delta",
+          delta: { text: delta.text },
+        });
+        controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+      }
+    }
+  }
+
+  return fullText;
+}
+
 // streams OpenAI response
 async function streamOpenAI(
   client: OpenAI,
@@ -154,22 +190,25 @@ async function streamOpenAI(
 }
 
 // Helper to determine provider from model ID
-function getProviderFromModel(model: string): "anthropic" | "openai" {
+function getProviderFromModel(model: string): "anthropic" | "openai" | "opencode" {
   if (model.startsWith("gpt-") || model.startsWith("o1") || model.startsWith("o3")) {
     return "openai";
   }
-  return "anthropic";
+  if (model.startsWith("claude-")) {
+    return "anthropic";
+  }
+  return "opencode";
 }
 
 // Helper to detect API key type
-function detectApiKeyProvider(apiKey: string): "anthropic" | "openai" | "unknown" {
+function detectApiKeyProvider(apiKey: string): "anthropic" | "openai" | "opencode" | "unknown" {
   if (apiKey.startsWith("sk-ant-")) {
     return "anthropic";
   }
   if (apiKey.startsWith("sk-") || apiKey.startsWith("sk-proj-")) {
     return "openai";
   }
-  return "unknown";
+  return "opencode";
 }
 
 export async function POST(req: NextRequest) {
@@ -207,12 +246,12 @@ export async function POST(req: NextRequest) {
     
     // Detect API key type and validate it matches the selected provider
     const keyProvider = detectApiKeyProvider(apiKey);
-    if (keyProvider !== "unknown" && keyProvider !== provider) {
-      const providerName = provider === "openai" ? "OpenAI" : "Anthropic";
-      const keyProviderName = keyProvider === "openai" ? "OpenAI" : "Anthropic";
+    const providers = { anthropic: "Anthropic", openai: "OpenAI", opencode: "OpenCode Zen" };
+    const isOpencodeProvider = provider === "opencode";
+    if (!isOpencodeProvider && keyProvider !== "unknown" && keyProvider !== provider) {
       return new Response(
         JSON.stringify({
-          error: `You selected an ${providerName} model but provided an ${keyProviderName} API key. Please update your API key in Settings to match the selected model.`,
+          error: `You selected an ${providers[provider]} model but provided an ${providers[keyProvider]} API key. Please update your API key in Settings to match the selected model.`,
         }),
         {
           status: 400,
@@ -229,8 +268,19 @@ export async function POST(req: NextRequest) {
     }
 
     // Create appropriate client based on provider
+    // Create appropriate client based on provider
     const anthropicClient = provider === "anthropic" ? new Anthropic({ apiKey }) : null;
     const openaiClient = provider === "openai" ? new OpenAI({ apiKey }) : null;
+    const opencodeAnthropicClient = provider === "opencode"
+      ? new Anthropic({ apiKey, baseURL: "https://opencode.ai/zen/v1" })
+      : null;
+    const opencodeOpenAIClient = provider === "opencode"
+      ? new OpenAI({ apiKey, baseURL: "https://opencode.ai/zen/v1" })
+      : null;
+
+    // OpenCode Claude models use Anthropic API, others use OpenAI API
+    const isOpencodeClaude = provider === "opencode" && model.startsWith("claude-");
+    const opencodeClient = isOpencodeClaude ? opencodeAnthropicClient : opencodeOpenAIClient;
 
     // get balanced config values
     const config = getConfigValues();
@@ -258,11 +308,21 @@ export async function POST(req: NextRequest) {
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          // first attempt - streaming
           let fullText: string;
-          if (provider === "openai" && openaiClient) {
+          if (isOpencodeClaude && opencodeAnthropicClient) {
+            fullText = await streamOpenCodeClaude(
+              opencodeAnthropicClient,
+              systemPrompt,
+              userPrompt,
+              maxTokens,
+              controller,
+              encoder,
+              model
+            );
+          } else if ((provider === "openai" || (provider === "opencode" && !isOpencodeClaude)) && (openaiClient || opencodeOpenAIClient)) {
+            const client = provider === "opencode" ? opencodeOpenAIClient! : openaiClient!;
             fullText = await streamOpenAI(
-              openaiClient,
+              client,
               systemPrompt,
               userPrompt,
               maxTokens,
@@ -319,9 +379,20 @@ export async function POST(req: NextRequest) {
               controller.enqueue(encoder.encode(`data: ${clearMsg}\n\n`));
 
               // second attempt - also streaming
-              if (provider === "openai" && openaiClient) {
+              if (isOpencodeClaude && opencodeAnthropicClient) {
+                await streamOpenCodeClaude(
+                  opencodeAnthropicClient,
+                  systemPrompt,
+                  retryUserPrompt,
+                  maxTokens,
+                  controller,
+                  encoder,
+                  model
+                );
+              } else if ((provider === "openai" || (provider === "opencode" && !isOpencodeClaude)) && (openaiClient || opencodeOpenAIClient)) {
+                const client = provider === "opencode" ? opencodeOpenAIClient! : openaiClient!;
                 await streamOpenAI(
-                  openaiClient,
+                  client,
                   systemPrompt,
                   retryUserPrompt,
                   maxTokens,
