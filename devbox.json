@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
+  "packages": [
+    "nodejs_22",
+    "pnpm"
+  ],
+  "env": {
+    "DEVBOX_NO_PROMPT": "1"
+  },
+  "shell": {
+    "init_hook": [
+      "if [ ! -d node_modules ]; then pnpm install; fi",
+      "printf '\\n'",
+      "printf '\\033[1;36m🎵 Audial dev environment ready!\\033[0m\\n'",
+      "printf '\\033[1;33m   Run: pnpm dev\\033[0m\\n'",
+      "printf '\\n'"
+    ],
+    "scripts": {
+      "dev": "pnpm dev",
+      "build": "pnpm build",
+      "test": "pnpm test",
+      "check": "pnpm check"
+    }
+  }
+}
