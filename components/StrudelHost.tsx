@@ -1,5 +1,9 @@
 "use client";
 
+// Import and patch audio context BEFORE any other imports that might create AudioContext
+import { audioRecorder } from "@/lib/audioRecorder";
+audioRecorder.patchAudioContext();
+
 import { useRef, useEffect, useState, useImperativeHandle, forwardRef } from "react";
 
 // strudel error with optional line number for ui display
@@ -61,7 +65,8 @@ export interface StrudelAdapter {
   stop: () => Promise<void>;
   isPlaying: () => boolean;
   getAudioContext: () => AudioContext | null;
-  exportAudio: (durationSeconds: number, format?: 'wav' | 'mp3') => Promise<void>;
+  getCps: () => number;
+  exportOneLoop: () => Promise<Blob>;
 }
 
 export interface StrudelEditorHandle {
@@ -329,6 +334,10 @@ const StrudelHost = forwardRef<StrudelEditorHandle, StrudelHostProps>(
                 await strudelRef.current.evaluate();
                 const { getAudioContext } = await import("@strudel/webaudio");
                 audioContextRef = getAudioContext();
+                // Initialize audio recorder with the context
+                if (audioContextRef) {
+                  audioRecorder.init(audioContextRef);
+                }
               } catch (err) {
                 // create a structured error with line number extraction
                 const strudelError = createStrudelError(err, 'strudel error');
@@ -342,52 +351,49 @@ const StrudelHost = forwardRef<StrudelEditorHandle, StrudelHostProps>(
               await strudelRef.current.stop();
             }
           },
-          isPlaying: () => playing,
+          isPlaying: () => {
+            // Check actual scheduler state to avoid stale closure
+            const repl = (strudelRef.current as any)?.repl;
+            return repl?.scheduler?.started ?? false;
+          },
           getAudioContext: () => audioContextRef,
-          exportAudio: async (durationSeconds: number, _format: 'wav' | 'mp3' = 'wav'): Promise<void> => {
+          getCps: () => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const repl = (strudelRef.current as any)?.repl;
+            return repl?.scheduler?.cps || 0.5;
+          },
+          exportOneLoop: async () => {
             if (!strudelRef.current) {
-              throw new Error("strudel not ready");
+              throw new Error("Strudel not ready");
             }
-            
-            const code = strudelRef.current.code || "";
-            if (!code.trim()) {
-              throw new Error("no code to export");
-            }
-            
-            // Use Strudel's built-in renderPatternAudio
-            const { renderPatternAudio, initAudio } = await import("@strudel/webaudio");
-            
-            // Stop current playback and evaluate to get the pattern
+
+            // 1. Stop any existing playback first
             await strudelRef.current.stop();
-            await strudelRef.current.evaluate();
-            
-            // Get pattern and cps from the repl
-            const repl = strudelRef.current.repl;
-            if (!repl || !repl.state?.pattern) {
-              throw new Error("no pattern to export");
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            // 2. Initialize audio recorder if needed
+            if (!audioRecorder.isReady()) {
+              const { getAudioContext, initAudio } = await import("@strudel/webaudio");
+              await initAudio();
+              const ctx = getAudioContext();
+              if (ctx) {
+                audioRecorder.init(ctx);
+                audioContextRef = ctx;
+              }
             }
-            
-            const pattern = repl.state.pattern;
-            const cps = repl.scheduler?.cps || 0.5;
-            
-            // Calculate cycles from duration
-            const numCycles = Math.ceil(durationSeconds * cps);
-            
-            // Use Strudel's renderPatternAudio - it handles everything and triggers download
-            const downloadName = `audial-${Date.now()}`;
-            await renderPatternAudio(
-              pattern,
-              cps,
-              0,                    // begin cycle
-              numCycles,            // end cycle
-              48000,                // sample rate
-              1024,                 // max polyphony
-              true,                 // multi-channel orbits
-              downloadName          // download name (without extension)
-            );
-            
-            // Re-initialize audio after export (renderPatternAudio closes the context)
-            await initAudio({ maxPolyphony: 1024, multiChannelOrbits: true });
+
+            // 3. Get cycle duration
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const repl = (strudelRef.current as any)?.repl;
+            const cps = repl?.scheduler?.cps || 0.5;
+            const cycleDuration = 1 / cps;
+
+            // 4. Start fresh playback - now audio will route through recorder
+            await strudelRef.current.evaluate();
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            // 5. Record one loop and return MP3
+            return audioRecorder.recordDuration(cycleDuration);
           },
         };
         onReady(adapter);
