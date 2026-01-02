@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
+    "@breezystack/lamejs": "^1.2.7",
     "@strudel/codemirror": "^1.2.5",
     "@strudel/core": "^1.2.5",
     "@strudel/draw": "^1.2.5",

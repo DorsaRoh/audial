@@ -46,6 +46,7 @@ interface ClaudePanelProps {
   isMobile?: boolean;
   settings?: Settings;
   onInfoClick?: () => void;
+  externalPlaybackStarted?: number; // timestamp to trigger sync
 }
 
 // quick action presets
@@ -58,7 +59,7 @@ const QUICK_ACTIONS = [
   { label: "minimal", prompt: "strip it down to essentials" },
 ];
 
-export default function ClaudePanel({ strudelAdapter, isMobile = false, settings, onInfoClick }: ClaudePanelProps) {
+export default function ClaudePanel({ strudelAdapter, isMobile = false, settings, onInfoClick, externalPlaybackStarted }: ClaudePanelProps) {
   const [prompt, setPrompt] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -86,6 +87,13 @@ export default function ClaudePanel({ strudelAdapter, isMobile = false, settings
       store.ensureSession();
     }
   }, [currentSession, store]);
+
+  // sync isPlaying when external playback starts (e.g., from export)
+  useEffect(() => {
+    if (externalPlaybackStarted && strudelAdapter) {
+      setIsPlaying(strudelAdapter.isPlaying());
+    }
+  }, [externalPlaybackStarted, strudelAdapter]);
 
   // sync editor code to session when adapter is ready
   useEffect(() => {

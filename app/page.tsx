@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import StrudelHost from "@/components/StrudelHost";
 import type { StrudelAdapter, StrudelEditorHandle } from "@/components/StrudelHost";
 import SettingsModal, { loadSettings, type Settings } from "@/components/SettingsModal";
+import ExportDropdown from "@/components/ExportDropdown";
 
 const ClaudePanel = dynamic(() => import("@/components/ClaudePanel"), { ssr: false });
 
@@ -22,6 +23,7 @@ export default function Home() {
   const [settings, setSettings] = useState<Settings>(() => loadSettings());
   const [toast, setToast] = useState<string | null>(null);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [externalPlaybackStarted, setExternalPlaybackStarted] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -174,6 +176,11 @@ export default function Home() {
               <line x1="12" y1="2" x2="12" y2="15" />
             </svg>
           </button>
+          <ExportDropdown
+            strudelAdapter={strudelAdapter}
+            onToast={setToast}
+            onPlaybackStart={() => setExternalPlaybackStarted(Date.now())}
+          />
           <button
             onClick={() => setIsSettingsOpen(true)}
             className="p-2 md:p-3 rounded-lg transition-all"
@@ -226,7 +233,7 @@ export default function Home() {
             : { width: rightPanelWidth ? `${rightPanelWidth}px` : '35%' }
           }
         >
-          <ClaudePanel strudelAdapter={strudelAdapter} isMobile={isMobile} settings={settings} onInfoClick={() => setIsInfoOpen(true)} />
+          <ClaudePanel strudelAdapter={strudelAdapter} isMobile={isMobile} settings={settings} onInfoClick={() => setIsInfoOpen(true)} externalPlaybackStarted={externalPlaybackStarted} />
         </div>
       </div>
 
