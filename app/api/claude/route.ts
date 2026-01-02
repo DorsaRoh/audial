@@ -58,6 +58,36 @@ function buildNewSongContext(userRequest: string): string {
   return buildUserPrompt(userRequest);
 }
 
+// truncate chat history intelligently (keep recent + first message for context)
+function truncateChatHistory(
+  chat: ChatMessage[],
+  maxMessages: number = 10
+): ChatMessage[] {
+  if (chat.length <= maxMessages) return chat;
+
+  // keep first message and last (maxMessages - 1) messages
+  return [chat[0], ...chat.slice(-(maxMessages - 1))];
+}
+
+// format chat history for context
+function formatChatHistory(chat: ChatMessage[]): string {
+  if (chat.length === 0) return "";
+
+  const formatted = chat
+    .map((msg) => {
+      const role = msg.role === "user" ? "user" : "assistant";
+      // for assistant messages, only include short summary, not full code
+      const content =
+        msg.role === "assistant" && msg.code
+          ? "[generated strudel code]"
+          : msg.content;
+      return `${role}: ${content}`;
+    })
+    .join("\n");
+
+  return `\nprevious conversation:\n${formatted}\n`;
+}
+
 // stream text and return accumulated result, outputting in the expected SSE format
 async function streamToClient(
   provider: Provider,
@@ -99,7 +129,7 @@ export async function POST(req: NextRequest) {
       prompt,
       mode = "new" as GenerationMode,
       currentCode,
-      chatHistory: _chatHistory = [] as ChatMessage[],
+      chatHistory = [] as ChatMessage[],
       sessionId: _sessionId,
       model: requestModel,
       apiKey: requestApiKey,
@@ -154,8 +184,11 @@ export async function POST(req: NextRequest) {
     let userPrompt: string;
 
     if (mode === "edit" && currentCode && currentCode.trim()) {
-      userPrompt = buildEditContext(currentCode, prompt);
+      // edit mode: include current code context and chat history
+      const chatContext = formatChatHistory(truncateChatHistory(chatHistory, 6));
+      userPrompt = buildEditContext(currentCode, prompt) + chatContext;
     } else {
+      // new mode: no previous code context
       userPrompt = buildNewSongContext(prompt);
     }
 
