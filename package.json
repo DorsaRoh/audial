@@ -13,7 +13,8 @@
     "build-dataset": "tsx public/assets/dataset/scripts/build_index.ts && tsx public/assets/dataset/scripts/build_style_priors.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1",
+    "@ai-sdk/anthropic": "^3.0.2",
+    "@ai-sdk/openai": "^3.0.2",
     "@strudel/codemirror": "^1.2.5",
     "@strudel/core": "^1.2.5",
     "@strudel/draw": "^1.2.5",
@@ -23,8 +24,8 @@
     "@strudel/tonal": "^1.2.5",
     "@strudel/transpiler": "^1.2.5",
     "@strudel/webaudio": "^1.2.5",
+    "ai": "^6.0.5",
     "next": "14.2.21",
-    "openai": "^6.15.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
