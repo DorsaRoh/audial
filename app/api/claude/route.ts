@@ -1,5 +1,7 @@
-import Anthropic from "@anthropic-ai/sdk";
-import OpenAI from "openai";
+// ABOUTME: API route for LLM-powered music generation
+// ABOUTME: Uses Vercel AI SDK to abstract over Anthropic and OpenAI providers
+
+import { streamText } from "ai";
 import { NextRequest } from "next/server";
 import { buildSystemPrompt } from "@/lib/systemPrompt";
 import {
@@ -8,6 +10,12 @@ import {
   buildRetryPrompt,
 } from "@/lib/creativeDirectives";
 import { validateStrudelCode } from "@/lib/validateOutput";
+import {
+  getProviderFromModel,
+  validateApiKeyForProvider,
+  createModel,
+  type Provider,
+} from "@/lib/ai/providers";
 import type { GenerationMode, ChatMessage } from "@/lib/sessionStore";
 
 // extracts code from response for validation
@@ -50,126 +58,38 @@ function buildNewSongContext(userRequest: string): string {
   return buildUserPrompt(userRequest);
 }
 
-// truncate chat history intelligently (keep recent + first message for context)
-function truncateChatHistory(
-  chat: ChatMessage[],
-  maxMessages: number = 10
-): ChatMessage[] {
-  if (chat.length <= maxMessages) return chat;
-
-  // keep first message and last (maxMessages - 1) messages
-  return [chat[0], ...chat.slice(-(maxMessages - 1))];
-}
-
-// format chat history for context
-function formatChatHistory(chat: ChatMessage[]): string {
-  if (chat.length === 0) return "";
-
-  const formatted = chat
-    .map((msg) => {
-      const role = msg.role === "user" ? "user" : "assistant";
-      // for assistant messages, only include short summary, not full code
-      const content =
-        msg.role === "assistant" && msg.code
-          ? "[generated strudel code]"
-          : msg.content;
-      return `${role}: ${content}`;
-    })
-    .join("\n");
-
-  return `\nprevious conversation:\n${formatted}\n`;
-}
-
-// streams claude response
-async function streamClaude(
-  client: Anthropic,
+// stream text and return accumulated result, outputting in the expected SSE format
+async function streamToClient(
+  provider: Provider,
+  modelId: string,
+  apiKey: string,
   systemPrompt: string,
   userPrompt: string,
   maxTokens: number,
   controller: ReadableStreamDefaultController,
-  encoder: TextEncoder,
-  model: string
+  encoder: TextEncoder
 ): Promise<string> {
-  const stream = await client.messages.stream({
-    model: model,
-    max_tokens: maxTokens,
+  const model = createModel(provider, modelId, apiKey);
+
+  const result = streamText({
+    model,
     system: systemPrompt,
-    messages: [{ role: "user", content: userPrompt }],
+    prompt: userPrompt,
+    maxOutputTokens: maxTokens,
   });
 
   let fullText = "";
 
-  for await (const event of stream) {
-    if (event.type === "content_block_delta") {
-      const delta = event.delta as { type: string; text?: string };
-      if (delta.type === "text_delta" && delta.text) {
-        fullText += delta.text;
-        const data = JSON.stringify({
-          type: "content_block_delta",
-          delta: { text: delta.text },
-        });
-        controller.enqueue(encoder.encode(`data: ${data}\n\n`));
-      }
-    }
+  for await (const chunk of result.textStream) {
+    fullText += chunk;
+    const data = JSON.stringify({
+      type: "content_block_delta",
+      delta: { text: chunk },
+    });
+    controller.enqueue(encoder.encode(`data: ${data}\n\n`));
   }
 
   return fullText;
-}
-
-// streams OpenAI response
-async function streamOpenAI(
-  client: OpenAI,
-  systemPrompt: string,
-  userPrompt: string,
-  maxTokens: number,
-  controller: ReadableStreamDefaultController,
-  encoder: TextEncoder,
-  model: string
-): Promise<string> {
-  const stream = await client.chat.completions.create({
-    model: model,
-    max_completion_tokens: maxTokens,
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: userPrompt },
-    ],
-    stream: true,
-  });
-
-  let fullText = "";
-
-  for await (const chunk of stream) {
-    const delta = chunk.choices[0]?.delta?.content;
-    if (delta) {
-      fullText += delta;
-      const data = JSON.stringify({
-        type: "content_block_delta",
-        delta: { text: delta },
-      });
-      controller.enqueue(encoder.encode(`data: ${data}\n\n`));
-    }
-  }
-
-  return fullText;
-}
-
-// Helper to determine provider from model ID
-function getProviderFromModel(model: string): "anthropic" | "openai" {
-  if (model.startsWith("gpt-") || model.startsWith("o1") || model.startsWith("o3")) {
-    return "openai";
-  }
-  return "anthropic";
-}
-
-// Helper to detect API key type
-function detectApiKeyProvider(apiKey: string): "anthropic" | "openai" | "unknown" {
-  if (apiKey.startsWith("sk-ant-")) {
-    return "anthropic";
-  }
-  if (apiKey.startsWith("sk-") || apiKey.startsWith("sk-proj-")) {
-    return "openai";
-  }
-  return "unknown";
 }
 
 export async function POST(req: NextRequest) {
@@ -179,7 +99,7 @@ export async function POST(req: NextRequest) {
       prompt,
       mode = "new" as GenerationMode,
       currentCode,
-      chatHistory = [] as ChatMessage[],
+      chatHistory: _chatHistory = [] as ChatMessage[],
       sessionId: _sessionId,
       model: requestModel,
       apiKey: requestApiKey,
@@ -202,18 +122,14 @@ export async function POST(req: NextRequest) {
     const apiKey = requestApiKey;
 
     // Use client-provided model if available, otherwise default
-    const model = requestModel || "claude-sonnet-4-20250514";
-    const provider = getProviderFromModel(model);
-    
-    // Detect API key type and validate it matches the selected provider
-    const keyProvider = detectApiKeyProvider(apiKey);
-    if (keyProvider !== "unknown" && keyProvider !== provider) {
-      const providerName = provider === "openai" ? "OpenAI" : "Anthropic";
-      const keyProviderName = keyProvider === "openai" ? "OpenAI" : "Anthropic";
+    const modelId = requestModel || "claude-sonnet-4-20250514";
+    const provider = getProviderFromModel(modelId);
+
+    // Validate API key matches the selected provider
+    const keyError = validateApiKeyForProvider(apiKey, provider);
+    if (keyError) {
       return new Response(
-        JSON.stringify({
-          error: `You selected an ${providerName} model but provided an ${keyProviderName} API key. Please update your API key in Settings to match the selected model.`,
-        }),
+        JSON.stringify({ error: keyError }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -228,10 +144,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Create appropriate client based on provider
-    const anthropicClient = provider === "anthropic" ? new Anthropic({ apiKey }) : null;
-    const openaiClient = provider === "openai" ? new OpenAI({ apiKey }) : null;
-
     // get balanced config values
     const config = getConfigValues();
 
@@ -242,11 +154,8 @@ export async function POST(req: NextRequest) {
     let userPrompt: string;
 
     if (mode === "edit" && currentCode && currentCode.trim()) {
-      // edit mode: include current code context
-      const chatContext = formatChatHistory(truncateChatHistory(chatHistory, 6));
-      userPrompt = buildEditContext(currentCode, prompt) + chatContext;
+      userPrompt = buildEditContext(currentCode, prompt);
     } else {
-      // new mode: no previous code context
       userPrompt = buildNewSongContext(prompt);
     }
 
@@ -259,30 +168,16 @@ export async function POST(req: NextRequest) {
       async start(controller) {
         try {
           // first attempt - streaming
-          let fullText: string;
-          if (provider === "openai" && openaiClient) {
-            fullText = await streamOpenAI(
-              openaiClient,
-              systemPrompt,
-              userPrompt,
-              maxTokens,
-              controller,
-              encoder,
-              model
-            );
-          } else if (anthropicClient) {
-            fullText = await streamClaude(
-              anthropicClient,
-              systemPrompt,
-              userPrompt,
-              maxTokens,
-              controller,
-              encoder,
-              model
-            );
-          } else {
-            throw new Error("No valid API client configured");
-          }
+          const fullText = await streamToClient(
+            provider,
+            modelId,
+            apiKey,
+            systemPrompt,
+            userPrompt,
+            maxTokens,
+            controller,
+            encoder
+          );
 
           // validate the output
           const extractedCode = extractCodeForValidation(fullText);
@@ -305,7 +200,7 @@ export async function POST(req: NextRequest) {
 
               // build retry prompt with issues
               const retryPrompt = buildRetryPrompt(prompt, validation.issues);
-              
+
               // for edit mode, include the current code in retry
               let retryUserPrompt: string;
               if (mode === "edit" && currentCode && currentCode.trim()) {
@@ -319,27 +214,16 @@ export async function POST(req: NextRequest) {
               controller.enqueue(encoder.encode(`data: ${clearMsg}\n\n`));
 
               // second attempt - also streaming
-              if (provider === "openai" && openaiClient) {
-                await streamOpenAI(
-                  openaiClient,
-                  systemPrompt,
-                  retryUserPrompt,
-                  maxTokens,
-                  controller,
-                  encoder,
-                  model
-                );
-              } else if (anthropicClient) {
-                await streamClaude(
-                  anthropicClient,
-                  systemPrompt,
-                  retryUserPrompt,
-                  maxTokens,
-                  controller,
-                  encoder,
-                  model
-                );
-              }
+              await streamToClient(
+                provider,
+                modelId,
+                apiKey,
+                systemPrompt,
+                retryUserPrompt,
+                maxTokens,
+                controller,
+                encoder
+              );
             }
           }
 
@@ -347,7 +231,7 @@ export async function POST(req: NextRequest) {
           controller.close();
         } catch (error) {
           let errorMessage = "stream error";
-          
+
           if (error instanceof Error) {
             console.error("API Error:", error.message, error);
             // Check for authentication/invalid API key errors
@@ -368,7 +252,7 @@ export async function POST(req: NextRequest) {
           } else {
             console.error("Unknown API Error:", error);
           }
-          
+
           const data = JSON.stringify({
             type: "error",
             error: { message: errorMessage },
