@@ -2,12 +2,12 @@
 
 <img src="assets/logo.png" alt="Audial Logo" width="100" align="right" />
 
-**LLM-written music**. Try it live: [audial.dev](https://www.audial.dev/)
+**LLM-written noise**. Try it live: [audial.dev](https://www.audial.dev/)
 
 Music has shaped humanity since our beginning, pushing us towards futures once thought impossible.
-Now it's time for AI to unlock what comes next.
+Now it's time for AI to create noise.
 
-And with all new things, there is much exciting work to be done here. **Upwards and onwards!**
+And with all new things, there is much work to be done here. **Upwards and onwards!**
 <br>
 <br>
 
@@ -39,12 +39,12 @@ Open [http://localhost:3000](http://localhost:3000), click ⚙️ (settings), ch
 - [openai (gpt-4)](https://platform.openai.com/)
 
 
-## Tips for Getting a Good Song
+## Tips for Getting a Good Noise
 
-It is rare for a model to produce a great song on the first prompt. In practice, you have to **vibe** with the model!
+It is rare for a model to produce a great noise on the first prompt. In practice, you have to **vibe** with the model!
 
 What works:
-- iterate, don't restart - refine the musical idea
+- iterate, don't restart - refine the noisy idea
 - react to what it generates (for example, if a part is good, try asking it to expand it)
 - let the model settle into a direction instead of forcing novelty every turn
 
@@ -52,13 +52,13 @@ What works:
 ### Note:
 - Unless you explicitly provide the musical material (notes, structure, midi, code, etc.), the model **cannot reliably recreate specific existing works**.
 
-   That means prompts like *"write a theme song for Game of Thrones"* will usually fail
+   That means prompts like *"write a theme noise for Game of Thrones"* will usually fail
 
-   If you want accuracy, you must provide concrete musical constraits or examples
+   If you want accuracy, you must provide concrete noisy constraits or examples
 
 ## This is only the beginning
 
-There is much exciting work to be done. The future is bright!
+There is much work to be done. The future!
 
 
 
