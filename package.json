@@ -23,7 +23,7 @@
     "@strudel/tonal": "^1.2.5",
     "@strudel/transpiler": "^1.2.5",
     "@strudel/webaudio": "^1.2.5",
-    "next": "14.2.21",
+    "next": "^14.2.35",
     "openai": "^6.15.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
